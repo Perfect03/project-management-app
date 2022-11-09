@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IUserSignUp } from 'interfaces/api';
+import { IUserAuth } from 'interfaces/api';
 
 export const mainUrl = 'https://project-management-backend.up.railway.app/';
 
@@ -8,16 +8,22 @@ class Authorization {
 
   constructor() {}
 
-  SignIn(user: IUserSignUp) {
+  SignUp(user: IUserAuth) {
     const url = this.url + 'auth/signup';
     axios
       .post(url, user)
       .then(function () {
-        console.log('User registred');
+        console.log('User is registered');
       })
       .catch((error) => {
         if (error.response.status === 409) console.log('User is already existed');
       });
+  }
+
+  async SignIn(user: IUserAuth) {
+    const url = this.url + 'auth/signin';
+    const response = await axios.post(url, user);
+    return response.data.token;
   }
 }
 
