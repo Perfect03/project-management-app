@@ -1,0 +1,36 @@
+%background-shared {
+  background-color: #5c511a;
+}
+
+%color-shared {
+  color: #e9eef0;
+  margin: 10px;
+}
+
+header {
+    @extend %background-shared;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  .HomePage {
+    font-family: 'Cookie';
+    font-size: 35px;
+  }
+  a {
+    @extend %color-shared;
+  }
+  select {
+    @extend %color-shared;
+    @extend %background-shared;
+    border: none;
+    width: 50px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  select:focus-visible {
+    border: none;
+    outline: none;
+  }
+}

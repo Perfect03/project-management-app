@@ -1,0 +1,22 @@
+footer {
+  background: #5c511a;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: 600;
+}
+footer img {
+  width: 50px;
+}
+footer div {
+  display: flex;
+  gap: 10px;
+}
+footer div a {
+  width: 65px;
+  font-size: 12px;
+}
+
+/*# sourceMappingURL=footer.css.map */
