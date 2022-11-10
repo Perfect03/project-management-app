@@ -1,5 +1,5 @@
-import React from "react";
-import "./footer.scss";
+import React from 'react';
+import './footer.scss';
 
 function Footer() {
   return (
@@ -9,7 +9,7 @@ function Footer() {
       </a>
       <div>
         <a href="https://github.com/Perfect03">Perfect03</a>
-        <a href="ttps://github.com/Falderian">Falderian</a>
+        <a href="https://github.com/Falderian">Falderian</a>
         <a href="https://github.com/AlisaFed">AlisaFed</a>
       </div>
       <p>© 2022</p>

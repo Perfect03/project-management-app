@@ -10,33 +10,78 @@
   display: flex;
   justify-content: flex-end;
   text-align: center;
-  align-items: center;
+  align-items: flex-start;
+}
+@media screen and (max-width: 1015px) {
+  .firstSection {
+    justify-content: center;
+  }
 }
 .firstSection .aboutApp {
-  max-width: 300px;
-  margin-right: 80px;
+  max-width: 500px;
+  margin: 10%;
+  display: grid;
+  gap: 30px;
+}
+@media screen and (max-width: 1015px) {
+  .firstSection .aboutApp {
+    max-width: 450px;
+    background-color: rgba(255, 255, 255, 0.5882352941);
+    border-radius: 20px;
+    gap: 15px;
+  }
 }
 .firstSection .aboutApp h1 {
   color: #783004;
-  font-size: 50px;
+  font-size: 90px;
+  margin: 30px auto;
+}
+@media screen and (max-width: 1015px) {
+  .firstSection .aboutApp h1 {
+    font-size: 65px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .firstSection .aboutApp h1 {
+    font-size: 50px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .firstSection .aboutApp h1 {
+    font-size: 40px;
+  }
 }
 .firstSection .aboutApp p {
-  color: #ffffff;
+  color: #783004;
+  text-shadow: 2px 1px #fff;
+}
+@media screen and (max-width: 1015px) {
+  .firstSection .aboutApp p {
+    color: #602908;
+    font-weight: 600;
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .firstSection .aboutApp p {
+    font-size: 14px;
+  }
 }
 .firstSection .aboutApp button {
-  width: 90px;
-  height: 30px;
+  width: 135px;
+  height: 45px;
   background: #463b0a;
   border: none;
   border-radius: 5px;
   color: #eceeec;
-  font-size: 12px;
+  font-size: 17px;
   cursor: pointer;
   margin: 10px auto;
   font-family: inherit;
 }
 .firstSection .aboutApp button:hover {
   background: #783004;
+  color: #000000;
 }
 .firstSection .aboutApp button:active {
   box-shadow: #e9eef0 0 0 5px 5px;
@@ -52,15 +97,17 @@
 }
 .secondSection h1 {
   margin: 15px;
+  font-size: 50px;
 }
 .secondSection div {
   display: flex;
-  gap: 20px;
+  gap: 0 30px;
   flex-wrap: wrap;
+  margin: 10px;
 }
 .secondSection div div {
-  width: 180px;
-  height: 160px;
+  width: 240px;
+  height: 200px;
   border: 5px solid #e0d1b2;
   border-radius: 10px;
   padding: 7px;
@@ -68,15 +115,16 @@
 }
 .secondSection div div h3 {
   margin: 0;
+  font-size: 20px;
 }
 .secondSection div div h3 span {
   background-image: url(../../assets/githubImg.png);
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   display: inline-block;
 }
 .secondSection div div p {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 /*# sourceMappingURL=main.css.map */

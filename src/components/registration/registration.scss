@@ -1,0 +1,72 @@
+$color-broun: #783004;
+$color-bg: #f0f1f0;
+$color-shadow: #5c511a;
+$color-white: #FFF;
+
+.registration-form{
+    height: calc(100vh - 130px);
+    background-color:$color-bg;
+}
+
+.registration-form__content {
+    width: 310px;
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+    h1 {
+        color: $color-broun;
+        margin: 20px;
+        font-size: 40px;
+    }
+}
+
+textarea {
+    font: inherit;
+}
+  
+.registration-form__input, .registration-form__button {
+    font: inherit;
+    letter-spacing: -0.2px;
+    border: 0;
+    outline: 0;
+    border-radius: 16px*20;
+    padding: 20px;
+    background-color:$color-bg;
+    text-shadow: 1px 1px 0 $color-white;
+}
+
+.registration-form__label {
+  display: block;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.registration-form__input {
+  margin-right: 8px;
+  box-shadow:  inset 2px 2px 5px $color-shadow, inset -5px -5px 10px $color-white;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  &:focus {
+    box-shadow:  inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
+  }
+}
+
+.registration-form__button {
+  box-shadow: -5px -5px 20px $color-white,  5px 5px 20px $color-shadow;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-weight: 600;
+  display: block;
+  width: 100%;
+  color:$color-broun;
+  
+  &:hover {
+    box-shadow: -2px -2px 5px $color-white, 2px 2px 5px $color-shadow;
+  }
+  
+  &:active {
+    box-shadow: inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
+  }
+ }

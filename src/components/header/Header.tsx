@@ -1,6 +1,6 @@
-import { NavLink, Outlet } from "react-router-dom";
-import React from "react";
-import "./header.scss";
+import { NavLink, Outlet } from 'react-router-dom';
+import React from 'react';
+import './header.scss';
 
 const Header = () => {
   return (
@@ -16,13 +16,12 @@ const Header = () => {
             <option>EN</option>
             <option>RU</option>
           </select>
-          <NavLink to="/search" data-testid="navSearch">
-            Sign in
+          <NavLink to="/login" data-testid="navLogin">
+            Log in
           </NavLink>
-          <NavLink to="/forms" data-testid="navForms">
+          <NavLink to="/signup" data-testid="navSign">
             Sign up
           </NavLink>
-          <NavLink to="/modal" data-testid="navModal"></NavLink>
         </div>
       </header>
       <div className="wrapper">

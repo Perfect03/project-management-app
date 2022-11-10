@@ -3,19 +3,29 @@ import './autorization.scss';
 
 export const Autorization: FC = () => {
   return (
-    <>
-      <form className="searchContainer" data-testid="formSearch" id="searchApi">
-        <button type="submit" className="searchButton" data-testid="searchButton">
-          Search
+    <section className="autorization-form" data-testid="formsBox">
+      <form className="autorization-form__content" data-testid="forms">
+        <h1>Log in</h1>
+        <label className="autorization-form__label" htmlFor="login">
+          <input
+            className="autorization-form__input"
+            data-testid="inputlogin"
+            type="text"
+            placeholder="Login"
+          />
+        </label>
+        <label className="autorization-form__label" htmlFor="password">
+          <input
+            className="autorization-form__input"
+            data-testid="inputpass"
+            type="password"
+            placeholder="Password"
+          />
+        </label>
+        <button className="autorization-form__button" data-testid="buttonForm" type="submit">
+          LOG IN
         </button>
-        <input
-          data-testid="searchInput"
-          name="user"
-          type="text"
-          className="search-bar"
-          placeholder="Find some..."
-        ></input>
       </form>
-    </>
+    </section>
   );
 };

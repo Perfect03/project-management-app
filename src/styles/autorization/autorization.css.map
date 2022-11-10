@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"autorization.css"}
+{"version":3,"sourceRoot":"","sources":["../../components/autorization/autorization.scss"],"names":[],"mappings":"AAKA;EACI;EACA,kBANO;;;AASX;EACI;EACA;EACA;EACA;;AACA;EACI,OAhBM;EAiBN;EACA;;;AAIR;EACI;;;AAGJ;EACI;EACA;EACA;EACA;EACA;EACA;EACA,kBAhCO;EAiCP;;;AAGJ;EACE;EACA;EACA;;;AAGF;EACE;EACA;EACA;EACA;EACA;EACA;;AACA;EACE;;;AAIJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA,OA/DY;;AAiEZ;EACE;;AAGF;EACE","file":"autorization.css"}

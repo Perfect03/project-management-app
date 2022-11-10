@@ -4,8 +4,23 @@
 
 %color-shared {
   color: #e9eef0;
-  margin: 10px;
+  margin: 15px;
 }
+
+%hover-shared {
+  text-shadow: -1px -1px 2px #726520, 1px 1px 2px #000000;
+  color: #2e1709;
+  font-weight: 600;
+}
+
+@mixin phones {
+ @media screen and (max-width: 470px) {
+      @content;
+ }
+}
+
+$color-shadow: #5c511a;
+$color-white: #FFF;
 
 header {
     @extend %background-shared;
@@ -14,21 +29,41 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @include phones {height: 95px; justify-content: space-around;}
   .HomePage {
     font-family: 'Cookie';
-    font-size: 35px;
+    font-size: 40px;
+    @include phones {font-size: 30px;}
+  }
+  div {
+    @include phones {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
   a {
     @extend %color-shared;
+    @include phones {margin: 4px;}
+    white-space: nowrap;
+    &:hover {
+      @extend %hover-shared;
+    }
   }
+
   select {
     @extend %color-shared;
     @extend %background-shared;
+    @include phones {margin: 5px;}
     border: none;
     width: 50px;
     cursor: pointer;
-    font-family: inherit;
+    font: inherit;
+    &:hover {
+      @extend %hover-shared;
+    }
   }
+
   select:focus-visible {
     border: none;
     outline: none;
