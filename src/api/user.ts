@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IUserAuth } from 'interfaces/api';
 import { mainUrl } from './authorization';
 
-class User {
+class UserApi {
   url = mainUrl;
 
   async getAllUsers(token: string) {
@@ -58,4 +58,4 @@ class User {
   }
 }
 
-export default new User();
+export default new UserApi();

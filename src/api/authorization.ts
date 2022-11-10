@@ -3,7 +3,7 @@ import { IUserAuth } from 'interfaces/api';
 
 export const mainUrl = 'https://project-management-backend.up.railway.app/';
 
-class Authorization {
+class AuthorizationApi {
   url = mainUrl;
 
   constructor() {}
@@ -27,4 +27,4 @@ class Authorization {
   }
 }
 
-export default new Authorization();
+export default new AuthorizationApi();

@@ -3,3 +3,9 @@ export interface IUserAuth {
   login: string;
   password: string;
 }
+
+export interface IBoard {
+  title: string;
+  owner: string;
+  users: string[];
+}
