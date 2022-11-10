@@ -11,7 +11,23 @@ export interface IBoard {
 }
 
 export interface IColumn {
-  title: string,
-  order: number,
-  boardId?: string
+  title: string;
+  order: number;
+  boardId?: string;
 }
+
+export interface ITask {
+  title: string;
+  order: number;
+  description: string;
+  userId: number;
+  users: string[];
+}
+
+export interface ITaskInSet {
+  _id: string;
+  order: number;
+  columnId: string;
+}
+
+export type ITaskSet = ITaskInSet[];

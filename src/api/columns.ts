@@ -82,4 +82,30 @@ class ColumnApi {
       console.log(error);
     }
   }
+
+  async updateColumnsSet(token: string, set: IColumn[]) {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const url = this.url + 'columnsSet';
+    try {
+      const response = await axios.patch(url, set, config);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async createColumnsSet(token: string, set: IColumn[]) {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const url = this.url + 'columnsSet';
+    try {
+      const response = await axios.patch(url, set, config);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
+
+export default new ColumnApi;
