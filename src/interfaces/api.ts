@@ -9,3 +9,9 @@ export interface IBoard {
   owner: string;
   users: string[];
 }
+
+export interface IColumn {
+  title: string,
+  order: number,
+  boardId?: string
+}

@@ -1,16 +1,17 @@
 import axios from 'axios';
-import { IBoard } from 'interfaces/api';
 import { baseUrl } from './authorization';
+import { IColumn } from '../interfaces/api';
 
-class BoardApi {
+class ColumnApi {
   url = baseUrl;
+
   constructor() {}
 
-  async getAllBoards(token: string) {
+  async getColumnsInBoard(token: string, boardId: string) {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const url = this.url + 'boards';
+    const url = this.url + 'boards' + `/${boardId}` + '/columns';
     try {
       const response = await axios.get(url, config);
       return response.data;
@@ -19,23 +20,23 @@ class BoardApi {
     }
   }
 
-  async createBoard(token: string, board: IBoard) {
+  async createColumnInBoard(token: string, boardId: string, column: IColumn) {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const url = this.url + 'boards';
+    const url = this.url + 'boards' + `/${boardId}` + '/columns';
     try {
-      const response = await axios.post(url, board, config);
+      const response = await axios.post(url, column, config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getBoardById(token: string, boardId: string) {
+  async getColumnById(token: string, boardId: string, columnId: string) {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const url = this.url + 'boards' + `/${boardId}`;
+    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `${columnId}`;
     try {
       const response = await axios.get(url, config);
       return response.data;
@@ -44,23 +45,23 @@ class BoardApi {
     }
   }
 
-  async updateBoardById(token: string, boardId: string, board: IBoard) {
+  async updateColumnById(token: string, boardId: string, columnId: string, column: IColumn) {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const url = this.url + 'boards' + `/${boardId}`;
+    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `${columnId}`;
     try {
-      const response = await axios.put(url, board, config);
+      const response = await axios.put(url, column, config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async deleteBoardById(token: string, boardId: string) {
+  async deleteColumnById(token: string, boardId: string, columnId: string) {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    const url = this.url + 'boards' + `/${boardId}`;
+    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `${columnId}`;
     try {
       const response = await axios.delete(url, config);
     } catch (error) {
@@ -68,24 +69,12 @@ class BoardApi {
     }
   }
 
-  async getBoardByIdsList(token: string, list: string[]) {
+  async getColumnsByIdsList(token: string, list: string[], userId: string) {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
+      params: { ids: [...list], userId: userId },
     };
-    const url = this.url + 'boardsSet';
-    try {
-      const response = await axios.get(url, config);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async getBoardsByUserId(token: string, userId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    const url = this.url + 'boardsSet' + `/${userId}`;
+    const url = this.url + 'columnsSet';
     try {
       const response = await axios.get(url, config);
       return response.data;
@@ -94,5 +83,3 @@ class BoardApi {
     }
   }
 }
-
-export default new BoardApi();
