@@ -44,6 +44,7 @@ header .HomePage {
 }
 header a {
   white-space: nowrap;
+  transition: all 0.2s ease-in-out;
 }
 @media screen and (max-width: 470px) {
   header a {
@@ -51,6 +52,7 @@ header a {
   }
 }
 header select {
+  transition: all 0.2s ease-in-out;
   border: none;
   width: 50px;
   cursor: pointer;

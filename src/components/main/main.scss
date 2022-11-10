@@ -35,10 +35,10 @@
       display: grid;
       gap: 30px;
       @include laptop {
-        max-width: 450px;
+        max-width: 500px;
         background-color: #ffffff96;
         border-radius: 20px;
-        gap: 15px;
+        gap: 25px;
       }
       h1 {
         color: #783004;
@@ -49,29 +49,34 @@
         @include phones {font-size: 40px;}
       }
       p {
-        color: #783004;
-        text-shadow: 2px 1px #fff;
+        color: #f1efe9;
+        text-shadow: 2px 1px 4px #783004;
         @include laptop {
           color: #602908;
           font-weight: 600;
           font-size: 15px;
+          text-shadow: 2px 1px 4px #ffffff;
+          margin: auto 10px;
         }
-        @include phones {font-size: 14px;}
+        @include phones {font-size: 14px; }
       }
       button {
-        width: 135px;
-        height: 45px;
-        background: #463b0a;
+        width: 165px;
+        height: 50px;
+        background: #a57a4f;
+        box-shadow: -3px -3px 10px #fffbf6, 3px 3px 10px #76623e;
+        transition: all 0.2s ease-in-out;
         border: none;
         border-radius: 5px;
         color: #eceeec;
-        font-size: 17px;
         cursor: pointer;
-        margin: 10px auto;
-        font-family: inherit;
+        margin: 20px auto;
+        font: inherit;
         &:hover {
-          background: #783004;
-          color: #000000;
+          background: #c09f73;
+          box-shadow: -5px -5px 20px #fffbf6, 5px 5px 20px #76623e;
+          font-weight: 600;
+          color: #6e6b6a;
         }
         &:active {
           box-shadow: #e9eef0 0 0 5px 5px;
@@ -99,10 +104,10 @@
       div {
         width: 240px;
         height: 200px;
-        border: 5px solid #e0d1b2;
         border-radius: 10px;
         padding: 7px;
         margin: 10px auto;
+        box-shadow: -3px -3px 10px #e7e7e7, 3px 3px 10px #87785d;
         h3 {
           margin: 0;
           font-size: 20px;

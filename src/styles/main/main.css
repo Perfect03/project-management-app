@@ -25,10 +25,10 @@
 }
 @media screen and (max-width: 1015px) {
   .firstSection .aboutApp {
-    max-width: 450px;
+    max-width: 500px;
     background-color: rgba(255, 255, 255, 0.5882352941);
     border-radius: 20px;
-    gap: 15px;
+    gap: 25px;
   }
 }
 .firstSection .aboutApp h1 {
@@ -52,14 +52,16 @@
   }
 }
 .firstSection .aboutApp p {
-  color: #783004;
-  text-shadow: 2px 1px #fff;
+  color: #f1efe9;
+  text-shadow: 2px 1px 4px #783004;
 }
 @media screen and (max-width: 1015px) {
   .firstSection .aboutApp p {
     color: #602908;
     font-weight: 600;
     font-size: 15px;
+    text-shadow: 2px 1px 4px #ffffff;
+    margin: auto 10px;
   }
 }
 @media screen and (max-width: 470px) {
@@ -68,20 +70,23 @@
   }
 }
 .firstSection .aboutApp button {
-  width: 135px;
-  height: 45px;
-  background: #463b0a;
+  width: 165px;
+  height: 50px;
+  background: #a57a4f;
+  box-shadow: -3px -3px 10px #fffbf6, 3px 3px 10px #76623e;
+  transition: all 0.2s ease-in-out;
   border: none;
   border-radius: 5px;
   color: #eceeec;
-  font-size: 17px;
   cursor: pointer;
-  margin: 10px auto;
-  font-family: inherit;
+  margin: 20px auto;
+  font: inherit;
 }
 .firstSection .aboutApp button:hover {
-  background: #783004;
-  color: #000000;
+  background: #c09f73;
+  box-shadow: -5px -5px 20px #fffbf6, 5px 5px 20px #76623e;
+  font-weight: 600;
+  color: #6e6b6a;
 }
 .firstSection .aboutApp button:active {
   box-shadow: #e9eef0 0 0 5px 5px;
@@ -108,10 +113,10 @@
 .secondSection div div {
   width: 240px;
   height: 200px;
-  border: 5px solid #e0d1b2;
   border-radius: 10px;
   padding: 7px;
   margin: 10px auto;
+  box-shadow: -3px -3px 10px #e7e7e7, 3px 3px 10px #87785d;
 }
 .secondSection div div h3 {
   margin: 0;

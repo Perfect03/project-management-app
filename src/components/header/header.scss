@@ -46,6 +46,7 @@ header {
     @extend %color-shared;
     @include phones {margin: 4px;}
     white-space: nowrap;
+    transition: all 0.2s ease-in-out;
     &:hover {
       @extend %hover-shared;
     }
@@ -55,6 +56,7 @@ header {
     @extend %color-shared;
     @extend %background-shared;
     @include phones {margin: 5px;}
+    transition: all 0.2s ease-in-out;
     border: none;
     width: 50px;
     cursor: pointer;
