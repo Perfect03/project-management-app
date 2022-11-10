@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { IUserAuth } from 'interfaces/api';
 
-export const mainUrl = 'https://project-management-backend.up.railway.app/';
+export const baseUrl = 'https://project-management-backend.up.railway.app/';
 
 class AuthorizationApi {
-  url = mainUrl;
+  url = baseUrl;
 
   constructor() {}
 

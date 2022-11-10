@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { IBoard } from 'interfaces/api';
-import { mainUrl } from './authorization';
+import { baseUrl } from './authorization';
 
 class BoardApi {
-  url = mainUrl;
+  url = baseUrl;
   constructor() {}
 
   async getAllBoards(token: string) {

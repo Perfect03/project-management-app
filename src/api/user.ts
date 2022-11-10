@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { IUserAuth } from 'interfaces/api';
-import { mainUrl } from './authorization';
+import { baseUrl } from './authorization';
 
 class UserApi {
-  url = mainUrl;
+  url = baseUrl;
 
   async getAllUsers(token: string) {
     const config = {
