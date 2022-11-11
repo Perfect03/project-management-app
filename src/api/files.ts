@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IFile } from 'interfaces/api';
 import { baseUrl } from './authorization';
 
-class FilesApi {
+class FileApi {
   constructor() {}
   url = baseUrl;
 
@@ -57,3 +57,5 @@ class FilesApi {
     }
   }
 }
+
+export default new FileApi();

@@ -110,3 +110,5 @@ class TaskApi {
     }
   }
 }
+
+export default new TaskApi();
