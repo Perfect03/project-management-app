@@ -37,3 +37,17 @@ export interface IFile {
   taskId: string;
   file: File;
 }
+
+export interface IPointNew {
+  title: string;
+  taskId: string;
+  boardId: string;
+  done: boolean;
+}
+
+export interface IPointUpdate {
+  _id: string;
+  done: boolean;
+}
+
+export type IPointSet = IPointUpdate[];
