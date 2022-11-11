@@ -31,3 +31,9 @@ export interface ITaskInSet {
 }
 
 export type ITaskSet = ITaskInSet[];
+
+export interface IFile {
+  boardId: string;
+  taskId: string;
+  file: File;
+}
