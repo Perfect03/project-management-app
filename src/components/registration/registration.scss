@@ -39,6 +39,7 @@ textarea {
   display: block;
   margin-bottom: 40px;
   width: 100%;
+  position: relative;
 }
 
 .registration-form__input {
@@ -69,4 +70,12 @@ textarea {
   &:active {
     box-shadow: inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
   }
+ }
+
+ .registration-form__error {
+  position: absolute;
+  color: rgb(165, 29, 29);
+  left: 20px;
+  font-size: 14px;
+  font-weight: 600;
  }
