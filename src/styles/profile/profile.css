@@ -1,0 +1,27 @@
+.user-form__content-delete {
+  box-shadow: -5px -5px 10px #FFF, 5px 5px 10px #d33535;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-weight: 600;
+  display: block;
+  width: 100%;
+  color: #d33535;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: -0.2px;
+  border: 0;
+  outline: 0;
+  border-radius: 320px;
+  padding: 20px;
+  background-color: #f0f1f0;
+  text-shadow: 1px 1px 0 #fff;
+  margin: 10px auto;
+}
+.user-form__content-delete:hover {
+  box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #d33535;
+}
+.user-form__content-delete:active {
+  box-shadow: inset 1px 1px 2px #d33535, inset -1px -1px 2px #FFF;
+}
+
+/*# sourceMappingURL=profile.css.map */

@@ -1,19 +1,19 @@
-header select, header {
+.header .header-content__language, .header {
   background-color: #5c511a;
 }
 
-header select, header a {
+.header .header-content__language, .header .header-content__autorization, .header .header-gohome {
   color: #e9eef0;
   margin: 15px;
 }
 
-header select:hover, header a:hover {
+.header .header-content__language:hover, .header .header-content__autorization:hover, .header .header-gohome:hover {
   text-shadow: -1px -1px 2px #726520, 1px 1px 2px #000000;
   color: #2e1709;
   font-weight: 600;
 }
 
-header {
+.header {
   width: 100%;
   height: 80px;
   display: flex;
@@ -24,36 +24,36 @@ header {
   transition: all 0.2s ease-in-out;
 }
 @media screen and (max-width: 470px) {
-  header {
+  .header {
     height: 95px;
     justify-content: space-around;
   }
 }
-header .HomePage {
+.header .header-gohome {
   font-family: "Cookie";
   font-size: 40px;
 }
 @media screen and (max-width: 470px) {
-  header .HomePage {
+  .header .header-gohome {
     font-size: 30px;
   }
 }
 @media screen and (max-width: 470px) {
-  header div {
+  .header .header-content {
     display: flex;
     align-items: center;
   }
 }
-header a {
+.header .header-content__autorization, .header .header-gohome {
   white-space: nowrap;
   transition: all 0.2s ease-in-out;
 }
 @media screen and (max-width: 470px) {
-  header a {
+  .header .header-content__autorization, .header .header-gohome {
     margin: 4px;
   }
 }
-header select {
+.header .header-content__language {
   transition: all 0.2s ease-in-out;
   border: none;
   width: 50px;
@@ -61,16 +61,16 @@ header select {
   font: inherit;
 }
 @media screen and (max-width: 470px) {
-  header select {
+  .header .header-content__language {
     margin: 5px;
   }
 }
-header select:focus-visible {
+.header select:focus-visible {
   border: none;
   outline: none;
 }
 
-.Header_change {
+.header_change {
   height: 60px;
 }
 
