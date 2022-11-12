@@ -1,0 +1,135 @@
+.secondSection div div h3 span, .firstSection {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.firstSection {
+  background-image: url(../../assets/desk.jpg);
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+  align-items: flex-start;
+}
+@media screen and (max-width: 1015px) {
+  .firstSection {
+    justify-content: center;
+  }
+}
+.firstSection .aboutApp {
+  max-width: 500px;
+  margin: 10%;
+  display: grid;
+  gap: 30px;
+}
+@media screen and (max-width: 1015px) {
+  .firstSection .aboutApp {
+    max-width: 500px;
+    background-color: rgba(255, 255, 255, 0.5882352941);
+    border-radius: 20px;
+    gap: 25px;
+  }
+}
+.firstSection .aboutApp h1 {
+  color: #783004;
+  font-size: 90px;
+  margin: 30px auto;
+}
+@media screen and (max-width: 1015px) {
+  .firstSection .aboutApp h1 {
+    font-size: 65px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .firstSection .aboutApp h1 {
+    font-size: 50px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .firstSection .aboutApp h1 {
+    font-size: 40px;
+  }
+}
+.firstSection .aboutApp p {
+  color: #f1efe9;
+  text-shadow: 2px 1px 4px #783004;
+}
+@media screen and (max-width: 1015px) {
+  .firstSection .aboutApp p {
+    color: #602908;
+    font-weight: 600;
+    font-size: 15px;
+    text-shadow: 2px 1px 4px #ffffff;
+    margin: auto 10px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .firstSection .aboutApp p {
+    font-size: 14px;
+  }
+}
+.firstSection .aboutApp button {
+  width: 165px;
+  height: 50px;
+  background: #a57a4f;
+  box-shadow: -3px -3px 10px #fffbf6, 3px 3px 10px #76623e;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  border-radius: 5px;
+  color: #eceeec;
+  cursor: pointer;
+  margin: 20px auto;
+  font: inherit;
+}
+.firstSection .aboutApp button:hover {
+  background: #c09f73;
+  box-shadow: -5px -5px 20px #fffbf6, 5px 5px 20px #76623e;
+  font-weight: 600;
+  color: #6e6b6a;
+}
+.firstSection .aboutApp button:active {
+  box-shadow: #e9eef0 0 0 5px 5px;
+}
+
+.secondSection {
+  background: #f0f1f0;
+  color: #2a1203;
+  min-height: 370px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.secondSection h1 {
+  margin: 15px;
+  font-size: 50px;
+}
+.secondSection div {
+  display: flex;
+  gap: 0 30px;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+.secondSection div div {
+  width: 240px;
+  height: 200px;
+  border-radius: 10px;
+  padding: 7px;
+  margin: 10px auto;
+  box-shadow: -3px -3px 10px #e7e7e7, 3px 3px 10px #87785d;
+}
+.secondSection div div h3 {
+  margin: 0;
+  font-size: 20px;
+}
+.secondSection div div h3 span {
+  background-image: url(../../assets/githubImg.png);
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+.secondSection div div p {
+  font-size: 14px;
+}
+
+/*# sourceMappingURL=main.css.map */
