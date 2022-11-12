@@ -1,35 +1,31 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import React from 'react';
 import './header.scss';
+import { Language } from './Language';
 
 const Header = () => {
   window.addEventListener('scroll', Header_change);
   function Header_change() {
     const header_height = (document.querySelector('header') as HTMLElement).offsetHeight;
     if (window.scrollY > header_height) {
-      document.querySelector('header')?.classList.add('Header_change');
+      document.querySelector('header')?.classList.add('header_change');
     } else {
-      document.querySelector('header')?.classList.remove('Header_change');
+      document.querySelector('header')?.classList.remove('header_change');
     }
   }
 
   return (
     <>
-      <header>
-        <div className="HomePage">
-          <NavLink to="/" data-testid="navHome">
-            Your planer
-          </NavLink>
+      <header className="header">
+        <div className="header-gohome">
+          <NavLink to="/">Your planer</NavLink>
         </div>
-        <div>
-          <select data-testid="navAbout">
-            <option>EN</option>
-            <option>RU</option>
-          </select>
-          <NavLink to="/login" data-testid="navLogin">
+        <div className="header-content">
+          <Language />
+          <NavLink to="/login" className="header-content__autorization">
             Log in
           </NavLink>
-          <NavLink to="/signup" data-testid="navSign">
+          <NavLink to="/signup" className="header-content__autorization">
             Sign up
           </NavLink>
         </div>

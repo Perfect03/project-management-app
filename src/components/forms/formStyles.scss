@@ -3,12 +3,12 @@ $color-bg: #f0f1f0;
 $color-shadow: #5c511a;
 $color-white: #FFF;
 
-.registration-form{
+.user-form{
     height: calc(100vh - 130px);
     background-color:$color-bg;
 }
 
-.registration-form__content {
+.user-form__content {
     width: 310px;
     padding: 20px;
     margin: 0 auto;
@@ -24,7 +24,7 @@ textarea {
     font: inherit;
 }
   
-.registration-form__input, .registration-form__button {
+.user-form__input, .user-form__button {
     font: inherit;
     letter-spacing: -0.2px;
     border: 0;
@@ -35,14 +35,14 @@ textarea {
     text-shadow: 1px 1px 0 $color-white;
 }
 
-.registration-form__label {
+.user-form__label {
   display: block;
   margin-bottom: 40px;
   width: 100%;
   position: relative;
 }
 
-.registration-form__input {
+.user-form__input {
   margin-right: 8px;
   box-shadow:  inset 2px 2px 5px $color-shadow, inset -5px -5px 10px $color-white;
   width: 100%;
@@ -54,7 +54,7 @@ textarea {
   }
 }
 
-.registration-form__button {
+.user-form__button {
   box-shadow: -5px -5px 20px $color-white,  5px 5px 20px $color-shadow;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -72,7 +72,7 @@ textarea {
   }
  }
 
- .registration-form__error {
+ .user-form__error {
   position: absolute;
   color: rgb(165, 29, 29);
   left: 20px;
