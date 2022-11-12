@@ -6,8 +6,7 @@ const Password: FC<{ input: FieldInputProps<any>; meta: FieldMetaState<any> }> =
   input,
   meta,
 }) => {
-  console.log(input);
-  console.log(meta);
+
   return (
     <label className="user-form__label" htmlFor="password">
       <input className="user-form__input" {...input} placeholder="Password" />
