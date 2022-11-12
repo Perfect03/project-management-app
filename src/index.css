@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Cookie';
-    src: local('Cookie'), url(./fonts/Cookie-Regular.ttf);
+    src: local('Cookie'), url(./styles/fonts/Cookie-Regular.ttf);
   }
   
   @font-face {
     font-family: 'LibreR';
-    src: local('LibreR'), url(./fonts/LibreBaskerville-Regular.ttf);
+    src: local('LibreR'), url(./styles/fonts/LibreBaskerville-Regular.ttf);
   }
   
   @import url(../src/styles/autorization/autorization.css);
