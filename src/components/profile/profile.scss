@@ -1,0 +1,31 @@
+$color-red: #d33535;
+$color-bg: #f0f1f0;
+$color-white: #FFF;
+
+.user-form__content-delete {
+    box-shadow: -5px -5px 10px $color-white,  5px 5px 10px $color-red;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+    display: block;
+    width: 100%;
+    color:$color-red;
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: -0.2px;
+    border: 0;
+    outline: 0;
+    border-radius: 320px;
+    padding: 20px;
+    background-color: #f0f1f0;
+    text-shadow: 1px 1px 0 #fff;
+    margin: 10px auto;
+    
+    &:hover {
+      box-shadow: -2px -2px 5px $color-white, 2px 2px 5px $color-red;
+    }
+    
+    &:active {
+      box-shadow: inset 1px 1px 2px $color-red, inset -1px -1px 2px $color-white;
+    }    
+}
