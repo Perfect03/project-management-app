@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Registration from 'components/registration/Registration';
 import { Main } from 'components/main/Main';
 import Autorization from 'components/autorization/Autorization';

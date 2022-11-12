@@ -3,6 +3,16 @@ import React from 'react';
 import './header.scss';
 
 const Header = () => {
+  window.addEventListener('scroll', Header_change);
+  function Header_change() {
+    const header_height = (document.querySelector('header') as HTMLElement).offsetHeight;
+    if (window.scrollY > header_height) {
+      document.querySelector('header')?.classList.add('Header_change');
+    } else {
+      document.querySelector('header')?.classList.remove('Header_change');
+    }
+  }
+
   return (
     <>
       <header>
