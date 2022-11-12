@@ -1,0 +1,127 @@
+%img-shared {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@mixin laptop {
+  @media screen and (max-width: 1015px) {
+      @content;
+  }
+}
+@mixin tablets {
+  @media screen and (max-width: 520px) {
+      @content;
+  }
+}
+@mixin phones {
+ @media screen and (max-width: 470px) {
+      @content;
+ }
+}
+
+.firstSection {
+    @extend %img-shared;
+    background-image: url(../../assets/desk.jpg);
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    align-items: flex-start;
+    @include laptop {justify-content: center;}
+    .aboutApp {
+      max-width: 500px;
+      margin: 10%;
+      display: grid;
+      gap: 30px;
+      @include laptop {
+        max-width: 500px;
+        background-color: #ffffff96;
+        border-radius: 20px;
+        gap: 25px;
+      }
+      h1 {
+        color: #783004;
+        font-size: 90px;
+        margin: 30px auto;
+        @include laptop {font-size: 65px;}
+        @include tablets {font-size: 50px;}
+        @include phones {font-size: 40px;}
+      }
+      p {
+        color: #f1efe9;
+        text-shadow: 2px 1px 4px #783004;
+        @include laptop {
+          color: #602908;
+          font-weight: 600;
+          font-size: 15px;
+          text-shadow: 2px 1px 4px #ffffff;
+          margin: auto 10px;
+        }
+        @include phones {font-size: 14px; }
+      }
+      button {
+        width: 165px;
+        height: 50px;
+        background: #a57a4f;
+        box-shadow: -3px -3px 10px #fffbf6, 3px 3px 10px #76623e;
+        transition: all 0.2s ease-in-out;
+        border: none;
+        border-radius: 5px;
+        color: #eceeec;
+        cursor: pointer;
+        margin: 20px auto;
+        font: inherit;
+        &:hover {
+          background: #c09f73;
+          box-shadow: -5px -5px 20px #fffbf6, 5px 5px 20px #76623e;
+          font-weight: 600;
+          color: #6e6b6a;
+        }
+        &:active {
+          box-shadow: #e9eef0 0 0 5px 5px;
+        }
+      }
+    }
+  }
+   
+  .secondSection {
+    background: #f0f1f0;
+    color: #2a1203;
+    min-height: 370px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+      margin: 15px;
+      font-size: 50px;
+    }
+    div {
+      display: flex;
+      gap: 0 30px;
+      flex-wrap: wrap;
+      margin: 10px;
+      div {
+        width: 240px;
+        height: 200px;
+        border-radius: 10px;
+        padding: 7px;
+        margin: 10px auto;
+        box-shadow: -3px -3px 10px #e7e7e7, 3px 3px 10px #87785d;
+        h3 {
+          margin: 0;
+          font-size: 20px;
+          span {
+            @extend %img-shared;
+            background-image: url(../../assets/githubImg.png);
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+          }
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }

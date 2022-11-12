@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Cookie';
+    src: local('Cookie'), url(./fonts/Cookie-Regular.ttf);
+  }
+  
+  @font-face {
+    font-family: 'LibreR';
+    src: local('LibreR'), url(./fonts/LibreBaskerville-Regular.ttf);
+  }
+  
+  @import url(../src/styles/autorization/autorization.css);
+  @import url(../src/styles/footer/footer.css);
+  @import url(../src/styles/header/header.css);
+  @import url(../src/styles/main/main.css);
+  @import url(../src/styles/notfound/notfound.css);
+  @import url(../src/styles/registration/registration.css);
+  
+  
+  body {
+    margin: 0;
+    font-family: 'LibreR';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 17px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  p {
+    font-size: 20px;
+  }
+  
+  h1 {
+    margin: 0;
+  }
