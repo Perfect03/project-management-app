@@ -1,5 +1,5 @@
-import React from "react";
-import "./notfound.scss";
+import React from 'react';
+import './notfound.scss';
 
 const Notfoundpage = () => {
   return <div className="ErrorP"></div>;

@@ -108,4 +108,4 @@ class ColumnApi {
   }
 }
 
-export default new ColumnApi;
+export default new ColumnApi();
