@@ -20,7 +20,7 @@
  }
 }
 
-.firstSection {
+.main-firstsection {
     @extend %img-shared;
     background-image: url(../../assets/desk.jpg);
     height: calc(100vh - 80px);
@@ -29,7 +29,7 @@
     text-align: center;
     align-items: flex-start;
     @include laptop {justify-content: center;}
-    .aboutApp {
+    .main-firstsection-about {
       max-width: 500px;
       margin: 10%;
       display: grid;
@@ -40,7 +40,7 @@
         border-radius: 20px;
         gap: 25px;
       }
-      h1 {
+      .main-firstsection-about-h1 {
         color: #783004;
         font-size: 90px;
         margin: 30px auto;
@@ -48,7 +48,7 @@
         @include tablets {font-size: 50px;}
         @include phones {font-size: 40px;}
       }
-      p {
+      .main-firstsection-about-p {
         color: #f1efe9;
         text-shadow: 2px 1px 4px #783004;
         @include laptop {
@@ -60,7 +60,7 @@
         }
         @include phones {font-size: 14px; }
       }
-      button {
+      .main-firstsection-about-button {
         width: 165px;
         height: 50px;
         background: #a57a4f;
@@ -85,33 +85,33 @@
     }
   }
    
-  .secondSection {
+  .main-secondsection {
     background: #f0f1f0;
     color: #2a1203;
     min-height: 370px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    h1 {
+    .main-secondsection-h1 {
       margin: 15px;
       font-size: 50px;
     }
-    div {
+    .main-secondsection-developers {
       display: flex;
       gap: 0 30px;
       flex-wrap: wrap;
       margin: 10px;
-      div {
+      .main-secondsection-developers-developer {
         width: 240px;
         height: 200px;
         border-radius: 10px;
         padding: 7px;
         margin: 10px auto;
         box-shadow: -3px -3px 10px #e7e7e7, 3px 3px 10px #87785d;
-        h3 {
+        .main-secondsection-developers-developer-name {
           margin: 0;
           font-size: 20px;
-          span {
+          .main-secondsection-developers-developer-name-img {
             @extend %img-shared;
             background-image: url(../../assets/githubImg.png);
             width: 25px;
@@ -119,7 +119,7 @@
             display: inline-block;
           }
         }
-        p {
+        .main-secondsection-developers-developer-did {
           font-size: 14px;
         }
       }
