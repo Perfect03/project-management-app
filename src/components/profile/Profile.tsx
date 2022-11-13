@@ -1,49 +1,61 @@
 import React from 'react';
 import './profile.scss';
 import '../forms/formStyles.scss';
-import { Form, Field } from 'react-final-form';
-import { IUserAuth } from 'interfaces/api';
 import AuthorizationApi from '../../api/authorization';
 import { Name } from 'components/forms/Name';
 import { Login } from 'components/forms/Login';
 import { Password } from 'components/forms/Password';
-import { SubmitButton } from 'components/forms/SubmitButton';
 import { FormValidate } from 'components/forms/Validate';
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 const Profile = () => {
-  const onSubmit = (e: IUserAuth) => {
-    AuthorizationApi.SignUp(e);
-  };
-
   const navigate = useNavigate();
 
-  const handleChange = () => {
-    navigate(`/`);
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      login: '',
+      password: '',
+    },
+
+    onSubmit: (values) => {
+      AuthorizationApi.SignUp(values);
+      navigate('/');
+    },
+    validate: (values) => {
+      return FormValidate(values);
+    },
+  });
 
   return (
-    <Form
-      onSubmit={onSubmit}
-      validate={FormValidate}
-      render={({ handleSubmit }) => (
-        <section className="user-form" data-testid="formsBox">
-          <form onSubmit={handleSubmit} className="user-form__content" data-testid="forms">
-            <h1>EDIT PROFILE</h1>
-            <Field name="name" render={({ input, meta }) => <Name input={input} meta={meta} />} />
-            <Field name="login" render={({ input, meta }) => <Login input={input} meta={meta} />} />
-            <Field
-              name="password"
-              render={({ input, meta }) => <Password input={input} meta={meta} />}
-            />
-            <SubmitButton></SubmitButton>
-            <button onClick={handleChange} className="user-form__content-delete">
-              DELETE PROFILE
-            </button>
-          </form>
-        </section>
-      )}
-    />
+    <section className="user-form" data-testid="formsBox">
+      <form onSubmit={formik.handleSubmit} className="user-form__content" data-testid="forms">
+        <h1>EDIT PROFILE</h1>
+        <div className="user-form-content-part">
+          <Name onChange={formik.handleChange} value={formik.values.name} />
+          {formik.errors.name ? (
+            <span className="user-form__error">{formik.errors.name}</span>
+          ) : null}
+        </div>
+        <div className="user-form-content-part">
+          <Login onChange={formik.handleChange} value={formik.values.login} />
+          {formik.errors.login ? (
+            <span className="user-form__error">{formik.errors.login}</span>
+          ) : null}
+        </div>
+        <div className="user-form-content-part">
+          <Password onChange={formik.handleChange} value={formik.values.password} />
+          {formik.errors.password ? (
+            <span className="user-form__error">{formik.errors.password}</span>
+          ) : null}
+        </div>
+        <button className="user-form__button" type="submit">
+          SAVE
+        </button>
+        <button className="user-form__content-delete">DELETE PROFILE</button>
+      </form>
+    </section>
   );
 };
 
