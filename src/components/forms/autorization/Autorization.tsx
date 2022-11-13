@@ -6,7 +6,6 @@ import { Password } from 'components/forms/Password';
 import { FormValidate } from 'components/forms/Validate';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { setCookie } from 'api/cokie';
 
 function Autorization() {
   const navigate = useNavigate();
@@ -19,8 +18,6 @@ function Autorization() {
 
     onSubmit: (values) => {
       AuthorizationApi.SignIn(values);
-      setCookie('login', values.login, 30);
-      setCookie('password', values.password, 30);
       navigate('/');
     },
     validate: (values) => {
