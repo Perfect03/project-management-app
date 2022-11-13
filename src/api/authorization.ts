@@ -23,7 +23,6 @@ class AuthorizationApi {
   async SignIn(user: IUserAuth) {
     const url = this.url + 'auth/signin';
     const response = await axios.post(url, user);
-    console.log(response.data.token);
     return response.data.token;
   }
 }
