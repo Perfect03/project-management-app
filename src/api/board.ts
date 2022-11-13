@@ -1,93 +1,83 @@
 import axios from 'axios';
 import { IBoard } from 'interfaces/api';
 import { baseUrl } from './authorization';
+import { getCookie } from './cokie';
 
 class BoardApi {
   url = baseUrl;
+  token: string = getCookie('token');
+  config = {
+    headers: { Authorization: `Bearer ${this.token}` },
+  };
   constructor() {}
 
-  async getAllBoards(token: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async getAllBoards() {
     const url = this.url + 'boards';
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async createBoard(token: string, board: IBoard) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async createBoard(board: IBoard) {
     const url = this.url + 'boards';
     try {
-      const response = await axios.post(url, board, config);
+      const response = await axios.post(url, board, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getBoardById(token: string, boardId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async getBoardById(boardId: string) {
     const url = this.url + 'boards' + `/${boardId}`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async updateBoardById(token: string, boardId: string, board: IBoard) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async updateBoardById(boardId: string, board: IBoard) {
     const url = this.url + 'boards' + `/${boardId}`;
     try {
-      const response = await axios.put(url, board, config);
+      const response = await axios.put(url, board, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async deleteBoardById(token: string, boardId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async deleteBoardById(boardId: string) {
     const url = this.url + 'boards' + `/${boardId}`;
     try {
-      const response = await axios.delete(url, config);
+      const response = await axios.delete(url, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getBoardByIdsList(token: string, list: string[]) {
+  async getBoardByIdsList(list: string[]) {
     const config = {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${this.token}` },
+      params: { ids: [...list] },
     };
+
     const url = this.url + 'boardsSet';
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getBoardsByUserId(token: string, userId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async getBoardsByUserId(userId: string) {
     const url = this.url + 'boardsSet' + `/${userId}`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
       console.log(error);
