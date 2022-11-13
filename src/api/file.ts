@@ -1,18 +1,20 @@
 import axios from 'axios';
 import { IFile } from 'interfaces/api';
 import { baseUrl } from './authorization';
+import { getCookie } from './cokie';
 
 class FileApi {
   constructor() {}
   url = baseUrl;
+  token: string = getCookie('token');
+  config = {
+    headers: { Authorization: `Bearer ${this.token}` },
+  };
 
-  async searchFiles(token: string, query: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async searchFiles(query: string) {
     const url = `${this.url}file&query=${query}`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       console.log('in progress');
       return response.data;
     } catch (error) {
@@ -20,38 +22,29 @@ class FileApi {
     }
   }
 
-  async uploadFile(token: string, file: IFile) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async uploadFile(file: IFile) {
     const url = `${this.url}file`;
     try {
-      const response = await axios.post(url, file, config);
+      const response = await axios.post(url, file, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getFilesByBoardId(token: string, boardId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async getFilesByBoardId(boardId: string) {
     const url = `${this.url}file/${boardId}`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async deleteFileById(token: string, fileId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async deleteFileById(fileId: string) {
     const url = `${this.url}file/${fileId}`;
     try {
-      const response = await axios.delete(url, config);
+      const response = await axios.delete(url, this.config);
     } catch (error) {
       console.log(error);
     }

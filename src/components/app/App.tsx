@@ -22,7 +22,7 @@ function App() {
           <Route path="*" element={<Notfoundpage />} />
         </Route>
       </Routes>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }
