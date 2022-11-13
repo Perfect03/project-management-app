@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../formStyles.scss';
 import AuthorizationApi from '../../../api/authorization';
 import { Login } from 'components/forms/Login';
