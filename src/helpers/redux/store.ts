@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dataReducer from './appSlice';
+import boardsDataSlice from './boardsDataSlice';
+import selectedBoardDataSlice from './selectedBoardSlice';
+import userDataSlice from './userDataSlice';
 
 export default configureStore({
   reducer: {
-    data: dataReducer,
+    userData: userDataSlice,
+    boardsData: boardsDataSlice,
+    selectedBoard: selectedBoardDataSlice,
   },
 });
