@@ -1,12 +1,19 @@
 import React, { FC } from 'react';
-import { FieldMetaState } from 'react-final-form';
-import { FieldInputProps } from 'react-final-form';
 
-const Name: FC<{ input: FieldInputProps<any>; meta: FieldMetaState<any> }> = ({ input, meta }) => {
+const Name: FC<{ value: string; onChange: React.ChangeEventHandler<HTMLInputElement> }> = ({
+  value,
+  onChange,
+}) => {
   return (
     <label className="user-form__label" htmlFor="name">
-      <input className="user-form__input" placeholder="Name" {...input} />
-      {meta.touched && meta.error && <span className="user-form__error">{meta.error}</span>}
+      <input
+        id="name"
+        className="user-form__input"
+        placeholder="Name"
+        onChange={onChange}
+        value={value}
+        type="text"
+      />
     </label>
   );
 };

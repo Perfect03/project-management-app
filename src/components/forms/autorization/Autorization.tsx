@@ -1,36 +1,51 @@
 import React from 'react';
 import '../formStyles.scss';
-import { Form, Field } from 'react-final-form';
 import AuthorizationApi from '../../../api/authorization';
-import { IUserAuth } from 'interfaces/api';
 import { Login } from 'components/forms/Login';
 import { Password } from 'components/forms/Password';
-import { SubmitButton } from 'components/forms/SubmitButton';
 import { FormValidate } from 'components/forms/Validate';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 function Autorization() {
-  const onSubmit = (e: IUserAuth) => {
-    AuthorizationApi.SignIn(e);
-  };
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      login: '',
+      password: '',
+    },
+
+    onSubmit: (values) => {
+      AuthorizationApi.SignIn(values);
+      navigate('/');
+    },
+    validate: (values) => {
+      return FormValidate(values);
+    },
+  });
 
   return (
-    <Form
-      onSubmit={onSubmit}
-      validate={FormValidate}
-      render={({ handleSubmit }) => (
-        <section className="user-form" data-testid="formsBox">
-          <form onSubmit={handleSubmit} className="user-form__content" data-testid="forms">
-            <h1>Log in</h1>
-            <Field name="login" render={({ input, meta }) => <Login input={input} meta={meta} />} />
-            <Field
-              name="password"
-              render={({ input, meta }) => <Password input={input} meta={meta} />}
-            />
-            <SubmitButton></SubmitButton>
-          </form>
-        </section>
-      )}
-    />
+    <section className="user-form" data-testid="formsBox">
+      <form onSubmit={formik.handleSubmit} className="user-form__content" data-testid="forms">
+        <h1>Log in</h1>
+        <div className="user-form-content-part">
+          <Login onChange={formik.handleChange} value={formik.values.login} />
+          {formik.errors.login ? (
+            <span className="user-form__error">{formik.errors.login}</span>
+          ) : null}
+        </div>
+        <div className="user-form-content-part">
+          <Password onChange={formik.handleChange} value={formik.values.password} />
+          {formik.errors.password ? (
+            <span className="user-form__error">{formik.errors.password}</span>
+          ) : null}
+        </div>
+        <button className="user-form__button" type="submit">
+          Log in
+        </button>
+      </form>
+    </section>
   );
 }
 
