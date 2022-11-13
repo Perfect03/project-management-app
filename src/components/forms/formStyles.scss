@@ -20,6 +20,10 @@ $color-white: #FFF;
     }
 }
 
+.user-form-content-part {
+  position: relative;
+}
+
 textarea {
     font: inherit;
 }
@@ -39,7 +43,6 @@ textarea {
   display: block;
   margin-bottom: 40px;
   width: 100%;
-  position: relative;
 }
 
 .user-form__input {
@@ -75,7 +78,8 @@ textarea {
  .user-form__error {
   position: absolute;
   color: rgb(165, 29, 29);
-  left: 20px;
+  left: 40px;
   font-size: 14px;
   font-weight: 600;
+  top: 65px;
  }
