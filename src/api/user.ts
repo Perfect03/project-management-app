@@ -1,10 +1,9 @@
 import axios from 'axios';
-import { IUserAuth } from 'interfaces/api';
-import { baseUrl } from './authorization';
+import { IGetAllUsers, IUserAuth } from 'interfaces/api';
 import { getCookie } from './cokie';
 
 class UserApi {
-  url = baseUrl;
+  url = 'https://project-management-backend.up.railway.app/';
 
   token: string = getCookie('token');
   config = {
@@ -19,6 +18,14 @@ class UserApi {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async getUserId(login: string) {
+    const users = (await this.getAllUsers()) as IGetAllUsers;
+    const findedUser = users.find((el) => {
+      return el.login === login;
+    });
+    return findedUser?._id;
   }
 
   async getUserById(id: string) {

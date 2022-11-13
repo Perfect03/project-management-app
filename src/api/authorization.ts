@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { IUserAuth } from 'interfaces/api';
 import { setCookie } from 'api/cokie';
+import UserApi from './user';
 
 export const baseUrl = 'https://project-management-backend.up.railway.app/';
 
 class AuthorizationApi {
   url = baseUrl;
-
   constructor() {}
 
   SignUp(user: IUserAuth) {
