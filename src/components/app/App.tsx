@@ -7,20 +7,24 @@ import { Header } from 'components/header/Header';
 import { Notfoundpage } from 'components/notfound/Notfoundpage';
 import Footer from 'components/footer/footer';
 import { Profile } from 'components/profile/Profile';
+import { Provider } from 'react-redux';
+import store from 'helpers/redux/store';
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Header />}>
-          <Route index element={<Main />} />
-          <Route path="login" element={<Autorization />} />
-          <Route path="signup" element={<Registration />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<Notfoundpage />} />
-        </Route>
-      </Routes>
-      <Footer></Footer>
+      <Provider store={store}>
+        <Routes>
+          <Route path="/" element={<Header />}>
+            <Route index element={<Main />} />
+            <Route path="login" element={<Autorization />} />
+            <Route path="signup" element={<Registration />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="*" element={<Notfoundpage />} />
+          </Route>
+        </Routes>
+        <Footer />
+      </Provider>
     </>
   );
 }
