@@ -17,7 +17,7 @@ function Autorization() {
     },
 
     onSubmit: (values) => {
-      AuthorizationApi.SignUp(values);
+      AuthorizationApi.SignIn(values);
       navigate('/');
     },
     validate: (values) => {
