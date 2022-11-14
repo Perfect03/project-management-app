@@ -33,4 +33,4 @@ const Boards = () => {
   );
 };
 
-export { Boards };
+export { BoardsPage };
