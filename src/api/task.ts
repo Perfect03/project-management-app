@@ -1,76 +1,66 @@
 import axios from 'axios';
 import { ITask, ITaskSet } from 'interfaces/api';
 import { baseUrl } from './authorization';
+import { getCookie } from './cokie';
 
 class TaskApi {
   url = baseUrl;
+  token: string = getCookie('token');
+  config = {
+    headers: { Authorization: `Bearer ${this.token}` },
+  };
   constructor() {}
 
-  async getTasksInColumn(token: string, boardId: string, columnId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async getTasksInColumn(boardId: string, columnId: string) {
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async createTaskInColumn(token: string, boardId: string, columnId: string, task: ITask) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async createTaskInColumn(boardId: string, columnId: string, task: ITask) {
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks`;
     try {
-      const response = await axios.post(url, task, config);
+      const response = await axios.post(url, task, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getTaskById(token: string, boardId: string, columnId: string, taskId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async getTaskById(boardId: string, columnId: string, taskId: string) {
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks/${taskId}`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async updateTaskById(token: string, boardId: string, columnId: string, task: ITask) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async updateTaskById(boardId: string, columnId: string, task: ITask) {
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks`;
     try {
-      const response = await axios.put(url, task, config);
+      const response = await axios.put(url, task, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async deleteTaskById(token: string, boardId: string, columnId: string, taskId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async deleteTaskById(boardId: string, columnId: string, taskId: string) {
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks/${taskId}`;
     try {
-      const response = await axios.delete(url, config);
+      const response = await axios.delete(url, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async searchTask(token: string, list?: string[], userId?: string, searchQuery?: string) {
+  async searchTask(list?: string[], userId?: string, searchQuery?: string) {
     const config = {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${this.token}` },
       params: {
         ids: list ? [...list] : [''],
         userId: userId ? userId : '',
@@ -80,30 +70,25 @@ class TaskApi {
     const url = `${this.url}tasksSet`;
     try {
       const response = await axios.get(url, config);
+      console.log('in progress');
     } catch (error) {
       console.log(error);
     }
   }
 
-  async updateSetOfTasks(token: string, setOfTasks: ITaskSet) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async updateSetOfTasks(setOfTasks: ITaskSet) {
     const url = `${this.url}tasksSet`;
     try {
-      const response = await axios.patch(url, setOfTasks, config);
+      const response = await axios.patch(url, setOfTasks, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getTasksById(token: string, boardId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async getTasksById(boardId: string) {
     const url = `${this.url}tasksSet/${boardId}`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
       console.log(error);

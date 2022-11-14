@@ -1,18 +1,21 @@
 import axios from 'axios';
 import { IPointNew, IPointSet, IPointUpdate } from 'interfaces/api';
 import { baseUrl } from './authorization';
+import { getCookie } from './cokie';
 
 class PointApi {
+  token: string = getCookie('token');
+  config = {
+    headers: { Authorization: `Bearer ${this.token}` },
+  };
+  
   constructor() {}
   url = baseUrl;
 
-  async searchPoints(token: string, query: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async searchPoints(query: string) {
     const url = `${this.url}points`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       console.log('in progress');
       return response.data;
     } catch (error) {
@@ -20,62 +23,47 @@ class PointApi {
     }
   }
 
-  async createPoint(token: string, point: IPointNew) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async createPoint(point: IPointNew) {
     const url = `${this.url}points`;
     try {
-      const response = await axios.post(url, point, config);
+      const response = await axios.post(url, point, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async updatePointsSet(token: string, pointSet: IPointSet) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async updatePointsSet(pointSet: IPointSet) {
     const url = `${this.url}points`;
     try {
-      const response = await axios.patch(url, pointSet, config);
+      const response = await axios.patch(url, pointSet, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getPointsByTaskId(token: string, taskId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async getPointsByTaskId(taskId: string) {
     const url = `${this.url}points/${taskId}`;
     try {
-      const response = await axios.get(url, config);
+      const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  async updatePointById(token: string, pointId: string, point: IPointUpdate) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async updatePointById(pointId: string, point: IPointUpdate) {
     const url = `${this.url}points/${pointId}`;
     try {
-      const response = await axios.patch(url, point, config);
+      const response = await axios.patch(url, point, this.config);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async deletePointById(token: string, pointId: string) {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  async deletePointById(pointId: string) {
     const url = `${this.url}points/${pointId}`;
     try {
-      const response = await axios.delete(url, config);
+      const response = await axios.delete(url, this.config);
     } catch (error) {
       console.log(error);
     }
