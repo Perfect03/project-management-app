@@ -1,0 +1,45 @@
+.modal {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    align-items: center;
+    justify-content: center;  
+    background-color: #00000045;
+}
+
+.modal-dialog {
+    width: 310px;
+    background: #f0f1f0;
+    border-radius: 10px;
+}
+
+.modal-header {
+    padding: 5px;
+    text-align: center;
+    position: relative;
+    h3 {
+        color: #783004;
+        font-size: 25px;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: -6px;
+    right: 7px;
+    font-size: 44px;
+    font-weight: 600;
+    font-family: "Cookie";
+    cursor: pointer;
+    color: #783004;
+    &:hover {
+        color: #433b13;
+    }
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
