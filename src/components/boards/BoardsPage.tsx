@@ -1,8 +1,8 @@
 import React from 'react';
 import './boards.scss';
 
-const Boards = () => {
+const BoardsPage = () => {
   return <div className="error-page"></div>;
 };
 
-export { Boards };
+export { BoardsPage };
