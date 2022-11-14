@@ -8,6 +8,8 @@ import { Password } from 'components/forms/Password';
 import { FormValidate } from 'components/forms/Validate';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { UpdateButton } from './UpdateButton';
+import { DeleteButton } from './DeleteButton';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -50,10 +52,8 @@ const Profile = () => {
             <span className="user-form__error">{formik.errors.password}</span>
           ) : null}
         </div>
-        <button className="user-form__button" type="submit">
-          SAVE
-        </button>
-        <button className="user-form__content-delete">DELETE PROFILE</button>
+        <UpdateButton />
+        <DeleteButton />
       </form>
     </section>
   );
