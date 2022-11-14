@@ -20,13 +20,13 @@ export const userDataSlice = createSlice({
       state.isAuth = action.payload;
     },
     isLoadingReducer(state, action) {
-      state.isAuth = action.payload;
+      state.isLoading = action.payload;
     },
     isErrorUserData(state, action) {
-      state.isAuth = action.payload;
+      state.error = action.payload;
     },
     userReducer(state, action) {
-      state.user.id = action.payload.id;
+      state.user.id = action.payload._id;
       state.user.name = action.payload.name;
       state.user.login = action.payload.login;
     },

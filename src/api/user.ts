@@ -20,12 +20,12 @@ class UserApi {
     }
   }
 
-  async getUserId(login: string) {
+  async getUserInfo(login: string) {
     const users = (await this.getAllUsers()) as IGetAllUsers;
     const findedUser = users.find((el) => {
       return el.login === login;
     });
-    return findedUser?._id;
+    return findedUser;
   }
 
   async getUserById(id: string) {

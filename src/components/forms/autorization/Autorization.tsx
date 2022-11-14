@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../formStyles.scss';
 import AuthorizationApi from '../../../api/authorization';
 import { Login } from 'components/forms/Login';
@@ -6,9 +6,13 @@ import { Password } from 'components/forms/Password';
 import { FormValidate } from 'components/forms/Validate';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import UserApi from 'api/user';
+import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 
 function Autorization() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -16,9 +20,16 @@ function Autorization() {
       password: '',
     },
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      dispatch(isLoadingReducer(true));
+
       AuthorizationApi.SignIn(values);
+      const user = await UserApi.getUserInfo(values.login);
+      dispatch(userReducer(user));
       navigate('/');
+
+      dispatch(isAuthReducer(true));
+      dispatch(isLoadingReducer(false));
     },
     validate: (values) => {
       return FormValidate(values);

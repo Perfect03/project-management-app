@@ -8,14 +8,18 @@ import { Password } from 'components/forms/Password';
 import { FormValidate } from 'components/forms/Validate';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import store from 'helpers/redux/store';
 
 const Profile = () => {
   const navigate = useNavigate();
 
+  const state = store.getState();
+  const user = state.userData.user;
+
   const formik = useFormik({
     initialValues: {
-      name: '',
-      login: '',
+      name: user.name,
+      login: user.login,
       password: '',
     },
 
