@@ -2,6 +2,8 @@ import { NavLink, Outlet } from 'react-router-dom';
 import React from 'react';
 import './header.scss';
 import { Language } from './Language';
+import { SignupLogin } from './SignupLogin';
+import { AfterLogin } from './AfterLogin';
 
 const Header = () => {
   window.addEventListener('scroll', Header_change);
@@ -22,12 +24,8 @@ const Header = () => {
         </div>
         <div className="header-content">
           <Language />
-          <NavLink to="/login" className="header-content__autorization">
-            Log in
-          </NavLink>
-          <NavLink to="/signup" className="header-content__autorization">
-            Sign up
-          </NavLink>
+          <SignupLogin />
+          <AfterLogin />
         </div>
       </header>
       <div className="wrapper">
