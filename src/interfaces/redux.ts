@@ -1,3 +1,18 @@
-export interface IState {
-  user: { userId: string; isAuth: boolean; currentLang: string };
+export interface IUserData {
+  isAuth: boolean;
+  isLoading: boolean;
+  error: string;
+  user: { id: string; name: string; login: string };
+}
+
+export interface IBoardsData {
+  isLoading: boolean;
+  error: string;
+  boards: [];
+}
+
+export interface ISelectedBoard {
+  isLoading: boolean;
+  error: string;
+  board: {};
 }
