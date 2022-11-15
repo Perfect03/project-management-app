@@ -7,7 +7,7 @@ const Boards = () => {
   return (
     <>
       <NavLink to="/boards" className="header-content__autorization">
-      {t('BOARDS')}
+        {t('BOARDS')}
       </NavLink>
     </>
   );

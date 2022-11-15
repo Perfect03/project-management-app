@@ -9,9 +9,7 @@ const Main = () => {
       <section className="main-firstsection">
         <div className="main-firstsection-about">
           <h1 className="main-firstsection-about-h1">{t('Planer for your tasks.')}</h1>
-          <p className="main-firstsection-about-p">
-          {t('It is a project management')}
-          </p>
+          <p className="main-firstsection-about-p">{t('It is a project management')}</p>
           <button className="main-firstsection-about-button"> {t('Start')} </button>
         </div>
       </section>
@@ -20,7 +18,7 @@ const Main = () => {
         <div className="main-secondsection-developers">
           <div className="main-secondsection-developers-developer">
             <h3 className="main-secondsection-developers-developer-name">
-            {t('Gleb Zlobin')}
+              {t('Gleb Zlobin')}
               <a href="https://github.com/Perfect03">
                 <span className="main-secondsection-developers-developer-name-img"></span>
               </a>
@@ -33,7 +31,7 @@ const Main = () => {
           </div>
           <div className="main-secondsection-developers-developer">
             <h3 className="main-secondsection-developers-developer-name">
-            {t('Nikita Staselovich')}
+              {t('Nikita Staselovich')}
               <a href="https://github.com/Falderian">
                 <span className="main-secondsection-developers-developer-name-img"></span>
               </a>
@@ -45,7 +43,7 @@ const Main = () => {
           </div>
           <div className="main-secondsection-developers-developer">
             <h3 className="main-secondsection-developers-developer-name">
-            {t('Alisa Fedorova')}
+              {t('Alisa Fedorova')}
               <a className="githunDev" href="https://github.com/AlisaFed">
                 <span className="main-secondsection-developers-developer-name-img"></span>
               </a>

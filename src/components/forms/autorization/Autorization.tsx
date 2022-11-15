@@ -55,7 +55,7 @@ function Autorization() {
           ) : null}
         </div>
         <button className="user-form__button" type="submit">
-        {t('Log in')}
+          {t('Log in')}
         </button>
       </form>
     </section>

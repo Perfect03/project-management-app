@@ -15,10 +15,10 @@ const AfterLogin = () => {
   return (
     <>
       <NavLink to="/profile" className="header-content__autorization">
-      {t('Profile')}
+        {t('Profile')}
       </NavLink>
       <NavLink to="/" className="header-content__autorization" onClick={handleLogOut}>
-      {t('Log out')}
+        {t('Log out')}
       </NavLink>
     </>
   );

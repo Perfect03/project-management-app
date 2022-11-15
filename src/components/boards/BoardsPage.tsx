@@ -55,7 +55,7 @@ const BoardsPage = () => {
               onChange={formik.handleChange}
               value={formik.values.owner}
               className="board-modal__input"
-              placeholder={t("Owner")}
+              placeholder={t('Owner')}
               id="owner"
               type="text"
             />
@@ -63,13 +63,13 @@ const BoardsPage = () => {
               onChange={formik.handleChange}
               value={formik.values.users}
               className="board-modal__input"
-              placeholder={t("Add users")}
+              placeholder={t('Add users')}
               id="users"
               type="text"
             />
             <section className="board-modal-box-button">
               <button className="board-modal__button save" type="submit">
-              {t('SAVE')}
+                {t('SAVE')}
               </button>
             </section>
           </form>

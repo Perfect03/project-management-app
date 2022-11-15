@@ -56,7 +56,7 @@ function Registration() {
           ) : null}
         </div>
         <button className="user-form__button" type="submit">
-        {t('Sign up')}
+          {t('Sign up')}
         </button>
       </form>
     </section>
