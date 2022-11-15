@@ -5,6 +5,8 @@ import { Language } from './header-components/Language';
 import { SignupLogin } from './header-components/SignupLogin';
 import { AfterLogin } from './header-components/AfterLogin';
 import { Boards } from './header-components/Boards';
+import { useSelector } from 'react-redux';
+import { IGetState } from 'interfaces/redux';
 
 const Header = () => {
   window.addEventListener('scroll', Header_change);
@@ -17,6 +19,8 @@ const Header = () => {
     }
   }
 
+  const isAuth = useSelector((state: IGetState) => state.userData.isAuth);
+
   return (
     <>
       <header className="header">
@@ -26,8 +30,7 @@ const Header = () => {
         <div className="header-content">
           <Boards />
           <Language />
-          <SignupLogin />
-          <AfterLogin />
+          {isAuth ? <AfterLogin /> : <SignupLogin />}
         </div>
       </header>
       <div className="wrapper">

@@ -1,7 +1,7 @@
 import React from 'react';
 import './profile.scss';
 import '../forms/formStyles.scss';
-import AuthorizationApi from '../../api/authorization';
+import UserApi from '../../api/user';
 import { Name } from 'components/forms/Name';
 import { Login } from 'components/forms/Login';
 import { Password } from 'components/forms/Password';
@@ -10,19 +10,29 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { UpdateButton } from './UpdateButton';
 import { DeleteButton } from './DeleteButton';
+import store from 'helpers/redux/store';
+import { useDispatch } from 'react-redux';
+import { isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 
 const Profile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const state = store.getState();
+  const user = state.userData.user;
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      login: '',
+      name: user.name,
+      login: user.login,
       password: '',
     },
 
-    onSubmit: (values) => {
-      AuthorizationApi.SignUp(values);
+    onSubmit: async (values) => {
+      dispatch(isLoadingReducer(true));
+      const newUserInfo = await UserApi.updateUserById(values);
+      dispatch(userReducer(newUserInfo));
+      dispatch(isLoadingReducer(false));
       navigate('/');
     },
     validate: (values) => {
