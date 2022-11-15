@@ -14,7 +14,7 @@ const Login: FC<{ value: string; onChange: React.ChangeEventHandler<HTMLInputEle
         className="user-form__input"
         onChange={onChange}
         value={value}
-        placeholder={t('Login')}
+        placeholder={t('Login') as string}
         type="text"
       />
     </label>

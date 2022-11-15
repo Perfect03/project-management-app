@@ -47,7 +47,7 @@ const BoardsPage = () => {
               onChange={formik.handleChange}
               value={formik.values.title}
               className="board-modal__input"
-              placeholder={t("Board's name")}
+              placeholder={t("Board's name") as string}
               id="title"
               type="text"
             />
@@ -55,7 +55,7 @@ const BoardsPage = () => {
               onChange={formik.handleChange}
               value={formik.values.owner}
               className="board-modal__input"
-              placeholder={t('Owner')}
+              placeholder={t('Owner') as string}
               id="owner"
               type="text"
             />
@@ -63,7 +63,7 @@ const BoardsPage = () => {
               onChange={formik.handleChange}
               value={formik.values.users}
               className="board-modal__input"
-              placeholder={t('Add users')}
+              placeholder={t('Add users') as string}
               id="users"
               type="text"
             />

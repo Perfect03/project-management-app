@@ -14,7 +14,7 @@ const Password: FC<{ value: string; onChange: React.ChangeEventHandler<HTMLInput
         className="user-form__input"
         onChange={onChange}
         value={value}
-        placeholder={t('Password')}
+        placeholder={t('Password') as string}
         type="password"
       />
     </label>

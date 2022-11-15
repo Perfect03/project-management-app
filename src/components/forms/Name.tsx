@@ -12,7 +12,7 @@ const Name: FC<{ value: string; onChange: React.ChangeEventHandler<HTMLInputElem
       <input
         id="name"
         className="user-form__input"
-        placeholder={t('Name')}
+        placeholder={t('Name') as string}
         onChange={onChange}
         value={value}
         type="text"
