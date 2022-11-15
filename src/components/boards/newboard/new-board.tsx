@@ -42,7 +42,7 @@ const NewBoard: FC<{ values: IBoard }> = ({ values }) => {
       />
       <Modal
         isVisible={isDeleteBoard}
-        title="Edit your board:"
+        title=""
         content={
           <>
             <DeleteBoard />
