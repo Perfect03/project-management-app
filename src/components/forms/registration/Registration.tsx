@@ -7,10 +7,12 @@ import { Password } from 'components/forms/Password';
 import { FormValidate } from 'components/forms/Validate';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import store from 'helpers/redux/store';
 
 function Registration() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const state = store.getState();
   const user = state.userData.user;
@@ -34,7 +36,7 @@ function Registration() {
   return (
     <section className="user-form" data-testid="formsBox">
       <form onSubmit={formik.handleSubmit} className="user-form__content" data-testid="forms">
-        <h1>Sign up</h1>
+        <h1>{t('Sign up')}</h1>
         <div className="user-form-content-part">
           <Name onChange={formik.handleChange} value={formik.values.name} />
           {formik.errors.name ? (
@@ -54,7 +56,7 @@ function Registration() {
           ) : null}
         </div>
         <button className="user-form__button" type="submit">
-          Sign up
+        {t('Sign up')}
         </button>
       </form>
     </section>

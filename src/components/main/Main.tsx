@@ -1,26 +1,26 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './main.scss';
 
 const Main = () => {
+  const { t } = useTranslation();
   return (
     <>
       <section className="main-firstsection">
         <div className="main-firstsection-about">
-          <h1 className="main-firstsection-about-h1">Planer for your tasks.</h1>
+          <h1 className="main-firstsection-about-h1">{t('Planer for your tasks.')}</h1>
           <p className="main-firstsection-about-p">
-            It is a project management software that allows you to centrally manage tasks and their
-            timely completion. Trackers are widely used in project management, because they allow
-            you to easily monitor all work processes and control the work of the team.
+          {t('It is a project management')}
           </p>
-          <button className="main-firstsection-about-button"> Start </button>
+          <button className="main-firstsection-about-button"> {t('Start')} </button>
         </div>
       </section>
       <section className="main-secondsection">
-        <h1 className="main-secondsection-h1">Our team:</h1>
+        <h1 className="main-secondsection-h1">{t('Our team:')}</h1>
         <div className="main-secondsection-developers">
           <div className="main-secondsection-developers-developer">
             <h3 className="main-secondsection-developers-developer-name">
-              Gleb Zlobin
+            {t('Gleb Zlobin')}
               <a href="https://github.com/Perfect03">
                 <span className="main-secondsection-developers-developer-name-img"></span>
               </a>
@@ -33,7 +33,7 @@ const Main = () => {
           </div>
           <div className="main-secondsection-developers-developer">
             <h3 className="main-secondsection-developers-developer-name">
-              Nikita Staselovich
+            {t('Nikita Staselovich')}
               <a href="https://github.com/Falderian">
                 <span className="main-secondsection-developers-developer-name-img"></span>
               </a>
@@ -45,7 +45,7 @@ const Main = () => {
           </div>
           <div className="main-secondsection-developers-developer">
             <h3 className="main-secondsection-developers-developer-name">
-              Alisa Fedorova
+            {t('Alisa Fedorova')}
               <a className="githunDev" href="https://github.com/AlisaFed">
                 <span className="main-secondsection-developers-developer-name-img"></span>
               </a>
