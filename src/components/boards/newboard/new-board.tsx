@@ -14,8 +14,8 @@ const NewBoard: FC<{ values: IBoard }> = ({ values }) => {
             <p className="board-info-users">{values.users}</p>
           </div>
           <div className="board-buttons">
-            <button className="board-buttons-edit"></button>
-            <button className="board-buttons-delete"></button>
+            <button className="board-buttons-edit" id={values._id}></button>
+            <button className="board-buttons-delete" id={values._id}></button>
           </div>
         </div>
       </a>
