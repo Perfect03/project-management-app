@@ -8,7 +8,7 @@ import { BoardForm } from './boardform';
 export const boardsStore = [] as Array<IBoard>;
 
 const BoardsPage = () => {
-  const [isAddBoard, setAddBoard] = useState(false);
+  const [isModal, setModal] = useState(false);
   return (
     <>
       <section className="boards">
@@ -17,16 +17,20 @@ const BoardsPage = () => {
             return <NewBoard values={values} key={boardsStore.indexOf(values)} />;
           })}
           <li>
-            <button className="boards-table__add" onClick={() => setAddBoard(true)}></button>
+            <button className="boards-table__add" onClick={() => setModal(true)}></button>
           </li>
         </ul>
       </section>
-      <Modal
-        isVisible={isAddBoard}
-        title="Create new board:"
-        content={<BoardForm />}
-        onClose={() => setAddBoard(false)}
-      />
+      {isModal ? (
+        <Modal
+          isVisible={isModal}
+          title="Create new board:"
+          content={<BoardForm setModal={setModal} />}
+          onClose={() => setModal(false)}
+        />
+      ) : (
+        <div></div>
+      )}
     </>
   );
 };

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import './boards.scss';
 import { useFormik } from 'formik';
 import { boardsStore } from './BoardsPage';
 
-const BoardForm = () => {
-  const [isAddBoard, setAddBoard] = useState(true);
+const BoardForm = ({ setModal }: { setModal: Dispatch<SetStateAction<boolean>> }) => {
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -14,7 +13,7 @@ const BoardForm = () => {
 
     onSubmit: (values, { resetForm }) => {
       boardsStore.push(values);
-      setAddBoard(false);
+      setModal(false);
       resetForm({});
     },
   });
