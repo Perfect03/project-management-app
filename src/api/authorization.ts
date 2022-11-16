@@ -26,7 +26,6 @@ class AuthorizationApi {
   async SignIn(user: IUserAuth) {
     try {
       const url = this.url + 'auth/signin';
-      console.log(user);
       const response = await axios.post(url, user);
       setCookie('token', response.data.token, 30);
       return response.data.token;
