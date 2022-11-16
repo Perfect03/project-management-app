@@ -4,11 +4,13 @@ import { Modal } from '../modal/Modal';
 import { useFormik } from 'formik';
 import { NewBoard } from './newboard/new-board';
 import { IBoard } from 'interfaces/api';
+import { useTranslation } from 'react-i18next';
 
 export const boardsStore = [] as Array<IBoard>;
 
 const BoardsPage = () => {
   const [isAddBoard, setAddBoard] = useState(false);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -38,14 +40,14 @@ const BoardsPage = () => {
       </section>
       <Modal
         isVisible={isAddBoard}
-        title="Create new board:"
+        title={t('Create new board:')}
         content={
           <form onSubmit={formik.handleSubmit}>
             <input
               onChange={formik.handleChange}
               value={formik.values.title}
               className="board-modal__input"
-              placeholder="Board's name"
+              placeholder={t("Board's name") as string}
               id="title"
               type="text"
             />
@@ -53,7 +55,7 @@ const BoardsPage = () => {
               onChange={formik.handleChange}
               value={formik.values.owner}
               className="board-modal__input"
-              placeholder="Owner"
+              placeholder={t('Owner') as string}
               id="owner"
               type="text"
             />
@@ -61,13 +63,13 @@ const BoardsPage = () => {
               onChange={formik.handleChange}
               value={formik.values.users}
               className="board-modal__input"
-              placeholder="Add users"
+              placeholder={t('Add users') as string}
               id="users"
               type="text"
             />
             <section className="board-modal-box-button">
               <button className="board-modal__button save" type="submit">
-                SAVE
+                {t('SAVE')}
               </button>
             </section>
           </form>
