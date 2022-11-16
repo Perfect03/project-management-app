@@ -5,10 +5,12 @@ import { isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { useDispatch } from 'react-redux';
 import UserApi from '../../api/user';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const DeleteButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleClick = () => {
     dispatch(isLoadingReducer(true));
@@ -21,7 +23,7 @@ const DeleteButton = () => {
 
   return (
     <button className="user-form__content-delete" onClick={handleClick}>
-      DELETE PROFILE
+      {t('DELETE PROFILE')}
     </button>
   );
 };
