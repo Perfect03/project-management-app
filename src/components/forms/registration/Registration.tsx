@@ -40,23 +40,23 @@ function Registration() {
         <div className="user-form-content-part">
           <Name onChange={formik.handleChange} value={formik.values.name} />
           {formik.errors.name ? (
-            <span className="user-form__error">{formik.errors.name}</span>
+            <span className="user-form__error">{t(formik.errors.name)}</span>
           ) : null}
         </div>
         <div className="user-form-content-part">
           <Login onChange={formik.handleChange} value={formik.values.login} />
           {formik.errors.login ? (
-            <span className="user-form__error">{formik.errors.login}</span>
+            <span className="user-form__error">{t(formik.errors.login)}</span>
           ) : null}
         </div>
         <div className="user-form-content-part">
           <Password onChange={formik.handleChange} value={formik.values.password} />
           {formik.errors.password ? (
-            <span className="user-form__error">{formik.errors.password}</span>
+            <span className="user-form__error">{t(formik.errors.password)}</span>
           ) : null}
         </div>
         <button className="user-form__button" type="submit">
-          {t('Sign up')}
+          {t('To sign up')}
         </button>
       </form>
     </section>

@@ -3,7 +3,9 @@
     "Profile": "Profile",
     "Log out": "Log out",
     "Log in": "Log in",
+    "To log in": "Log in",
     "Sign up": "Sign up",
+    "To sign up": "Sign up",
     "BOARDS": "BOARDS",
     "Planer for your tasks.": "Planer for your tasks.",
     "It is a project management":"It is a project management software that allows you to centrally manage tasks and their timely completion. Trackers are widely used in project management, because they allow you to easily monitor all work processes and control the work of the team.",
@@ -18,6 +20,13 @@
     "Name": "Name",
     "Login": "Login",
     "Password": "Password",
-    "Create new board:": "Create new board:"
-
+    "Create new board:": "Create new board:",
+    "Board's name":"Board's name",
+    "Owner":"Owner",
+    "Add users":"Add users",
+    "SAVE":"SAVE",
+    "Use letters and digits": "Use letters and digits",
+    "Too short":"Too short",
+    "The first letter must be uppercase":"The first letter must be uppercase",
+    "Use only letters":"Use only letters"
 }

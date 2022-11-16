@@ -7,10 +7,10 @@ const SignupLogin = () => {
   return (
     <>
       <NavLink to="/login" className="header-content__autorization">
-        {t('Log in')}
+        {t('To log in')}
       </NavLink>
       <NavLink to="/signup" className="header-content__autorization">
-        {t('Sign up')}
+        {t('To sign up')}
       </NavLink>
     </>
   );

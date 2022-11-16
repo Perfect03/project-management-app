@@ -10,7 +10,7 @@ const Main = () => {
         <div className="main-firstsection-about">
           <h1 className="main-firstsection-about-h1">{t('Planer for your tasks.')}</h1>
           <p className="main-firstsection-about-p">{t('It is a project management')}</p>
-          <button className="main-firstsection-about-button"> {t('Start')} </button>
+          <button className="main-firstsection-about-button">{t('Start')}</button>
         </div>
       </section>
       <section className="main-secondsection">
