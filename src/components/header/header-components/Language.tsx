@@ -15,7 +15,7 @@ const Language = () => {
     }
   };
   return (
-    <select className="header-content__language" onChange={handleLenguageChange}>
+    <select className="header-content__language" value={language} onChange={handleLenguageChange}>
       <option value="en">EN</option>
       <option value="ru">RU</option>
     </select>
