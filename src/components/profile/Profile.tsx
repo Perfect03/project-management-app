@@ -12,11 +12,13 @@ import { UpdateButton } from './UpdateButton';
 import { DeleteButton } from './DeleteButton';
 import store from 'helpers/redux/store';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const state = store.getState();
   const user = state.userData.user;
@@ -43,7 +45,7 @@ const Profile = () => {
   return (
     <section className="user-form" data-testid="formsBox">
       <form onSubmit={formik.handleSubmit} className="user-form__content" data-testid="forms">
-        <h1>EDIT PROFILE</h1>
+        <h1>{t('EDIT PROFILE')}</h1>
         <div className="user-form-content-part">
           <Name onChange={formik.handleChange} value={formik.values.name} />
           {formik.errors.name ? (
