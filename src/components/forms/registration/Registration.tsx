@@ -7,14 +7,18 @@ import { Password } from 'components/forms/Password';
 import { FormValidate } from 'components/forms/Validate';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import store from 'helpers/redux/store';
 
 function Registration() {
   const navigate = useNavigate();
 
+  const state = store.getState();
+  const user = state.userData.user;
+
   const formik = useFormik({
     initialValues: {
-      name: '',
-      login: '',
+      name: user.name,
+      login: user.login,
       password: '',
     },
 
