@@ -1,11 +1,14 @@
 import { IBoard } from 'interfaces/api';
-import React, { FC } from 'react';
+import React, { FC, Dispatch, SetStateAction } from 'react';
 import './newboard.scss';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import { BoardForm } from '../boardform';
 
-const NewBoard: FC<{ values: IBoard }> = ({ values }) => {
+const NewBoard = (
+  { values }: { values: IBoard },
+  { setModal }: { setModal: Dispatch<SetStateAction<boolean>> }
+) => {
   return (
     <>
       <li>
@@ -18,12 +21,32 @@ const NewBoard: FC<{ values: IBoard }> = ({ values }) => {
               <p className="board-info-users">{values.users}</p>
             </div>
             <div className="board-buttons">
-              <button className="board-buttons-edit"></button>
-              <button className="board-buttons-delete"></button>
+              <button className="board-buttons-edit" onClick={() => setModal(true)}></button>
+              <button className="board-buttons-delete" onClick={() => setModal(true)}></button>
             </div>
           </div>
         </a>
       </li>
+      {setModal ? (
+        <Modal
+          isVisible={true}
+          title="Create new board:"
+          content={<DeleteBoard setModal={setModal} />}
+          onClose={() => setModal(false)}
+        />
+      ) : (
+        <div></div>
+      )}
+      {setModal ? (
+        <Modal
+          isVisible={true}
+          title="Create new board:"
+          content={<BoardForm setModal={setModal} />}
+          onClose={() => setModal(false)}
+        />
+      ) : (
+        <div></div>
+      )}
     </>
   );
 };
