@@ -14,23 +14,30 @@ const BoardsPage = () => {
       <section className="boards">
         <ul className="boards-table">
           {boardsStore.map((values) => {
-            return <NewBoard values={values} key={boardsStore.indexOf(values)} />;
+            return (
+              <NewBoard
+                values={values}
+                key={boardsStore.indexOf(values)}
+                setModal={setModal}
+                isModal={isModal}
+              />
+            );
           })}
           <li>
             <button className="boards-table__add" onClick={() => setModal(true)}></button>
           </li>
         </ul>
       </section>
-      {isModal ? (
-        <Modal
-          isVisible={isModal}
-          title="Create new board:"
-          content={<BoardForm setModal={setModal} />}
-          onClose={() => setModal(false)}
-        />
-      ) : (
-        <div></div>
-      )}
+      <>
+        {isModal && (
+          <Modal
+            isVisible={isModal}
+            title="Create new board:"
+            content={<BoardForm setModal={setModal} />}
+            onClose={() => setModal(false)}
+          />
+        )}
+      </>
     </>
   );
 };

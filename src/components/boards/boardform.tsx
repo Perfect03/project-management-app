@@ -1,9 +1,9 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { FC, Dispatch, SetStateAction } from 'react';
 import './boards.scss';
 import { useFormik } from 'formik';
 import { boardsStore } from './BoardsPage';
 
-const BoardForm = ({ setModal }: { setModal: Dispatch<SetStateAction<boolean>> }) => {
+const BoardForm: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setModal }) => {
   const formik = useFormik({
     initialValues: {
       title: '',

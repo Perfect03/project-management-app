@@ -1,14 +1,24 @@
 import { IBoard } from 'interfaces/api';
-import React, { FC, Dispatch, SetStateAction } from 'react';
+import React, { FC, Dispatch, SetStateAction, useState } from 'react';
 import './newboard.scss';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import { BoardForm } from '../boardform';
 
-const NewBoard = (
-  { values }: { values: IBoard },
-  { setModal }: { setModal: Dispatch<SetStateAction<boolean>> }
-) => {
+const NewBoard: FC<{
+  values: IBoard;
+  setModal: Dispatch<SetStateAction<boolean>>;
+  isModal: boolean;
+}> = ({ values }) => {
+  const [isModalEdit, setModalEdit] = useState(false);
+  const [isModalDel, setModalDel] = useState(false);
+
+  const handleChangeEdit = () => {
+    setModalEdit(true);
+  };
+  const handleChangeDelete = () => {
+    setModalDel(true);
+  };
   return (
     <>
       <li>
@@ -21,31 +31,27 @@ const NewBoard = (
               <p className="board-info-users">{values.users}</p>
             </div>
             <div className="board-buttons">
-              <button className="board-buttons-edit" onClick={() => setModal(true)}></button>
-              <button className="board-buttons-delete" onClick={() => setModal(true)}></button>
+              <button className="board-buttons-edit" onClick={handleChangeEdit}></button>
+              <button className="board-buttons-delete" onClick={handleChangeDelete}></button>
             </div>
           </div>
         </a>
       </li>
-      {setModal ? (
+      {isModalDel && (
         <Modal
-          isVisible={true}
-          title="Create new board:"
-          content={<DeleteBoard setModal={setModal} />}
-          onClose={() => setModal(false)}
+          isVisible={isModalDel}
+          title=""
+          content={<DeleteBoard setModalDel={setModalDel} />}
+          onClose={() => setModalDel(false)}
         />
-      ) : (
-        <div></div>
       )}
-      {setModal ? (
+      {isModalEdit && (
         <Modal
-          isVisible={true}
-          title="Create new board:"
-          content={<BoardForm setModal={setModal} />}
-          onClose={() => setModal(false)}
+          isVisible={isModalEdit}
+          title="Edit your board:"
+          content={<BoardForm setModal={setModalEdit} />}
+          onClose={() => setModalEdit(false)}
         />
-      ) : (
-        <div></div>
       )}
     </>
   );
