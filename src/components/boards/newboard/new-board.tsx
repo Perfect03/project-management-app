@@ -24,10 +24,9 @@ const NewBoard: FC<{ values: IBoard }> = ({ values }) => {
           <div className="board-buttons">
             <button
               className="board-buttons-edit"
-              // id={values._id}
               onClick={(evt) => handleClickEdit}
             ></button>
-            {/* <button className="board-buttons-delete" id={values._id}></button> */}
+            <button className="board-buttons-delete"></button>
           </div>
         </div>
       </a>
