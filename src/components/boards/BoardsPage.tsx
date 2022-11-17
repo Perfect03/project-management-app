@@ -11,6 +11,7 @@ export const boardsStore = [] as Array<IBoard>;
 const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
   const { t } = useTranslation();
+
   return (
     <>
       <section className="boards">
