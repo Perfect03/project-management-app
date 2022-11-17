@@ -1,8 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SubmitButton = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
     <button
       onClick={() => {
@@ -12,7 +15,7 @@ const SubmitButton = () => {
       data-testid="buttonForm"
       type="submit"
     >
-      SUBMIT
+      {t('SUBMIT')}
     </button>
   );
 };

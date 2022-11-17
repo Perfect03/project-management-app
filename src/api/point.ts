@@ -8,7 +8,7 @@ class PointApi {
   config = {
     headers: { Authorization: `Bearer ${this.token}` },
   };
-  
+
   constructor() {}
   url = baseUrl;
 

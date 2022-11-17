@@ -1,16 +1,8 @@
 import { IBoard } from 'interfaces/api';
 import React, { FC } from 'react';
 import './newboard.scss';
-import BoardApi from '../../../api/board';
-import { useDispatch } from 'react-redux';
 
 const NewBoard: FC<{ values: IBoard }> = ({ values }) => {
-  const dispatch = useDispatch();
-
-  const handleClickEdit = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const boardId = evt.currentTarget.id;
-  };
-
   return (
     <li>
       <a>
@@ -22,10 +14,7 @@ const NewBoard: FC<{ values: IBoard }> = ({ values }) => {
             <p className="board-info-users">{values.users}</p>
           </div>
           <div className="board-buttons">
-            <button
-              className="board-buttons-edit"
-              onClick={(evt) => handleClickEdit}
-            ></button>
+            <button className="board-buttons-edit"></button>
             <button className="board-buttons-delete"></button>
           </div>
         </div>
