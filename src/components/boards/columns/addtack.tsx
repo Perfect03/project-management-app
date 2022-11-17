@@ -1,20 +1,22 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
-import './boards.scss';
 import { useFormik } from 'formik';
-import { boardsStore } from './BoardsPage';
-import BoardApi from '../../api/board';
+import { ITask } from 'interfaces/api';
 
-const BoardForm: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setModal }) => {
+export const taskStore = [] as Array<ITask>;
+
+const AddTask: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setModal }) => {
   const formik = useFormik({
     initialValues: {
       title: '',
-      owner: '',
+      order: 0,
+      description: '',
+      userId: 0,
       users: [],
     },
 
     onSubmit: (values, { resetForm }) => {
-      boardsStore.push(values);
-      BoardApi.createBoard(values);
+      taskStore.push(values);
+      //TaskApi.createBoard(values);
       setModal(false);
       resetForm({});
     },
@@ -27,24 +29,16 @@ const BoardForm: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setMod
           onChange={formik.handleChange}
           value={formik.values.title}
           className="board-modal__input"
-          placeholder="Board's name"
+          placeholder="Task title"
           id="title"
           type="text"
         />
         <input
           onChange={formik.handleChange}
-          value={formik.values.owner}
+          value={formik.values.description}
           className="board-modal__input"
-          placeholder="Owner"
-          id="owner"
-          type="text"
-        />
-        <input
-          onChange={formik.handleChange}
-          value={formik.values.users}
-          className="board-modal__input"
-          placeholder="Add users"
-          id="users"
+          placeholder="Description"
+          id="description"
           type="text"
         />
         <section className="board-modal-box-button">
@@ -57,4 +51,4 @@ const BoardForm: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setMod
   );
 };
 
-export { BoardForm };
+export { AddTask };

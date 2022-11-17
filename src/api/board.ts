@@ -25,6 +25,7 @@ class BoardApi {
     const url = this.url + 'boards';
     try {
       const response = await axios.post(url, board, this.config);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

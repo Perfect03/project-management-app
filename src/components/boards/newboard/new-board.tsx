@@ -4,6 +4,7 @@ import './newboard.scss';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import { BoardForm } from '../boardform';
+import { useNavigate } from 'react-router-dom';
 
 const NewBoard: FC<{
   values: IBoard;
@@ -12,7 +13,7 @@ const NewBoard: FC<{
 }> = ({ values }) => {
   const [isModalEdit, setModalEdit] = useState(false);
   const [isModalDel, setModalDel] = useState(false);
-
+  const navigate = useNavigate();
   const handleChangeEdit = () => {
     setModalEdit(true);
   };
