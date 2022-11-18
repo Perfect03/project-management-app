@@ -30,7 +30,7 @@ class AuthorizationApi {
       setCookie('token', response.data.token, 30);
       return response.data.token;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 }
