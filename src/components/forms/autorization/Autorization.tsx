@@ -25,12 +25,18 @@ function Autorization() {
     onSubmit: async (values) => {
       dispatch(isLoadingReducer(true));
 
-      AuthorizationApi.SignIn(values);
-      const user = await UserApi.getUserInfo(values.login);
-      dispatch(userReducer(user));
+      AuthorizationApi.SignIn(values)
+        .then(async () => {
+          const user = await UserApi.getUserInfo(values.login);
+          dispatch(userReducer(user));
+          dispatch(isAuthReducer(true));
+        })
+        .catch((err) => {
+          throw new Error();
+        });
+
       navigate('/');
 
-      dispatch(isAuthReducer(true));
       dispatch(isLoadingReducer(false));
     },
     validate: (values) => {
