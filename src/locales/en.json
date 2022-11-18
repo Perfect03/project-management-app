@@ -31,5 +31,8 @@
     "Use only letters": "Use only letters",
     "You're authorized": "You're authorized",
     "Incorrect login or password": "Incorrect login or password",
-    "You're logged out": "You're logged out"
+    "You're logged out": "You're logged out",
+    "Profile has removed": "Profile has removed",
+    "You're successfully registered!": "You're successfully registered!",
+    "User is already existed": "User is already existed"
 }

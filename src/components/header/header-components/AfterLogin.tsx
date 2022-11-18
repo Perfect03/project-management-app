@@ -1,4 +1,4 @@
-import { isAuthReducer } from 'helpers/redux/userDataSlice';
+import { isAuthReducer, userReducer } from 'helpers/redux/userDataSlice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,8 @@ const AfterLogin = () => {
 
   const handleLogOut = () => {
     dispatch(isAuthReducer(false));
+    const emptyUser = { _id: '', name: '', login: '' };
+    dispatch(userReducer(emptyUser));
     toastLogOutPromise();
   };
 

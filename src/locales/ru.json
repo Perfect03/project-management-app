@@ -31,5 +31,8 @@
     "Use only letters": "Используйте только буквы",
     "You're authorized": "Вы успешно авторизованы",
     "Incorrect login or password": "Неверный логин или пароль",
-    "You're unauthorized": "Вы вышли из профиля"
+    "You're unauthorized": "Вы вышли из профиля",
+    "Profile has removed": "Профиль удалён",
+    "You're successfully registered!": "Вы успешно зарегистрированы!",
+    "User is already existed": "Такой профиль уже существует"
 }
