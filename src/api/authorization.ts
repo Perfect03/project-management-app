@@ -28,6 +28,7 @@ class AuthorizationApi {
       const url = this.url + 'auth/signin';
       const response = await axios.post(url, user);
       setCookie('token', response.data.token, 30);
+      console.log(response.data);
       return response.data.token;
     } catch (error) {
       return error;
