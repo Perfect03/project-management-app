@@ -5,6 +5,7 @@ import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import { BoardForm } from '../boardform';
 import { useNavigate } from 'react-router-dom';
+import BoardApi from '../../../api/board';
 
 const NewBoard: FC<{
   values: IBoard;
@@ -18,6 +19,7 @@ const NewBoard: FC<{
     setModalEdit(true);
   };
   const handleChangeDelete = () => {
+    BoardApi.deleteBoardById('0');
     setModalDel(true);
   };
   return (
@@ -50,7 +52,7 @@ const NewBoard: FC<{
         <Modal
           isVisible={isModalEdit}
           title="Edit your board:"
-          content={<BoardForm setModal={setModalEdit} />}
+          content={<BoardForm setModal={setModalEdit} action="edit" />}
           onClose={() => setModalEdit(false)}
         />
       )}

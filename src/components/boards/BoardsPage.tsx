@@ -4,14 +4,11 @@ import { Modal } from '../modal/Modal';
 import { NewBoard } from './newboard/new-board';
 import { IBoard } from 'interfaces/api';
 import { BoardForm } from './boardform';
-import { useTranslation } from 'react-i18next';
 
 export const boardsStore = [] as Array<IBoard>;
 
 const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
-  const { t } = useTranslation();
-
   return (
     <>
       <section className="boards">
@@ -36,7 +33,7 @@ const BoardsPage = () => {
           <Modal
             isVisible={isModal}
             title="Create new board:"
-            content={<BoardForm setModal={setModal} />}
+            content={<BoardForm setModal={setModal} action="create" />}
             onClose={() => setModal(false)}
           />
         )}
