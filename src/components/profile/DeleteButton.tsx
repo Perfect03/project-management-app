@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import UserApi from '../../api/user';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const DeleteButton = () => {
   const dispatch = useDispatch();

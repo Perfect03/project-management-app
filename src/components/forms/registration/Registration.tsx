@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import UserApi from 'api/user';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import store from 'helpers/redux/store';
 import { IToastStatus } from '../../../interfaces/toast'
 
