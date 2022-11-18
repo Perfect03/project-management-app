@@ -1,3 +1,96 @@
+$color-shadow: #5c511a;
+$color-white: #FFF;
+$color-back: #f0f1f0;
+$color-shadow-active: -2px -2px 5px $color-white, 2px 2px 5px $color-shadow;
+
+ul, ul li {
+	list-style: none;
+    margin: 0;
+    padding: 10px;
+}
+
 .boards {
     min-height: calc(100vh - 130px);
+    background-color: $color-back;
+}
+
+.boards-table {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.boards-table__add {
+    width: 310px;
+    height: 140px;
+    padding: 10px;
+    background: url(../../assets/button.png) no-repeat 50%;
+    background-size: 15%;
+    background-position: 50% 50%;
+    border-radius: 10px;
+    border: 2px dotted $color-shadow;
+    cursor: pointer;
+    transition: 0.2s linear;
+    box-shadow: -5px -5px 20px $color-white,  5px 5px 20px $color-shadow;
+    &:hover {
+        background-color: $color-white;
+        box-shadow: $color-shadow-active;
+    }
+    &:active {
+        box-shadow: inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;;
+    }
+}
+
+.board-modal__input {
+    box-shadow:  inset -1px -1px 2px $color-white, inset 1px 1px 2px $color-shadow; 
+    width: 95%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    font: inherit;
+    letter-spacing: -0.2px;
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: $color-back;
+    text-shadow: 1px 1px 0 $color-white;
+    margin: 10px 10px;
+    &:focus {
+        box-shadow: inset $color-shadow-active;  
+      }
+}
+
+.board-modal__button {
+    box-shadow: -2px -2px 10px $color-white, 2px 2px 10px $color-shadow;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    width: 120px;
+    height: 50px;
+    font: inherit;
+    border: 0;
+    outline: 0;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 10px;
+    &:hover {
+      box-shadow: $color-shadow-active;
+    }
+    &:active {
+      box-shadow: inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
+    }
+}
+
+.board-modal-box-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .save {
+        color: $color-shadow;
+        font-weight: 600;
+    }
+    .back {
+        color: #777877;
+    }
 }

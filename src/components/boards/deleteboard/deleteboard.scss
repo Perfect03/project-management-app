@@ -1,0 +1,41 @@
+$color-shadow: #997703;
+$color-white: #ffc404;
+$color-back: #f0f1f0;
+$color-shadow-active: -2px -2px 5px $color-white, 2px 2px 5px $color-shadow;
+
+.delete-board-h1 {
+ text-align: center;
+ font-size: 32px;
+ font-weight: 600;
+ margin: 10px;
+}
+.delete-board-img {
+    width: 310px;
+    height: 80px;
+    background-image: url(../../../assets/2.png);    
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin: 10px auto;
+}
+.delete-board-btn {
+    box-shadow: -2px -2px 10px $color-white, 2px 2px 10px $color-shadow;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    width: 120px;
+    height: 50px;
+    font-weight: 600;
+    font-family: inherit;
+    font-size: 17px;
+    border: 0;
+    outline: 0;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 20px auto;
+    &:hover {
+      box-shadow: $color-shadow-active;
+    }
+    &:active {
+      box-shadow: inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
+    }
+}

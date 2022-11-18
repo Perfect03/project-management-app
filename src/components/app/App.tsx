@@ -9,7 +9,7 @@ import Footer from 'components/footer/footer';
 import { Profile } from 'components/profile/Profile';
 import { Provider } from 'react-redux';
 import store from 'helpers/redux/store';
-import { Boards } from 'components/boards/Boards';
+import { BoardsPage } from 'components/boards/BoardsPage';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
             <Route path="login" element={<Autorization />} />
             <Route path="signup" element={<Registration />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="boards" element={<Boards />} />
+            <Route path="boards" element={<BoardsPage />} />
             <Route path="*" element={<Notfoundpage />} />
           </Route>
         </Routes>

@@ -16,3 +16,9 @@ export interface ISelectedBoard {
   error: string;
   board: {};
 }
+
+export interface IGetState {
+  userData: IUserData;
+  boardsData: IBoardsData;
+  selectedBoard: ISelectedBoard;
+}
