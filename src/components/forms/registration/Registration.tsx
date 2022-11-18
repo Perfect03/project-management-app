@@ -8,11 +8,21 @@ import { FormValidate } from 'components/forms/Validate';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer, toast } from "react-toastify";
 import store from 'helpers/redux/store';
 
 function Registration() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const toastPromise = () => {
+    const resolveAfter0Sec = new Promise((resolve, reject) => {
+      setTimeout(resolve, 0);
+    });
+    toast.promise(resolveAfter0Sec, {
+      success: "You're successfully registered!",
+      error: "User is already existed"
+    })
+  }
 
   const state = store.getState();
   const user = state.userData.user;
@@ -26,6 +36,7 @@ function Registration() {
 
     onSubmit: (values) => {
       AuthorizationApi.SignUp(values);
+      toastPromise();
       navigate('/');
     },
     validate: (values) => {
