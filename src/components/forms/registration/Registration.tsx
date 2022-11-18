@@ -7,21 +7,20 @@ import { Password } from 'components/forms/Password';
 import { FormValidate } from 'components/forms/Validate';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import UserApi from 'api/user';
+import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { ToastContainer, toast } from "react-toastify";
 import store from 'helpers/redux/store';
+import { IToastStatus } from '../../../interfaces/toast'
 
 function Registration() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const toastPromise = () => {
-    const resolveAfter0Sec = new Promise((resolve, reject) => {
-      setTimeout(resolve, 0);
-    });
-    toast.promise(resolveAfter0Sec, {
-      success: "You're successfully registered!",
-      error: "User is already existed"
-    })
+  const toastPromise = (status: IToastStatus) => {
+    toast[`${status}`](status === "success" ? t("You're successfully registered!") : t("User is already existed"))
   }
 
   const state = store.getState();
@@ -35,9 +34,18 @@ function Registration() {
     },
 
     onSubmit: (values) => {
-      AuthorizationApi.SignUp(values);
-      toastPromise();
-      navigate('/');
+      dispatch(isLoadingReducer(true));
+      AuthorizationApi.SignUp(values).then(async () => {
+        const user = await UserApi.getUserInfo(values.login);
+        dispatch(userReducer(user));
+        dispatch(isAuthReducer(true))
+        navigate('/');
+        toastPromise("success");
+      }).catch((err) => {
+        toastPromise("error");
+      });
+      dispatch(isLoadingReducer(false));
+      //AuthorizationApi.SignUp(values);
     },
     validate: (values) => {
       return FormValidate(values);

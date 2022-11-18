@@ -20,7 +20,6 @@ class UserApi {
     const url = this.url + 'users';
     try {
       const response = await axios.get(url, this.config);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);

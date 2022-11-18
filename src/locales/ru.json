@@ -29,5 +29,7 @@
     "Too short": "Значение слишком короткое",
     "The first letter must be uppercase": "Первая буква должна быть заглавной",
     "Use only letters": "Используйте только буквы",
-    "You're authorised": "Вы успешно авторизованы"
+    "You're authorized": "Вы успешно авторизованы",
+    "Incorrect login or password": "Неверный логин или пароль",
+    "You're unauthorized": "Вы вышли из профиля"
 }

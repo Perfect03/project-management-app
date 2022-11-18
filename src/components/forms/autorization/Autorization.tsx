@@ -8,22 +8,18 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import UserApi from 'api/user';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
+import { IToastStatus } from '../../../interfaces/toast'
 
 function Autorization() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const toastPromise = () => {
-    const resolveAfter0Sec = new Promise((resolve, reject) => {
-      setTimeout(resolve, 0);
-    });
-    toast.promise(resolveAfter0Sec, {
-      success: "You're authorised",
-    })
+  const toastPromise = (status: IToastStatus) => {
+    toast[`${status}`](status === "success" ? t("You're authorized") : t("Incorrect login or password"))
   }
 
   const formik = useFormik({
@@ -34,14 +30,16 @@ function Autorization() {
 
     onSubmit: async (values) => {
       dispatch(isLoadingReducer(true));
-      AuthorizationApi.SignIn(values);
-      const user = await UserApi.getUserInfo(values.login);
-      console.log(user);
-      dispatch(userReducer(user));
-      navigate('/');
+      AuthorizationApi.SignIn(values).then(async () => {
+        const user = await UserApi.getUserInfo(values.login);
+        dispatch(userReducer(user));
+        dispatch(isAuthReducer(true))
+        navigate('/');
+        toastPromise("success");
+      }).catch((err) => {
+        toastPromise("error");
+      });
 
-      dispatch(isAuthReducer(true));
-      toastPromise();
       dispatch(isLoadingReducer(false));
     },
     validate: (values) => {
