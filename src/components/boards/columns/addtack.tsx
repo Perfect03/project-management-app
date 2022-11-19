@@ -1,10 +1,17 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
 import { useFormik } from 'formik';
-import { ITask } from 'interfaces/api';
+import { ITask, IColumn } from 'interfaces/api';
+import TaskApi from '../../../api/task';
+import { useParams } from 'react-router-dom';
 
-export const taskStore = [] as Array<ITask>;
+const AddTask: FC<{ setModal: Dispatch<SetStateAction<boolean>>; currentColumn: IColumn }> = ({
+  setModal,
+  currentColumn,
+}) => {
+  const params = useParams();
+  const current = params.id as string;
+  const column = currentColumn._id as string;
 
-const AddTask: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setModal }) => {
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -12,11 +19,10 @@ const AddTask: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setModal
       description: '',
       userId: 0,
       users: [],
-    },
+    } as ITask,
 
-    onSubmit: (values, { resetForm }) => {
-      taskStore.push(values);
-      //TaskApi.createBoard(values);
+    onSubmit: async (values, { resetForm }) => {
+      await TaskApi.createTaskInColumn(current, column, values);
       setModal(false);
       resetForm({});
     },

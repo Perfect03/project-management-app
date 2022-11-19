@@ -31,7 +31,7 @@ class ColumnApi {
   }
 
   async getColumnById(boardId: string, columnId: string) {
-    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `${columnId}`;
+    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `/${columnId}`;
     try {
       const response = await axios.get(url, this.config);
       return response.data;
@@ -41,7 +41,7 @@ class ColumnApi {
   }
 
   async updateColumnById(boardId: string, columnId: string, column: IColumn) {
-    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `${columnId}`;
+    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `/${columnId}`;
     try {
       const response = await axios.put(url, column, this.config);
     } catch (error) {
@@ -50,7 +50,7 @@ class ColumnApi {
   }
 
   async deleteColumnById(boardId: string, columnId: string) {
-    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `${columnId}`;
+    const url = this.url + 'boards' + `/${boardId}` + '/columns' + `/${columnId}`;
     try {
       const response = await axios.delete(url, this.config);
     } catch (error) {

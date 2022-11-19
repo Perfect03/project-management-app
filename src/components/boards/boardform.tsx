@@ -1,7 +1,6 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
 import './boards.scss';
 import { useFormik } from 'formik';
-import { boardsStore } from './BoardsPage';
 import BoardApi from '../../api/board';
 import { IBoard } from 'interfaces/api';
 
@@ -14,15 +13,14 @@ const BoardForm: FC<{ setModal: Dispatch<SetStateAction<boolean>>; action: strin
       title: '',
       owner: '',
       users: [],
-      _id: '',
     } as IBoard,
 
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
+      const boardId = values._id as string;
       if (action == 'edit') {
-        BoardApi.updateBoardById('6377e64f8b43bd0dfd2e6504', values);
+        await BoardApi.updateBoardById(boardId, values);
       } else if (action == 'create') {
-        boardsStore.push(values);
-        BoardApi.createBoard(values);
+        await BoardApi.createBoard(values);
       }
       setModal(false);
       resetForm({});

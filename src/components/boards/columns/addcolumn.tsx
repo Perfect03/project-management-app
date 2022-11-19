@@ -1,20 +1,22 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
 import '../boards.scss';
 import { useFormik } from 'formik';
-import { columnStore } from '../openedboard/OpenedBoard';
+import { IColumn } from 'interfaces/api';
 import ColumnApi from '../../../api/columns';
+import { useParams } from 'react-router-dom';
 
 const AddColumn: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setModal }) => {
+  const params = useParams();
+  const current = params.id as string;
+
   const formik = useFormik({
     initialValues: {
       title: '',
       order: 0,
-      boardId: '',
-    },
+    } as IColumn,
 
-    onSubmit: (values, { resetForm }) => {
-      columnStore.push(values);
-      //ColumnApi.createColumnInBoard('id', values);
+    onSubmit: async (values, { resetForm }) => {
+      await ColumnApi.createColumnInBoard(current, values);
       setModal(false);
       resetForm({});
     },

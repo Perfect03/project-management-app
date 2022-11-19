@@ -9,7 +9,9 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import UserApi from 'api/user';
+import BoardApi from 'api/board';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
+import { boardsReducer } from 'helpers/redux/boardsDataSlice';
 
 function Autorization() {
   const navigate = useNavigate();
@@ -32,6 +34,11 @@ function Autorization() {
       });
 
       navigate('/');
+
+      dispatch(isAuthReducer(true));
+
+      const boards = await BoardApi.getAllBoards();
+      dispatch(boardsReducer(boards));
 
       dispatch(isLoadingReducer(false));
     },

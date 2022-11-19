@@ -7,15 +7,15 @@ import './task.scss';
 
 const NewTask = ({ values }: { values: ITask }) => {
   const [isModalDel, setModalDel] = useState(false);
-
   const { id } = useParams();
+  const taskId = values._id as string;
   const handleChangeDelete = () => {
     setModalDel(true);
   };
 
   return (
     <>
-      <li>
+      <li className="placeholder">
         <div className="task" draggable="true">
           <div className="task-info">
             <h3 className="task-info-title">{values.title}</h3>
@@ -28,7 +28,7 @@ const NewTask = ({ values }: { values: ITask }) => {
         <Modal
           isVisible={isModalDel}
           title=""
-          content={<DeleteBoard setModalDel={setModalDel} />}
+          content={<DeleteBoard setModalDel={setModalDel} action="task" elem={taskId} />}
           onClose={() => setModalDel(false)}
         />
       )}

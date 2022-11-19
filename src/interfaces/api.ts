@@ -13,6 +13,7 @@ export type IGetAllUsers = [
 ];
 
 export interface IBoard {
+  _id?: string;
   title: string;
   owner: string;
   users: string[];
@@ -21,7 +22,8 @@ export interface IBoard {
 export interface IColumn {
   title: string;
   order: number;
-  boardId?: string;
+  boardId: string;
+  _id?: string;
 }
 
 export interface ITask {
@@ -30,6 +32,9 @@ export interface ITask {
   description: string;
   userId: number;
   users: string[];
+  boardId?: string;
+  columnId?: string;
+  _id?: string;
 }
 
 export interface ITaskInSet {

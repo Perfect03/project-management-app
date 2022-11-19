@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { IColumn } from 'interfaces/api';
 import { DeleteBoard } from '../deleteboard/deleteboard';
@@ -6,12 +6,25 @@ import { Modal } from 'components/modal/Modal';
 import './column.scss';
 import { AddTask } from './addtack';
 import { NewTask } from './new-task';
-import { taskStore } from './addtack';
+import TaskApi from '../../../api/task';
 
 const NewColumn = ({ values }: { values: IColumn }) => {
   const [isModalDel, setModalDel] = useState(false);
   const [isModalAdd, setModalAdd] = useState(false);
-  const { id } = useParams();
+  const params = useParams();
+  const currentBoard = params.id as string;
+  const ColumnId = values._id as string;
+  const [isTask, setTask] = useState([]);
+
+  useEffect(() => {
+    const getColumn = async () => {
+      const tasks = await TaskApi.getTasksInColumn(currentBoard, ColumnId);
+      setTask(tasks);
+    };
+    getColumn();
+    return () => {};
+  }, [currentBoard, ColumnId, values]);
+
   const handleChangeDelete = () => {
     setModalDel(true);
   };
@@ -22,7 +35,7 @@ const NewColumn = ({ values }: { values: IColumn }) => {
   return (
     <>
       <li>
-        <div className="column" draggable="true">
+        <div className="column" draggable="true" data-id={ColumnId}>
           <div className="column-info">
             <textarea
               className="column-info-title"
@@ -33,8 +46,8 @@ const NewColumn = ({ values }: { values: IColumn }) => {
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>
           </div>
           <ul className="column-tasllist">
-            {taskStore.map((values) => {
-              return <NewTask values={values} key={taskStore.indexOf(values)} />;
+            {isTask.map((values) => {
+              return <NewTask values={values} key={isTask.indexOf(values)} />;
             })}
           </ul>
           <div className="column-buttons">
@@ -48,7 +61,7 @@ const NewColumn = ({ values }: { values: IColumn }) => {
         <Modal
           isVisible={isModalDel}
           title=""
-          content={<DeleteBoard setModalDel={setModalDel} />}
+          content={<DeleteBoard setModalDel={setModalDel} action="column" elem={ColumnId} />}
           onClose={() => setModalDel(false)}
         />
       )}
@@ -56,7 +69,7 @@ const NewColumn = ({ values }: { values: IColumn }) => {
         <Modal
           isVisible={isModalAdd}
           title="Add new task:"
-          content={<AddTask setModal={setModalAdd} />}
+          content={<AddTask setModal={setModalAdd} currentColumn={values} />}
           onClose={() => setModalAdd(false)}
         />
       )}

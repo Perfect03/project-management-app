@@ -26,7 +26,6 @@ class BoardApi {
     console.log(url);
     try {
       const response = await axios.post(url, board, this.config);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +35,6 @@ class BoardApi {
     const url = this.url + 'boards' + `/${boardId}`;
     try {
       const response = await axios.get(url, this.config);
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);
