@@ -2,7 +2,7 @@ import React from 'react';
 import './profile.scss';
 import '../forms/formStyles.scss';
 import UserApi from '../../api/user';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import { Name } from 'components/forms/Name';
 import { Login } from 'components/forms/Login';
 import { Password } from 'components/forms/Password';
@@ -21,8 +21,8 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const toastUpdatePromise = () => {
-    toast.warn(t("Profile has updated"))
-  }
+    toast.warn(t('Profile has updated'));
+  };
 
   const state = store.getState();
   const user = state.userData.user;

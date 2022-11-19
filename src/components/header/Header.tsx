@@ -6,7 +6,7 @@ import { SignupLogin } from './header-components/SignupLogin';
 import { AfterLogin } from './header-components/AfterLogin';
 import { Boards } from './header-components/Boards';
 import { useSelector } from 'react-redux';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 import { IGetState } from 'interfaces/redux';
 
 const Header = () => {
@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <header className="header">
         <div className="header-gohome">
           <NavLink to="/">Your planer</NavLink>

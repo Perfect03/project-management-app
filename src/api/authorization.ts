@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { IUserAuth } from 'interfaces/api';
 import { setCookie } from 'api/cokie';
 import UserApi from './user';
@@ -14,13 +14,14 @@ class AuthorizationApi {
   async SignUp(user: IUserAuth) {
     try {
       const url = this.url + 'auth/signup';
-    await axios.post(url, user)
-    .then(function () {
+      await axios.post(url, user).then(function () {
         console.log('User is registered');
       });
     } catch (error) {
-      console.log('User is already existed');
-      throw error;
+      if ((error as AxiosError).response?.status === 409) {
+        console.log('User is already existed');
+        throw error;
+      }
     }
     /*.catch((error) => {
       if (error.response.status === 409) console.log('User is already existed');

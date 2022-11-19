@@ -3,14 +3,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 
 const AfterLogin = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const toastLogOutPromise = () => {
-    toast.info(t("You're logged out"))
-  }
+    toast.info(t("You're logged out"));
+  };
 
   const handleLogOut = () => {
     dispatch(isAuthReducer(false));
