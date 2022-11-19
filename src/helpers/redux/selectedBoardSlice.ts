@@ -4,7 +4,7 @@ import { ISelectedBoard } from 'interfaces/redux';
 const initialState: ISelectedBoard = {
   isLoading: false,
   error: '',
-  board: {},
+  board: { _id: '', title: '', owner: '', users: [] },
 };
 
 export const selectedBoardDataSlice = createSlice({

@@ -1,3 +1,5 @@
+import { IBoard } from "./api";
+
 export interface IUserData {
   isAuth: boolean;
   isLoading: boolean;
@@ -8,13 +10,13 @@ export interface IUserData {
 export interface IBoardsData {
   isLoading: boolean;
   error: string;
-  boards: [];
+  boards: IBoard[];
 }
 
 export interface ISelectedBoard {
   isLoading: boolean;
   error: string;
-  board: {};
+  board: IBoard;
 }
 
 export interface IGetState {

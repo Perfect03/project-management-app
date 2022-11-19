@@ -31,10 +31,12 @@ class UserApi {
     const findedUser = users.find((el) => {
       return el.login === login;
     });
+    this.id = findedUser!._id;
     return findedUser;
   }
 
   async getUserById() {
+    console.log(this.id);
     const url = this.url + 'users/' + this.id;
     try {
       const response = await axios.get(url, this.config);

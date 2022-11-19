@@ -1,0 +1,72 @@
+.column {
+    width: 270px;
+    padding: 5px;
+    cursor: grab;
+    transition: 0.2s linear;
+    box-shadow: -2px -2px 10px #fff, 2px 2px 10px #5c511a;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    justify-content: space-around;
+    &:active {
+        cursor: grabbing;
+    }
+};
+
+.column-info {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    textarea{
+        width: 250px;
+        max-height: 60px;
+        background: inherit;
+        border: none;
+        outline: none;
+        resize: none;
+        font-size: 20px;
+        color: #783004;
+        font-weight: 600;
+        padding: 10px;
+    }
+};
+
+.column-buttons-delete {
+    width: 25px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    background-image: url(../../../assets/cross.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 70%;
+    transition: 0.2s linear;
+    &:hover {
+        background-size: 100%;
+    }
+};
+
+.column-tasllist {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+};
+
+.column-buttons {
+    width: 100%;
+    display: flex;
+};
+
+.column-buttons-add {
+    width: 40%;
+    height: 30px;
+    margin: 5px auto;
+    border: none;
+    font: inherit;
+    color: #7a7a7a;
+    cursor: pointer;
+    transition: 0.2s linear;
+    &:hover {
+        color: #783004;
+    }
+};
