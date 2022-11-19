@@ -14,6 +14,7 @@ const BoardForm: FC<{ setModal: Dispatch<SetStateAction<boolean>>; action: strin
       title: '',
       owner: '',
       users: [],
+      _id: '',
     } as IBoard,
 
     onSubmit: (values, { resetForm }) => {

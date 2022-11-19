@@ -14,7 +14,7 @@ export interface IBoardsData {
 export interface ISelectedBoard {
   isLoading: boolean;
   error: string;
-  board: {};
+  board: { title: string; owner: string; users: string[] };
 }
 
 export interface IGetState {

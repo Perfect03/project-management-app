@@ -25,20 +25,18 @@ const NewBoard: FC<{
   return (
     <>
       <li>
-        <a>
-          <div className="board">
-            <div className="board-img"></div>
-            <div className="board-info">
-              <h3 className="board-info-title">{values.title}</h3>
-              <p className="board-info-owner">{values.owner}</p>
-              <p className="board-info-users">{values.users}</p>
-            </div>
-            <div className="board-buttons">
-              <button className="board-buttons-edit" onClick={handleChangeEdit}></button>
-              <button className="board-buttons-delete" onClick={handleChangeDelete}></button>
-            </div>
+        <div className="board">
+          <div className="board-img"></div>
+          <div className="board-info">
+            <h3 className="board-info-title">{values.title}</h3>
+            <p className="board-info-owner">{values.owner}</p>
+            <p className="board-info-users">{values.users}</p>
           </div>
-        </a>
+          <div className="board-buttons">
+            <button className="board-buttons-edit" onClick={handleChangeEdit}></button>
+            <button className="board-buttons-delete" onClick={handleChangeDelete}></button>
+          </div>
+        </div>
       </li>
       {isModalDel && (
         <Modal
