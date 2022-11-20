@@ -2,6 +2,7 @@ import React from 'react';
 import './profile.scss';
 import '../forms/formStyles.scss';
 import UserApi from '../../api/user';
+import { toast } from 'react-toastify';
 import { Name } from 'components/forms/Name';
 import { Login } from 'components/forms/Login';
 import { Password } from 'components/forms/Password';
@@ -19,6 +20,9 @@ const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const toastUpdatePromise = () => {
+    toast.warn(t('Profile has updated'));
+  };
 
   const state = store.getState();
   const user = state.userData.user;
@@ -36,6 +40,7 @@ const Profile = () => {
       dispatch(userReducer(newUserInfo));
       dispatch(isLoadingReducer(false));
       navigate('/');
+      toastUpdatePromise();
     },
     validate: (values) => {
       return FormValidate(values);
@@ -49,19 +54,19 @@ const Profile = () => {
         <div className="user-form-content-part">
           <Name onChange={formik.handleChange} value={formik.values.name} />
           {formik.errors.name ? (
-            <span className="user-form__error">{formik.errors.name}</span>
+            <span className="user-form__error">{t(formik.errors.name)}</span>
           ) : null}
         </div>
         <div className="user-form-content-part">
           <Login onChange={formik.handleChange} value={formik.values.login} />
           {formik.errors.login ? (
-            <span className="user-form__error">{formik.errors.login}</span>
+            <span className="user-form__error">{t(formik.errors.login)}</span>
           ) : null}
         </div>
         <div className="user-form-content-part">
           <Password onChange={formik.handleChange} value={formik.values.password} />
           {formik.errors.password ? (
-            <span className="user-form__error">{formik.errors.password}</span>
+            <span className="user-form__error">{t(formik.errors.password)}</span>
           ) : null}
         </div>
         <UpdateButton />
