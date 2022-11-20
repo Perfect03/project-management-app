@@ -4,13 +4,13 @@ export interface IUserAuth {
   password: string;
 }
 
-export type IGetAllUsers = [
-  {
-    _id: string;
-    name: string;
-    login: string;
-  }
-];
+export type IGetUser = {
+  _id: string;
+  name: string;
+  login: string;
+};
+
+export type IGetAllUsers = IGetUser[];
 
 export interface IBoard {
   _id?: string;

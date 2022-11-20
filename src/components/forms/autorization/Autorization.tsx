@@ -8,15 +8,25 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import UserApi from 'api/user';
+import { setCookie } from 'api/cokie';
 import BoardApi from 'api/board';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
+import { IToastStatus } from '../../../interfaces/toast';
+import { IGetUser } from '../../../interfaces/api';
 import { boardsReducer } from 'helpers/redux/boardsDataSlice';
 
 function Autorization() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const toastPromise = (status: IToastStatus) => {
+    toast[`${status}`](
+      status === 'success' ? t("You're authorized") : t('Incorrect login or password')
+    );
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -26,20 +36,18 @@ function Autorization() {
 
     onSubmit: async (values) => {
       dispatch(isLoadingReducer(true));
-
-      AuthorizationApi.SignIn(values).then(async () => {
-        const user = await UserApi.getUserInfo(values.login);
-        dispatch(userReducer(user));
-        dispatch(isAuthReducer(true));
-      });
-
-      navigate('/');
-
-      dispatch(isAuthReducer(true));
-
-      const boards = await BoardApi.getAllBoards();
-      dispatch(boardsReducer(boards));
-
+      AuthorizationApi.SignIn(values)
+        .then(async () => {
+          const user = await UserApi.getUserInfo(values.login);
+          setCookie('login', (user as IGetUser).login, 365);
+          dispatch(userReducer(user));
+          dispatch(isAuthReducer(true));
+          navigate('/');
+          toastPromise('success');
+        })
+        .catch((error) => {
+          toastPromise('error');
+        });
       dispatch(isLoadingReducer(false));
     },
     validate: (values) => {

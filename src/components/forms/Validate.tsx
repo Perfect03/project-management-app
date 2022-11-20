@@ -12,9 +12,9 @@ const FormValidate = (e: IUserAuth) => {
     errors.name = 'Too short';
   } else if (e.name && /[0-9]/.test(e.name)) {
     errors.name = 'Use only letters';
-  } else if (e.name && !/[A-Z]/.test(e.name[0])) {
+  } else if (e.name && !/[A-Z, А-Я]/.test(e.name[0])) {
     errors.name = 'The first letter must be uppercase';
-  } else if (e.login && !/[A-Z]/.test(e.login[0])) {
+  } else if (e.login && !/[A-Z, А-Я]/.test(e.login[0])) {
     errors.login = 'The first letter must be uppercase';
   } else if (e.login && e.login.length < 5) {
     errors.login = 'Too short';
@@ -22,7 +22,7 @@ const FormValidate = (e: IUserAuth) => {
     errors.password = 'Too short';
   } else if (
     (e.password && !/[0-9]/.test(e.password)) ||
-    (e.password && !/[a-z, A-Z]/.test(e.password))
+    (e.password && !/[a-z, A-Z, а-я, А-Я]/.test(e.password))
   ) {
     errors.password = 'Use letters and digits';
   }
