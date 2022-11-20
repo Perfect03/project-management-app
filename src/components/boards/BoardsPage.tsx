@@ -4,14 +4,12 @@ import { Modal } from '../modal/Modal';
 import { NewBoard } from './newboard/new-board';
 import { IBoard } from 'interfaces/api';
 import { BoardForm } from './boardform';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { IGetState } from 'interfaces/redux';
 import { Link } from 'react-router-dom';
 
 const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
-  const { t } = useTranslation();
 
   const boardsStore = useSelector<IGetState>(
     (state) => state.boardsData.boards

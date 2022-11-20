@@ -5,6 +5,7 @@ const initialState: ISelectedBoard = {
   isLoading: false,
   error: '',
   board: { _id: '', title: '', owner: '', users: [] },
+  columns: [],
 };
 
 export const selectedBoardDataSlice = createSlice({
@@ -20,10 +21,13 @@ export const selectedBoardDataSlice = createSlice({
     boardReducer(state, action) {
       state.board = action.payload;
     },
+    columnReducer(state, action) {
+      state.columns = action.payload;
+    },
   },
 });
 
-export const { isLoadingReducer, isErrorSelectedBoard, boardReducer } =
+export const { isLoadingReducer, isErrorSelectedBoard, boardReducer, columnReducer } =
   selectedBoardDataSlice.actions;
 
 export default selectedBoardDataSlice.reducer;

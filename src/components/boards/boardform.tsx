@@ -3,12 +3,15 @@ import './boards.scss';
 import { useFormik } from 'formik';
 import BoardApi from '../../api/board';
 import { IBoard } from 'interfaces/api';
+import { useDispatch } from 'react-redux';
+import { boardsReducer } from 'helpers/redux/boardsDataSlice';
 
 const BoardForm: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
   action: string;
   elem: string;
 }> = ({ setModal, action, elem }) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -18,11 +21,12 @@ const BoardForm: FC<{
 
     onSubmit: async (values, { resetForm }) => {
       if (action == 'edit') {
-        console.log('пробую исправить', elem, values);
         await BoardApi.updateBoardById(elem, values);
       } else if (action == 'create') {
         await BoardApi.createBoard(values);
       }
+      const boards = await BoardApi.getAllBoards();
+      dispatch(boardsReducer(boards));
       setModal(false);
       resetForm({});
     },

@@ -4,6 +4,9 @@ import ColumnApi from '../../../api/columns';
 import BoardApi from '../../../api/board';
 import './deleteboard.scss';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { boardsReducer } from 'helpers/redux/boardsDataSlice';
+import { columnReducer } from 'helpers/redux/selectedBoardSlice';
 
 const DeleteBoard = ({
   setModalDel,
@@ -14,17 +17,22 @@ const DeleteBoard = ({
   action: string;
   elem: string;
 }) => {
+  const dispatch = useDispatch();
   const params = useParams();
   const currentBoard = params.id as string;
 
   async function onSubmit() {
     if (action == 'task') {
+      console.log('удаляем таск', elem);
       await TaskApi.deleteTaskById(currentBoard, elem, elem);
     } else if (action == 'column') {
       await ColumnApi.deleteColumnById(currentBoard, elem);
+      const column = await ColumnApi.getColumnsInBoard(currentBoard);
+      dispatch(columnReducer(column));
     } else if (action == 'board') {
-      console.log('пытаюсь');
       await BoardApi.deleteBoardById(elem);
+      const boards = await BoardApi.getAllBoards();
+      dispatch(boardsReducer(boards));
     }
     setModalDel(false);
   }

@@ -4,7 +4,6 @@ import './header.scss';
 import { Language } from './header-components/Language';
 import { SignupLogin } from './header-components/SignupLogin';
 import { AfterLogin } from './header-components/AfterLogin';
-import { Boards } from './header-components/Boards';
 import { useSelector } from 'react-redux';
 import { IGetState } from 'interfaces/redux';
 
@@ -28,7 +27,6 @@ const Header = () => {
           <NavLink to="/">Your planner</NavLink>
         </div>
         <div className="header-content">
-          <Boards />
           <Language />
           {isAuth ? <AfterLogin /> : <SignupLogin />}
         </div>

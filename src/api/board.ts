@@ -23,7 +23,6 @@ class BoardApi {
 
   async createBoard(board: IBoard) {
     const url = this.url + 'boards';
-    console.log(url);
     try {
       const response = await axios.post(url, board, this.config);
     } catch (error) {

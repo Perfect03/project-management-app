@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import { Boards } from './Boards';
 
 const AfterLogin = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const AfterLogin = () => {
 
   return (
     <>
+      <Boards />
       <NavLink to="/profile" className="header-content__autorization">
         {t('Profile')}
       </NavLink>
