@@ -1,11 +1,6 @@
-import UserApi from 'api/user';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import { storageUserAccInfo } from '../components/utils/storage';
 import { baseUrl } from './authorization';
-import { isAuthReducer, userReducer } from 'helpers/redux/userDataSlice';
-import { IGetUser } from 'interfaces/api';
-//import { setAuth } from 'components/forms/setAuth';
 
 export const setCookie = (cname: string, cvalue: string, exdays?: number) => {
   const d = new Date();
@@ -34,21 +29,9 @@ export const checkCookie = (cname1: string, cname2: string) => {
   const login = getCookie(`${cname1}`);
   const token = getCookie(`${cname2}`);
   return login;
-  /*console.log(login, token);
-  if (login) {
-    try {
-      const user = await UserApi.getUserInfo(login);
-      return user;
-    } catch (error) {
-      console.log('Connection error');
-      return error;
-    }
-  } else {
-    console.log('there is no cookie');
-  }*/
 };
 
-const getUserByCookie = async (login: string, token: string) => {
+/*const getUserByCookie = async (login: string, token: string) => {
   try {
     const config = {
       headers: {
@@ -66,7 +49,7 @@ const getUserByCookie = async (login: string, token: string) => {
     console.error(error);
   }
 };
-
+*/
 export const deleteCookie = (cname1: string, cname2: string) => {
   setCookie(cname1, '');
   setCookie(cname2, '');

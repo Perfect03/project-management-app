@@ -9,8 +9,9 @@ import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { IGetState } from 'interfaces/redux';
 import { checkCookie } from 'api/cokie';
-import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
+import { isAuthReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { useDispatch } from 'react-redux';
+import UserApi from 'api/user';
 
 const Header = () => {
   window.addEventListener('scroll', Header_change);
@@ -23,7 +24,26 @@ const Header = () => {
     }
   }
 
-  checkCookie('login', 'token');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(2);
+    const userLogin = checkCookie('login', 'token');
+    console.log(userLogin);
+    if (userLogin) {setLogin(userLogin)} else {
+      console.log('there is no cookie');
+    };
+  }, [])
+
+  const setLogin = async (userLogin: string) => {
+    try {
+      const user = await UserApi.getUserInfo(userLogin);
+      dispatch(userReducer(user));
+      dispatch(isAuthReducer(true));
+    } catch (error) {
+      console.log('Connection error');
+    }
+  }
 
   const isAuth = useSelector((state: IGetState) => state.userData.isAuth);
   console.log(isAuth);

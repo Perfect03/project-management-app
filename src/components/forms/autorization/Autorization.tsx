@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../formStyles.scss';
 import AuthorizationApi from '../../../api/authorization';
 import { Login } from 'components/forms/Login';
@@ -14,7 +14,6 @@ import { setCookie } from 'api/cokie';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { IToastStatus } from '../../../interfaces/toast';
 import { IGetUser } from '../../../interfaces/api';
-import { checkCookie } from 'api/cokie';
 
 function Autorization() {
   const navigate = useNavigate();
@@ -26,24 +25,6 @@ function Autorization() {
       status === 'success' ? t("You're authorized") : t('Incorrect login or password')
     );
   };
-
-  useEffect(() => {
-    console.log(2);
-    const userLogin = checkCookie('login', 'token');
-    console.log(userLogin);
-    if (userLogin) {async () => {
-      try {
-        const user = await UserApi.getUserInfo(userLogin);
-        dispatch(userReducer(user));
-        dispatch(isAuthReducer(true));
-      } catch (error) {
-        console.log('Connection error');
-      }
-    }} else {
-      console.log('there is no cookie');
-    };
-  }, [])
-
 
   const formik = useFormik({
     initialValues: {

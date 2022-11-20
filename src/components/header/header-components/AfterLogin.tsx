@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { deleteCookie } from 'api/cokie';
 
 const AfterLogin = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const AfterLogin = () => {
     dispatch(isAuthReducer(false));
     const emptyUser = { _id: '', name: '', login: '' };
     dispatch(userReducer(emptyUser));
+    deleteCookie('login', 'token');
     toastLogOutPromise();
   };
 

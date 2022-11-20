@@ -1,9 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { IUserAuth } from 'interfaces/api';
 import { setCookie } from 'api/cokie';
-import UserApi from './user';
-import { useDispatch } from 'react-redux';
-import { isErrorUserData } from 'helpers/redux/userDataSlice';
 
 export const baseUrl = 'https://project-management-backend.up.railway.app/';
 
