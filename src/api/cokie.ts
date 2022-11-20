@@ -1,6 +1,11 @@
+import UserApi from 'api/user';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { storageUserAccInfo } from '../components/utils/storage';
 import { baseUrl } from './authorization';
+import { isAuthReducer, userReducer } from 'helpers/redux/userDataSlice';
+import { IGetUser } from 'interfaces/api';
+//import { setAuth } from 'components/forms/setAuth';
 
 export const setCookie = (cname: string, cvalue: string, exdays?: number) => {
   const d = new Date();
@@ -25,29 +30,37 @@ export const getCookie = (cname: string) => {
   return '';
 };
 
-export const checkCookie = async (cname1: string, cname2: string) => {
-  const userId = getCookie(`${cname1}`);
+export const checkCookie = (cname1: string, cname2: string) => {
+  const login = getCookie(`${cname1}`);
   const token = getCookie(`${cname2}`);
-  if (userId && token) {
-    await getUserByCookie(userId, token);
+  return login;
+  /*console.log(login, token);
+  if (login) {
+    try {
+      const user = await UserApi.getUserInfo(login);
+      return user;
+    } catch (error) {
+      console.log('Connection error');
+      return error;
+    }
   } else {
     console.log('there is no cookie');
-  }
+  }*/
 };
 
-const getUserByCookie = async (userId: string, token: string) => {
+const getUserByCookie = async (login: string, token: string) => {
   try {
     const config = {
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${token}`,
       },
     };
-    const response = await axios.get(`${baseUrl}users/${userId}`, config);
-    console.log(response.statusText);
+    const response = await axios.get(`${baseUrl}users/${login}`, config);
+    console.log(response);
     storageUserAccInfo.name = response.data.name;
     storageUserAccInfo.email = response.data.email;
     storageUserAccInfo.token = token;
-    storageUserAccInfo.userId = userId;
+    storageUserAccInfo.userId = login;
     storageUserAccInfo.message = 'Authenticated';
   } catch (error) {
     console.error(error);

@@ -8,6 +8,9 @@ import { Boards } from './header-components/Boards';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { IGetState } from 'interfaces/redux';
+import { checkCookie } from 'api/cokie';
+import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
+import { useDispatch } from 'react-redux';
 
 const Header = () => {
   window.addEventListener('scroll', Header_change);
@@ -20,8 +23,10 @@ const Header = () => {
     }
   }
 
-  const isAuth = useSelector((state: IGetState) => state.userData.isAuth);
+  checkCookie('login', 'token');
 
+  const isAuth = useSelector((state: IGetState) => state.userData.isAuth);
+  console.log(isAuth);
   return (
     <>
       <ToastContainer />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../formStyles.scss';
 import AuthorizationApi from '../../../api/authorization';
 import { Login } from 'components/forms/Login';
@@ -10,8 +10,11 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import UserApi from 'api/user';
+import { setCookie } from 'api/cokie';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { IToastStatus } from '../../../interfaces/toast';
+import { IGetUser } from '../../../interfaces/api';
+import { checkCookie } from 'api/cokie';
 
 function Autorization() {
   const navigate = useNavigate();
@@ -24,6 +27,24 @@ function Autorization() {
     );
   };
 
+  useEffect(() => {
+    console.log(2);
+    const userLogin = checkCookie('login', 'token');
+    console.log(userLogin);
+    if (userLogin) {async () => {
+      try {
+        const user = await UserApi.getUserInfo(userLogin);
+        dispatch(userReducer(user));
+        dispatch(isAuthReducer(true));
+      } catch (error) {
+        console.log('Connection error');
+      }
+    }} else {
+      console.log('there is no cookie');
+    };
+  }, [])
+
+
   const formik = useFormik({
     initialValues: {
       login: '',
@@ -35,15 +56,15 @@ function Autorization() {
       AuthorizationApi.SignIn(values)
         .then(async () => {
           const user = await UserApi.getUserInfo(values.login);
+          setCookie('login', (user as IGetUser).login, 365);
           dispatch(userReducer(user));
           dispatch(isAuthReducer(true));
           navigate('/');
           toastPromise('success');
         })
-        .catch((err) => {
+        .catch((error) => {
           toastPromise('error');
         });
-
       dispatch(isLoadingReducer(false));
     },
     validate: (values) => {

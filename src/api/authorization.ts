@@ -35,6 +35,8 @@ class AuthorizationApi {
       setCookie('token', response.data.token, 30);
       return response.data.token;
     } catch (error) {
+      if ((error as AxiosError).response?.status === 401)
+        console.log('Incorrect login or password');
       throw error;
     }
   }

@@ -13,6 +13,8 @@ import UserApi from 'api/user';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { toast } from 'react-toastify';
 import store from 'helpers/redux/store';
+import { setCookie } from 'api/cokie';
+import { IGetUser } from '../../../interfaces/api';
 import { IToastStatus } from '../../../interfaces/toast';
 
 function Registration() {
@@ -40,6 +42,7 @@ function Registration() {
       AuthorizationApi.SignUp(values)
         .then(async () => {
           const user = await UserApi.getUserInfo(values.login);
+          setCookie('login', (user as IGetUser).login, 365);
           dispatch(userReducer(user));
           dispatch(isAuthReducer(true));
           navigate('/');
@@ -49,7 +52,6 @@ function Registration() {
           toastPromise('error');
         });
       dispatch(isLoadingReducer(false));
-      //AuthorizationApi.SignUp(values);
     },
     validate: (values) => {
       return FormValidate(values);

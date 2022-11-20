@@ -35,5 +35,6 @@
     "Profile has removed": "Профиль удалён",
     "You're successfully registered!": "Вы успешно зарегистрированы!",
     "User is already existed": "Такой профиль уже существует",
-    "Profile has updated": "Ваш профиль обновлён"
+    "Profile has updated": "Ваш профиль обновлён",
+    "Connection error": "Ошибка подключения"
 }
