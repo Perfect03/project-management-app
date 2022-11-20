@@ -24,18 +24,16 @@ const BoardsPage = () => {
           <>
             {boardsStore.map((values) => {
               return (
-                <Link
-                  key={values._id}
-                  to={`/boards/${values._id}`}
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <NewBoard
-                    values={values}
-                    key={values._id}
-                    setModal={setModal}
-                    isModal={isModal}
-                  />
-                </Link>
+                <li key={values._id} onChange={(e) => e.stopPropagation()}>
+                  <Link key={values._id} to={`/boards/${values._id}`}>
+                    <NewBoard
+                      values={values}
+                      key={values._id}
+                      setModal={setModal}
+                      isModal={isModal}
+                    />
+                  </Link>
+                </li>
               );
             })}
           </>

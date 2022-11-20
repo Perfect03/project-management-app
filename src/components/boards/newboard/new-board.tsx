@@ -14,30 +14,32 @@ const NewBoard: FC<{
   const [isModalDel, setModalDel] = useState(false);
   const boardId = values._id as string;
 
-  const handleChangeEdit = (event) => {
-    event.stopPropagation();
-    setModalEdit(true);
-  };
-  const handleChangeDelete = (event) => {
-    event.stopPropagation();
-    setModalDel(true);
-  };
   return (
     <>
-      <li>
-        <div className="board" data-id={boardId}>
-          <div className="board-img"></div>
-          <div className="board-info">
-            <h3 className="board-info-title">{values.title}</h3>
-            <p className="board-info-owner">{values.owner}</p>
-            <p className="board-info-users">{values.users}</p>
-          </div>
-          <div className="board-buttons">
-            <button className="board-buttons-edit" onClick={handleChangeEdit}></button>
-            <button className="board-buttons-delete" onClick={handleChangeDelete}></button>
-          </div>
+      <div className="board" data-id={boardId}>
+        <div className="board-img"></div>
+        <div className="board-info">
+          <h3 className="board-info-title">{values.title}</h3>
+          <p className="board-info-owner">{values.owner}</p>
+          <p className="board-info-users">{values.users}</p>
         </div>
-      </li>
+        <div className="board-buttons">
+          <button
+            className="board-buttons-edit"
+            onClick={(e) => {
+              setModalEdit(true);
+              e.stopPropagation();
+            }}
+          ></button>
+          <button
+            className="board-buttons-delete"
+            onClick={(e) => {
+              setModalDel(true);
+              e.stopPropagation();
+            }}
+          ></button>
+        </div>
+      </div>
       {isModalDel && (
         <Modal
           isVisible={isModalDel}
