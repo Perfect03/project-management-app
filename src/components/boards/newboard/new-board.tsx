@@ -28,14 +28,14 @@ const NewBoard: FC<{
             className="board-buttons-edit"
             onClick={(e) => {
               setModalEdit(true);
-              e.stopPropagation();
+              e.preventDefault();
             }}
           ></button>
           <button
             className="board-buttons-delete"
             onClick={(e) => {
               setModalDel(true);
-              e.stopPropagation();
+              e.preventDefault();
             }}
           ></button>
         </div>
@@ -52,7 +52,7 @@ const NewBoard: FC<{
         <Modal
           isVisible={isModalEdit}
           title="Edit your board:"
-          content={<BoardForm setModal={setModalEdit} action="edit" />}
+          content={<BoardForm setModal={setModalEdit} action="edit" elem={boardId} />}
           onClose={() => setModalEdit(false)}
         />
       )}

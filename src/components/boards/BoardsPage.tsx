@@ -24,15 +24,16 @@ const BoardsPage = () => {
           <>
             {boardsStore.map((values) => {
               return (
-                <li key={values._id} onChange={(e) => e.stopPropagation()}>
-                  <Link key={values._id} to={`/boards/${values._id}`}>
-                    <NewBoard
-                      values={values}
-                      key={values._id}
-                      setModal={setModal}
-                      isModal={isModal}
-                    />
+                <li key={values._id + 'li'}>
+                  <Link key={values._id + 'a'} to={`/boards/${values._id}`}>
+                    <div className="board-link"></div>
                   </Link>
+                  <NewBoard
+                    values={values}
+                    key={values._id}
+                    setModal={setModal}
+                    isModal={isModal}
+                  />
                 </li>
               );
             })}
@@ -47,7 +48,7 @@ const BoardsPage = () => {
           <Modal
             isVisible={isModal}
             title="Create new board:"
-            content={<BoardForm setModal={setModal} action="create" />}
+            content={<BoardForm setModal={setModal} action="create" elem="" />}
             onClose={() => setModal(false)}
           />
         )}

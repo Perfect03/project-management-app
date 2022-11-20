@@ -60,3 +60,9 @@
     background-image: url(../../../assets/bin.png);
     @extend %bgimg-shared;
 }
+
+.board-link {
+    width: 265px;
+    height: 138px;
+    position: absolute;
+}

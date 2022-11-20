@@ -25,7 +25,7 @@ const Header = () => {
     <>
       <header className="header">
         <div className="header-gohome">
-          <NavLink to="/">Your planer</NavLink>
+          <NavLink to="/">Your planner</NavLink>
         </div>
         <div className="header-content">
           <Boards />

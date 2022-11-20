@@ -23,7 +23,8 @@ const DeleteBoard = ({
     } else if (action == 'column') {
       await ColumnApi.deleteColumnById(currentBoard, elem);
     } else if (action == 'board') {
-      await BoardApi.deleteBoardById(currentBoard);
+      console.log('пытаюсь');
+      await BoardApi.deleteBoardById(elem);
     }
     setModalDel(false);
   }

@@ -4,10 +4,11 @@ import { useFormik } from 'formik';
 import BoardApi from '../../api/board';
 import { IBoard } from 'interfaces/api';
 
-const BoardForm: FC<{ setModal: Dispatch<SetStateAction<boolean>>; action: string }> = ({
-  setModal,
-  action,
-}) => {
+const BoardForm: FC<{
+  setModal: Dispatch<SetStateAction<boolean>>;
+  action: string;
+  elem: string;
+}> = ({ setModal, action, elem }) => {
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -16,9 +17,9 @@ const BoardForm: FC<{ setModal: Dispatch<SetStateAction<boolean>>; action: strin
     } as IBoard,
 
     onSubmit: async (values, { resetForm }) => {
-      const boardId = values._id as string;
       if (action == 'edit') {
-        await BoardApi.updateBoardById(boardId, values);
+        console.log('пробую исправить', elem, values);
+        await BoardApi.updateBoardById(elem, values);
       } else if (action == 'create') {
         await BoardApi.createBoard(values);
       }
