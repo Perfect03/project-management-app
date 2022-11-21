@@ -30,10 +30,12 @@ const Header = () => {
     console.log(2);
     const userLogin = checkCookie('login', 'token');
     console.log(userLogin);
-    if (userLogin) {setLogin(userLogin)} else {
+    if (userLogin) {
+      setLogin(userLogin);
+    } else {
       console.log('there is no cookie');
-    };
-  }, [])
+    }
+  }, []);
 
   const setLogin = async (userLogin: string) => {
     try {
@@ -43,7 +45,7 @@ const Header = () => {
     } catch (error) {
       console.log('Connection error');
     }
-  }
+  };
 
   const isAuth = useSelector((state: IGetState) => state.userData.isAuth);
   console.log(isAuth);

@@ -14,6 +14,8 @@ import { setCookie } from 'api/cokie';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { IToastStatus } from '../../../interfaces/toast';
 import { IGetUser } from '../../../interfaces/api';
+import BoardsApi from '../../../api/board';
+import { boardsReducer } from 'helpers/redux/boardsDataSlice';
 
 function Autorization() {
   const navigate = useNavigate();
@@ -42,6 +44,9 @@ function Autorization() {
           dispatch(isAuthReducer(true));
           navigate('/');
           toastPromise('success');
+
+          const boards = await BoardsApi.getAllBoards();
+          dispatch(boardsReducer(boards));
         })
         .catch((error) => {
           toastPromise('error');
