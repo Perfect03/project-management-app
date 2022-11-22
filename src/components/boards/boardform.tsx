@@ -5,12 +5,14 @@ import BoardApi from '../../api/board';
 import { IBoard } from 'interfaces/api';
 import { useDispatch } from 'react-redux';
 import { boardsReducer } from 'helpers/redux/boardsDataSlice';
+import { toggleLinks } from './newboard/new-board';
 
 const BoardForm: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
+  setnumOfBoards: Dispatch<SetStateAction<boolean>>;
   action: string;
   elem: string;
-}> = ({ setModal, action, elem }) => {
+}> = ({ setModal, action, elem, setnumOfBoards }) => {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -27,8 +29,10 @@ const BoardForm: FC<{
       }
       const boards = await BoardApi.getAllBoards();
       dispatch(boardsReducer(boards));
+      toggleLinks(false);
       setModal(false);
       resetForm({});
+      setnumOfBoards(true);
     },
   });
 

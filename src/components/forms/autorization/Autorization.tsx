@@ -48,6 +48,8 @@ function Autorization() {
         .catch((error) => {
           toastPromise('error');
         });
+      const boards = await BoardApi.getAllBoards();
+      dispatch(boardsReducer(boards));
       dispatch(isLoadingReducer(false));
     },
     validate: (values) => {

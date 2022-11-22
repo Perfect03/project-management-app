@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { ITask } from 'interfaces/api';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import './task.scss';
+import TaskApi from '../../../api/task';
 
 const NewTask = ({ values }: { values: ITask }) => {
   const [isModalDel, setModalDel] = useState(false);
-  const { id } = useParams();
-  const taskId = values._id as string;
+
   const handleChangeDelete = () => {
     setModalDel(true);
+  };
+
+  const deleteColumn = async () => {
+    const TaskId = values._id as string;
+    const ColumnId = values.columnId as string;
+    const BoardId = values.boardId as string;
+    await TaskApi.deleteTaskById(BoardId, ColumnId, TaskId);
   };
 
   return (
@@ -28,7 +34,7 @@ const NewTask = ({ values }: { values: ITask }) => {
         <Modal
           isVisible={isModalDel}
           title=""
-          content={<DeleteBoard setModalDel={setModalDel} action="task" elem={taskId} />}
+          content={<DeleteBoard setModalDel={setModalDel} deleteSmth={deleteColumn} />}
           onClose={() => setModalDel(false)}
         />
       )}

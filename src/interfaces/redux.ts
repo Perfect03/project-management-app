@@ -18,6 +18,7 @@ export interface ISelectedBoard {
   error: string;
   board: { _id: string; title: string; owner: string; users: string[] };
   columns: IColumn[];
+  tasks: ITask[];
 }
 
 export interface IGetState {

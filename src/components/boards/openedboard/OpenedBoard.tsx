@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NewColumn } from '../columns/new-column';
 import './openedboard.scss';
 import { Modal } from 'components/modal/Modal';
@@ -6,19 +6,31 @@ import { AddColumn } from '../columns/addcolumn';
 import { IGetState } from 'interfaces/redux';
 import { useSelector } from 'react-redux';
 import { IColumn } from 'interfaces/api';
+import { useParams } from 'react-router-dom';
+import ColumnApi from '../../../api/columns';
+import { get } from 'immer/dist/internal';
 
 const OpenedBoard = () => {
   const [isModal, setModal] = useState(false);
+  const [columns, setColumns] = useState<IColumn[]>([]);
+  const [numOfColumns, setnumOfColumns] = useState(false);
 
-  const columnStore = useSelector<IGetState>(
-    (state) => state.selectedBoard.columns
-  ) as unknown as IColumn[];
+  const params = useParams();
+  const currentBoard = params.id as string;
+
+  useEffect(() => {
+    const getColumns = async () => {
+      const currentColumns = await ColumnApi.getColumnsInBoard(currentBoard);
+      setColumns(currentColumns);
+    };
+    getColumns();
+  }, [numOfColumns]);
 
   return (
     <>
       <section className="columns">
         <ul className="columns-table">
-          {columnStore.map((values) => {
+          {columns.map((values) => {
             return <NewColumn values={values} key={values._id} />;
           })}
           <li>
@@ -32,7 +44,7 @@ const OpenedBoard = () => {
         <Modal
           isVisible={isModal}
           title="Add column:"
-          content={<AddColumn setModal={setModal} />}
+          content={<AddColumn setModal={setModal} setnumOfColumns={setnumOfColumns} />}
           onClose={() => setModal(false)}
         />
       )}

@@ -7,7 +7,10 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { columnReducer } from 'helpers/redux/selectedBoardSlice';
 
-const AddColumn: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setModal }) => {
+const AddColumn: FC<{
+  setModal: Dispatch<SetStateAction<boolean>>;
+  setnumOfColumns: Dispatch<SetStateAction<boolean>>;
+}> = ({ setModal, setnumOfColumns }) => {
   const params = useParams();
   const current = params.id as string;
   const dispatch = useDispatch();
@@ -23,6 +26,7 @@ const AddColumn: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setMod
       const columns = await ColumnApi.getColumnsInBoard(current);
       dispatch(columnReducer(columns));
       setModal(false);
+      setnumOfColumns(true);
       resetForm({});
     },
   });

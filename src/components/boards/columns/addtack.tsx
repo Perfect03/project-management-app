@@ -3,14 +3,18 @@ import { useFormik } from 'formik';
 import { ITask, IColumn } from 'interfaces/api';
 import TaskApi from '../../../api/task';
 import { useParams } from 'react-router-dom';
+import { taskReducer } from 'helpers/redux/selectedBoardSlice';
+import { useDispatch } from 'react-redux';
 
-const AddTask: FC<{ setModal: Dispatch<SetStateAction<boolean>>; currentColumn: IColumn }> = ({
-  setModal,
-  currentColumn,
-}) => {
+const AddTask: FC<{
+  setModal: Dispatch<SetStateAction<boolean>>;
+  currentColumn: IColumn;
+  setnumOfTask: Dispatch<SetStateAction<boolean>>;
+}> = ({ setModal, currentColumn, setnumOfTask }) => {
   const params = useParams();
   const current = params.id as string;
   const column = currentColumn._id as string;
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -23,6 +27,9 @@ const AddTask: FC<{ setModal: Dispatch<SetStateAction<boolean>>; currentColumn: 
 
     onSubmit: async (values, { resetForm }) => {
       await TaskApi.createTaskInColumn(current, column, values);
+      const tasks = await TaskApi.getTasksInColumn(current, column);
+      dispatch(taskReducer(tasks));
+      setnumOfTask(true);
       setModal(false);
       resetForm({});
     },
