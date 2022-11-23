@@ -5,6 +5,7 @@ import TaskApi from '../../../api/task';
 import { useParams } from 'react-router-dom';
 import { taskReducer } from 'helpers/redux/selectedBoardSlice';
 import { useDispatch } from 'react-redux';
+import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 
 const AddTask: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -26,12 +27,14 @@ const AddTask: FC<{
     } as ITask,
 
     onSubmit: async (values, { resetForm }) => {
+      dispatch(isLoadingReducer(true));
       await TaskApi.createTaskInColumn(current, column, values);
       const tasks = await TaskApi.getTasksInColumn(current, column);
       dispatch(taskReducer(tasks));
       setnumOfTask(true);
       setModal(false);
       resetForm({});
+      dispatch(isLoadingReducer(false));
     },
   });
 

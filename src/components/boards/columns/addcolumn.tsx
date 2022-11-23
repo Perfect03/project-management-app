@@ -5,12 +5,11 @@ import { IColumn } from 'interfaces/api';
 import ColumnApi from '../../../api/columns';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { columnReducer } from 'helpers/redux/selectedBoardSlice';
+import { columnReducer, isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 
 const AddColumn: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
-  setnumOfColumns: Dispatch<SetStateAction<boolean>>;
-}> = ({ setModal, setnumOfColumns }) => {
+}> = ({ setModal }) => {
   const params = useParams();
   const current = params.id as string;
   const dispatch = useDispatch();
@@ -22,12 +21,13 @@ const AddColumn: FC<{
     } as IColumn,
 
     onSubmit: async (values, { resetForm }) => {
+      dispatch(isLoadingReducer(true));
       await ColumnApi.createColumnInBoard(current, values);
       const columns = await ColumnApi.getColumnsInBoard(current);
       dispatch(columnReducer(columns));
       setModal(false);
-      setnumOfColumns(true);
       resetForm({});
+      dispatch(isLoadingReducer(false));
     },
   });
 

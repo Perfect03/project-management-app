@@ -16,7 +16,6 @@ const BoardsPage = () => {
   useEffect(() => {
     const getBoards = async () => {
       const currentBoards = await BoardApi.getAllBoards();
-      console.log('HI');
       setBoards(currentBoards);
     };
     getBoards();

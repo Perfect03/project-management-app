@@ -15,10 +15,9 @@ const ChangeTitle = ({
   return (
     <>
       <label className="user-form__label" htmlFor="name">
-        <input id="title" className="title-input" placeholder={'New title'} type="text" />
+        <input id="title" className="board-modal__input" placeholder={'New title'} type="text" />
       </label>
-      <div className="delete-board-img"></div>
-      <button className="delete-board-btn" type="submit" onClick={onSubmit}>
+      <button className="board-modal__button title-column" type="submit" onClick={onSubmit}>
         SAVE
       </button>
     </>

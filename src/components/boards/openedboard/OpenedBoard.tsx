@@ -8,12 +8,11 @@ import { useSelector } from 'react-redux';
 import { IColumn } from 'interfaces/api';
 import { useParams } from 'react-router-dom';
 import ColumnApi from '../../../api/columns';
-import { get } from 'immer/dist/internal';
 
 const OpenedBoard = () => {
   const [isModal, setModal] = useState(false);
   const [columns, setColumns] = useState<IColumn[]>([]);
-  const [numOfColumns, setnumOfColumns] = useState(false);
+  const isRerender = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
 
   const params = useParams();
   const currentBoard = params.id as string;
@@ -24,7 +23,7 @@ const OpenedBoard = () => {
       setColumns(currentColumns);
     };
     getColumns();
-  }, [numOfColumns]);
+  }, [isRerender]);
 
   return (
     <>
@@ -44,7 +43,7 @@ const OpenedBoard = () => {
         <Modal
           isVisible={isModal}
           title="Add column:"
-          content={<AddColumn setModal={setModal} setnumOfColumns={setnumOfColumns} />}
+          content={<AddColumn setModal={setModal} />}
           onClose={() => setModal(false)}
         />
       )}
