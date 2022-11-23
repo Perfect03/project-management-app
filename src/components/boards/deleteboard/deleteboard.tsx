@@ -2,6 +2,7 @@ import { isLoadingReducer } from 'helpers/redux/boardsDataSlice';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useDispatch } from 'react-redux';
 import './deleteboard.scss';
+import { isLoadingReducer as isLoadingColumn } from 'helpers/redux/selectedBoardSlice';
 
 const DeleteBoard = ({
   setModalDel,
@@ -11,12 +12,14 @@ const DeleteBoard = ({
   deleteSmth: () => void;
 }) => {
   const dispatch = useDispatch();
-  
+
   async function onSubmit() {
     dispatch(isLoadingReducer(true));
+    dispatch(isLoadingColumn(true));
     await deleteSmth();
     setModalDel(false);
     dispatch(isLoadingReducer(false));
+    dispatch(isLoadingColumn(false));
   }
 
   return (
