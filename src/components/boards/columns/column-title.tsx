@@ -9,6 +9,7 @@ const ChangeTitle = ({
 }) => {
   function onSubmit() {
     console.log('HI');
+    setModalTitle(false);
   }
 
   return (

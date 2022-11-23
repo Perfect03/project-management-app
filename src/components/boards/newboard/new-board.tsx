@@ -1,5 +1,5 @@
 import { IBoard } from 'interfaces/api';
-import React, { FC, Dispatch, SetStateAction, useState } from 'react';
+import React, { FC, useState } from 'react';
 import './newboard.scss';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
@@ -21,8 +21,7 @@ export const toggleLinks = (condition: boolean) => {
 
 const NewBoard: FC<{
   values: IBoard;
-  setnumOfBoards: Dispatch<SetStateAction<boolean>>;
-}> = ({ values, setnumOfBoards }) => {
+}> = ({ values }) => {
   const [isModalEdit, setModalEdit] = useState(false);
   const [isModalDel, setModalDel] = useState(false);
   const boardId = values._id as string;
@@ -70,14 +69,7 @@ const NewBoard: FC<{
         <Modal
           isVisible={isModalEdit}
           title="Edit your board:"
-          content={
-            <BoardForm
-              setModal={setModalEdit}
-              action="edit"
-              elem={boardId}
-              setnumOfBoards={setnumOfBoards}
-            />
-          }
+          content={<BoardForm setModal={setModalEdit} action="edit" elem={boardId} />}
           onClose={() => setModalEdit(false)}
         />
       )}

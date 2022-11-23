@@ -12,16 +12,15 @@ import { IGetState } from 'interfaces/redux';
 const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
   const [Boards, setBoards] = useState<IBoard[]>([]);
-  const [numOfBoards, setnumOfBoards] = useState(false);
-  //const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
+  const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
   useEffect(() => {
     const getBoards = async () => {
       const currentBoards = await BoardApi.getAllBoards();
+      console.log('HI');
       setBoards(currentBoards);
     };
     getBoards();
-    setnumOfBoards(false);
-  }, [numOfBoards]); //isRerender
+  }, [isRerender]);
 
   return (
     <>
@@ -34,7 +33,7 @@ const BoardsPage = () => {
                   <Link key={values._id + 'a'} to={`/boards/${values._id}`} className="ronyauProd">
                     <div className="board-link"></div>
                   </Link>
-                  <NewBoard values={values} key={values._id} setnumOfBoards={setnumOfBoards} />
+                  <NewBoard values={values} key={values._id} />
                 </li>
               );
             })}
@@ -49,14 +48,7 @@ const BoardsPage = () => {
           <Modal
             isVisible={isModal}
             title="Create new board:"
-            content={
-              <BoardForm
-                setModal={setModal}
-                action="create"
-                elem=""
-                setnumOfBoards={setnumOfBoards}
-              />
-            }
+            content={<BoardForm setModal={setModal} action="create" elem="" />}
             onClose={() => setModal(false)}
           />
         )}

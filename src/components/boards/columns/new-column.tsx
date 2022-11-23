@@ -46,7 +46,12 @@ const NewColumn = ({ values }: { values: IColumn }) => {
       <li>
         <div className="column" draggable="true" data-id={ColumnId}>
           <div className="column-info">
-            <button className="column-info-title" spellCheck="false" onClick={ChangeTitleColumn}>
+            <button
+              className="column-info-title"
+              spellCheck="false"
+              value={values.title}
+              onClick={ChangeTitleColumn}
+            >
               {values.title}
             </button>
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>
