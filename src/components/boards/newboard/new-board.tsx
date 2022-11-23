@@ -1,18 +1,34 @@
 import { IBoard } from 'interfaces/api';
-import React, { FC, Dispatch, SetStateAction, useState } from 'react';
+import React, { FC, useState } from 'react';
 import './newboard.scss';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import { BoardForm } from '../boardform';
+import BoardApi from '../../../api/board';
+
+export const toggleLinks = (condition: boolean) => {
+  const allLinks = document.querySelectorAll('.ronyauProd');
+  if (condition) {
+    for (const link of allLinks) {
+      (link as HTMLButtonElement).style.pointerEvents = 'none';
+    }
+  } else {
+    for (const link of allLinks) {
+      (link as HTMLButtonElement).style.pointerEvents = 'auto';
+    }
+  }
+};
 
 const NewBoard: FC<{
   values: IBoard;
-  setModal: Dispatch<SetStateAction<boolean>>;
-  isModal: boolean;
 }> = ({ values }) => {
   const [isModalEdit, setModalEdit] = useState(false);
   const [isModalDel, setModalDel] = useState(false);
   const boardId = values._id as string;
+
+  const deleteBoard = async () => {
+    await BoardApi.deleteBoardById(boardId);
+  };
 
   return (
     <>
@@ -27,15 +43,16 @@ const NewBoard: FC<{
           <button
             className="board-buttons-edit"
             onClick={(e) => {
-              setModalEdit(true);
+              toggleLinks(true);
               e.preventDefault();
+              setModalEdit(true);
             }}
           ></button>
           <button
             className="board-buttons-delete"
             onClick={(e) => {
-              setModalDel(true);
               e.preventDefault();
+              setModalDel(true);
             }}
           ></button>
         </div>
@@ -44,7 +61,7 @@ const NewBoard: FC<{
         <Modal
           isVisible={isModalDel}
           title=""
-          content={<DeleteBoard setModalDel={setModalDel} action="board" elem={boardId} />}
+          content={<DeleteBoard setModalDel={setModalDel} deleteSmth={deleteBoard} />}
           onClose={() => setModalDel(false)}
         />
       )}

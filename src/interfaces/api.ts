@@ -22,7 +22,7 @@ export interface IBoard {
 export interface IColumn {
   title: string;
   order: number;
-  boardId: string;
+  boardId?: string;
   _id?: string;
 }
 

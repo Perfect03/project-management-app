@@ -4,10 +4,15 @@ import { useFormik } from 'formik';
 import { IColumn } from 'interfaces/api';
 import ColumnApi from '../../../api/columns';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { columnReducer, isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 
-const AddColumn: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setModal }) => {
+const AddColumn: FC<{
+  setModal: Dispatch<SetStateAction<boolean>>;
+}> = ({ setModal }) => {
   const params = useParams();
   const current = params.id as string;
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -16,9 +21,13 @@ const AddColumn: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = ({ setMod
     } as IColumn,
 
     onSubmit: async (values, { resetForm }) => {
+      dispatch(isLoadingReducer(true));
       await ColumnApi.createColumnInBoard(current, values);
+      const columns = await ColumnApi.getColumnsInBoard(current);
+      dispatch(columnReducer(columns));
       setModal(false);
       resetForm({});
+      dispatch(isLoadingReducer(false));
     },
   });
 

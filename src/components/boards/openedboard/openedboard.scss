@@ -12,6 +12,7 @@ ul, ul li {
 .columns {
     min-height: calc(100vh - 130px);
     background-color: $color-back;
+    overflow-y: scroll;
 }
 
 .columns-table {

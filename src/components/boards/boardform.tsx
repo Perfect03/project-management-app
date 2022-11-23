@@ -3,12 +3,16 @@ import './boards.scss';
 import { useFormik } from 'formik';
 import BoardApi from '../../api/board';
 import { IBoard } from 'interfaces/api';
+import { useDispatch } from 'react-redux';
+import { boardsReducer, isLoadingReducer } from 'helpers/redux/boardsDataSlice';
+import { toggleLinks } from './newboard/new-board';
 
 const BoardForm: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
   action: string;
   elem: string;
 }> = ({ setModal, action, elem }) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -17,14 +21,18 @@ const BoardForm: FC<{
     } as IBoard,
 
     onSubmit: async (values, { resetForm }) => {
+      dispatch(isLoadingReducer(true));
       if (action == 'edit') {
-        console.log('пробую исправить', elem, values);
         await BoardApi.updateBoardById(elem, values);
       } else if (action == 'create') {
         await BoardApi.createBoard(values);
       }
+      const boards = await BoardApi.getAllBoards();
+      dispatch(boardsReducer(boards));
+      toggleLinks(false);
       setModal(false);
       resetForm({});
+      dispatch(isLoadingReducer(false));
     },
   });
 

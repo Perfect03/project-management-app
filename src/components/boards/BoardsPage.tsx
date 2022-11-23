@@ -1,39 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './boards.scss';
 import { Modal } from '../modal/Modal';
 import { NewBoard } from './newboard/new-board';
 import { IBoard } from 'interfaces/api';
 import { BoardForm } from './boardform';
-import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import BoardApi from '../../api/board';
 import { useSelector } from 'react-redux';
 import { IGetState } from 'interfaces/redux';
-import { Link } from 'react-router-dom';
 
 const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
-  const { t } = useTranslation();
-
-  const boardsStore = useSelector<IGetState>(
-    (state) => state.boardsData.boards
-  ) as unknown as IBoard[];
+  const [Boards, setBoards] = useState<IBoard[]>([]);
+  const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
+  useEffect(() => {
+    const getBoards = async () => {
+      const currentBoards = await BoardApi.getAllBoards();
+      setBoards(currentBoards);
+    };
+    getBoards();
+  }, [isRerender]);
 
   return (
     <>
       <section className="boards">
         <ul className="boards-table">
           <>
-            {boardsStore.map((values) => {
+            {Boards.map((values) => {
               return (
                 <li key={values._id + 'li'}>
-                  <Link key={values._id + 'a'} to={`/boards/${values._id}`}>
+                  <Link key={values._id + 'a'} to={`/boards/${values._id}`} className="ronyauProd">
                     <div className="board-link"></div>
                   </Link>
-                  <NewBoard
-                    values={values}
-                    key={values._id}
-                    setModal={setModal}
-                    isModal={isModal}
-                  />
+                  <NewBoard values={values} key={values._id} />
                 </li>
               );
             })}

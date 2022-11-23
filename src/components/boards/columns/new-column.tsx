@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { IColumn } from 'interfaces/api';
+import { IColumn, ITask } from 'interfaces/api';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import './column.scss';
 import { AddTask } from './addtack';
 import { NewTask } from './new-task';
 import TaskApi from '../../../api/task';
+import ColumnApi from '../../../api/columns';
+import { ChangeTitle } from './column-title';
+import { useSelector } from 'react-redux';
+import { IGetState } from 'interfaces/redux';
 
 const NewColumn = ({ values }: { values: IColumn }) => {
   const [isModalDel, setModalDel] = useState(false);
   const [isModalAdd, setModalAdd] = useState(false);
-  const params = useParams();
-  const currentBoard = params.id as string;
+  const [ModalTitle, setModalTitle] = useState(false);
   const ColumnId = values._id as string;
-  const [isTask, setTask] = useState([]);
+  const BoardId = values.boardId as string;
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  const isRerender = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
 
   useEffect(() => {
-    const getColumn = async () => {
-      const tasks = await TaskApi.getTasksInColumn(currentBoard, ColumnId);
-      setTask(tasks);
+    const getTask = async () => {
+      const currentTasks = await TaskApi.getTasksInColumn(BoardId, ColumnId);
+      setTasks(currentTasks);
     };
-    getColumn();
-    return () => {};
-  }, [currentBoard, ColumnId, values]);
+    getTask();
+  }, [isRerender]);
+
+  const deleteColumn = async () => {
+    await ColumnApi.deleteColumnById(BoardId, ColumnId);
+  };
 
   const handleChangeDelete = () => {
     setModalDel(true);
@@ -32,22 +39,28 @@ const NewColumn = ({ values }: { values: IColumn }) => {
     setModalAdd(true);
   };
 
+  const ChangeTitleColumn = () => {
+    setModalTitle(true);
+  };
+
   return (
     <>
       <li>
         <div className="column" draggable="true" data-id={ColumnId}>
           <div className="column-info">
-            <textarea
+            <button
               className="column-info-title"
               spellCheck="false"
-              maxLength={50}
-              defaultValue={values.title}
-            ></textarea>
+              value={values.title}
+              onClick={ChangeTitleColumn}
+            >
+              {values.title}
+            </button>
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>
           </div>
           <ul className="column-tasllist">
-            {isTask.map((values) => {
-              return <NewTask values={values} key={isTask.indexOf(values)} />;
+            {tasks.map((values) => {
+              return <NewTask values={values} key={values._id} />;
             })}
           </ul>
           <div className="column-buttons">
@@ -57,11 +70,19 @@ const NewColumn = ({ values }: { values: IColumn }) => {
           </div>
         </div>
       </li>
+      {ModalTitle && (
+        <Modal
+          isVisible={ModalTitle}
+          title="Change title:"
+          content={<ChangeTitle setModalTitle={setModalTitle} column={values} />}
+          onClose={() => setModalTitle(false)}
+        />
+      )}
       {isModalDel && (
         <Modal
           isVisible={isModalDel}
           title=""
-          content={<DeleteBoard setModalDel={setModalDel} action="column" elem={ColumnId} />}
+          content={<DeleteBoard setModalDel={setModalDel} deleteSmth={deleteColumn} />}
           onClose={() => setModalDel(false)}
         />
       )}

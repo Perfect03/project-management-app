@@ -1,4 +1,4 @@
-import { IBoard } from './api';
+import { IBoard, IColumn, ITask } from './api';
 
 export interface IUserData {
   isAuth: boolean;
@@ -17,6 +17,8 @@ export interface ISelectedBoard {
   isLoading: boolean;
   error: string;
   board: { _id: string; title: string; owner: string; users: string[] };
+  columns: IColumn[];
+  tasks: ITask[];
 }
 
 export interface IGetState {

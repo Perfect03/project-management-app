@@ -1,32 +1,22 @@
+import { isLoadingReducer } from 'helpers/redux/boardsDataSlice';
 import React, { Dispatch, SetStateAction } from 'react';
-import TaskApi from '../../../api/task';
-import ColumnApi from '../../../api/columns';
-import BoardApi from '../../../api/board';
+import { useDispatch } from 'react-redux';
 import './deleteboard.scss';
-import { useParams } from 'react-router-dom';
 
 const DeleteBoard = ({
   setModalDel,
-  action,
-  elem,
+  deleteSmth,
 }: {
   setModalDel: Dispatch<SetStateAction<boolean>>;
-  action: string;
-  elem: string;
+  deleteSmth: () => void;
 }) => {
-  const params = useParams();
-  const currentBoard = params.id as string;
-
+  const dispatch = useDispatch();
+  
   async function onSubmit() {
-    if (action == 'task') {
-      await TaskApi.deleteTaskById(currentBoard, elem, elem);
-    } else if (action == 'column') {
-      await ColumnApi.deleteColumnById(currentBoard, elem);
-    } else if (action == 'board') {
-      console.log('пытаюсь');
-      await BoardApi.deleteBoardById(elem);
-    }
+    dispatch(isLoadingReducer(true));
+    await deleteSmth();
     setModalDel(false);
+    dispatch(isLoadingReducer(false));
   }
 
   return (

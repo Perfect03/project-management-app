@@ -11,10 +11,10 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import UserApi from 'api/user';
 import { setCookie } from 'api/cokie';
+import BoardsApi from 'api/board';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { IToastStatus } from '../../../interfaces/toast';
 import { IGetUser } from '../../../interfaces/api';
-import BoardsApi from '../../../api/board';
 import { boardsReducer } from 'helpers/redux/boardsDataSlice';
 
 function Autorization() {
@@ -51,6 +51,8 @@ function Autorization() {
         .catch((error) => {
           toastPromise('error');
         });
+      const boards = await BoardsApi.getAllBoards();
+      dispatch(boardsReducer(boards));
       dispatch(isLoadingReducer(false));
     },
     validate: (values) => {

@@ -1,32 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { NewColumn } from '../columns/new-column';
 import './openedboard.scss';
 import { Modal } from 'components/modal/Modal';
 import { AddColumn } from '../columns/addcolumn';
+import { IGetState } from 'interfaces/redux';
+import { useSelector } from 'react-redux';
+import { IColumn } from 'interfaces/api';
+import { useParams } from 'react-router-dom';
 import ColumnApi from '../../../api/columns';
 
 const OpenedBoard = () => {
   const [isModal, setModal] = useState(false);
+  const [columns, setColumns] = useState<IColumn[]>([]);
+  const isRerender = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
+
   const params = useParams();
-  const current = params.id as string;
-  const [isColumn, setColumn] = useState([]);
+  const currentBoard = params.id as string;
 
   useEffect(() => {
-    const getColumn = async () => {
-      const column = await ColumnApi.getColumnsInBoard(current);
-      setColumn(column);
+    const getColumns = async () => {
+      const currentColumns = await ColumnApi.getColumnsInBoard(currentBoard);
+      setColumns(currentColumns);
     };
-    getColumn();
-    return () => {};
-  }, [current]);
+    getColumns();
+  }, [isRerender]);
 
   return (
     <>
       <section className="columns">
         <ul className="columns-table">
-          {isColumn.map((values) => {
-            return <NewColumn values={values} key={isColumn.indexOf(values)} />;
+          {columns.map((values) => {
+            return <NewColumn values={values} key={values._id} />;
           })}
           <li>
             <button className="columns-table__add" onClick={() => setModal(true)}>
