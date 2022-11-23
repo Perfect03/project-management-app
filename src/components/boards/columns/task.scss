@@ -1,0 +1,23 @@
+.task {
+    min-height: 80px;
+    box-shadow: -1px -1px 5px #fff, 1px 1px 5px #5c511a;
+    border-radius: 5px;
+    cursor: grab;
+    &:active {
+        cursor: grabbing;
+    }
+};
+
+.task-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+};
+
+.task-info-title {
+    margin: 5px auto;
+};
+
+.task-info-description {
+    margin: 5px;
+};

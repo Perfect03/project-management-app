@@ -3,66 +3,56 @@ $color-white: #FFF;
 $color-back: #f0f1f0;
 $color-shadow-active: -2px -2px 5px $color-white, 2px 2px 5px $color-shadow;
 
-@mixin phones {
-    @media screen and (max-width: 470px) {
-         @content;
-    }
-   }
-   
 ul, ul li {
 	list-style: none;
     margin: 0;
     padding: 10px;
 }
 
-.boards {
+.columns {
     min-height: calc(100vh - 130px);
     background-color: $color-back;
+    overflow-y: scroll;
 }
 
-.boards-table {
+.columns-table {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-direction: row;
     gap: 10px;
 }
 
-.boards-table__add {
-    width: 310px;
-    height: 140px;
-    padding: 10px;
-    background: url(../../assets/button.png) no-repeat 50%;
-    background-size: 15%;
-    background-position: 50% 50%;
-    border-radius: 10px;
-    border: 2px dotted $color-shadow;
+.columns-table__add {
+    width: 300px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px dotted #afafaf;
     cursor: pointer;
     transition: 0.2s linear;
-    box-shadow: -5px -5px 20px $color-white,  5px 5px 20px $color-shadow;
+    font: inherit;
+    color: #838383;
     &:hover {
         background-color: $color-white;
         box-shadow: $color-shadow-active;
+        color: #783004;
     }
     &:active {
-        box-shadow: inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;;
-    }
-    @include phones {
-        width: 300px;
+        box-shadow: inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
     }
 }
 
-.board-modal__input {
+.columns-modal__input {
     box-shadow:  inset -1px -1px 2px $color-white, inset 1px 1px 2px $color-shadow; 
     width: 95%;
     box-sizing: border-box;
     transition: all 0.2s ease-in-out;
     appearance: none;
     font: inherit;
-    letter-spacing: -0.2px;
     border: 0;
     outline: 0;
     border-radius: 10px;
-    padding: 20px;
+    padding: 15px;
     background-color: $color-back;
     text-shadow: 1px 1px 0 $color-white;
     margin: 10px 10px;
@@ -71,7 +61,7 @@ ul, ul li {
       }
 }
 
-.board-modal__button {
+.columns-modal__button {
     box-shadow: -2px -2px 10px $color-white, 2px 2px 10px $color-shadow;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
@@ -91,7 +81,7 @@ ul, ul li {
     }
 }
 
-.board-modal-box-button {
+.columns-modal-box-button {
     display: flex;
     flex-direction: row;
     justify-content: center;

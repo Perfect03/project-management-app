@@ -2,7 +2,13 @@ import { IUserAuth } from 'interfaces/api';
 
 const FormValidate = (e: IUserAuth) => {
   const errors = {} as IUserAuth;
-  if (e.name && e.name.length < 2) {
+  if (e.name && !e.name) {
+    errors.name = 'There should be a name here';
+  } else if (!e.login) {
+    errors.login = 'There should be a login here';
+  } else if (!e.password) {
+    errors.password = 'There should be a password here';
+  } else if (e.name && e.name.length < 2) {
     errors.name = 'Too short';
   } else if (e.name && /[0-9]/.test(e.name)) {
     errors.name = 'Use only letters';

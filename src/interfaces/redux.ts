@@ -1,3 +1,5 @@
+import { IBoard, IColumn, ITask } from './api';
+
 export interface IUserData {
   isAuth: boolean;
   isLoading: boolean;
@@ -8,13 +10,15 @@ export interface IUserData {
 export interface IBoardsData {
   isLoading: boolean;
   error: string;
-  boards: [];
+  boards: IBoard[];
 }
 
 export interface ISelectedBoard {
   isLoading: boolean;
   error: string;
-  board: {};
+  board: { _id: string; title: string; owner: string; users: string[] };
+  columns: IColumn[];
+  tasks: ITask[];
 }
 
 export interface IGetState {

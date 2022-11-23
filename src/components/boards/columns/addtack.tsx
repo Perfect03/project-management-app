@@ -1,35 +1,35 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
-import './boards.scss';
 import { useFormik } from 'formik';
-import BoardApi from '../../api/board';
-import { IBoard } from 'interfaces/api';
+import { ITask, IColumn } from 'interfaces/api';
+import TaskApi from '../../../api/task';
+import { useParams } from 'react-router-dom';
+import { taskReducer } from 'helpers/redux/selectedBoardSlice';
 import { useDispatch } from 'react-redux';
-import { boardsReducer, isLoadingReducer } from 'helpers/redux/boardsDataSlice';
-import { toggleLinks } from './newboard/new-board';
+import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 
-const BoardForm: FC<{
+const AddTask: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
-  action: string;
-  elem: string;
-}> = ({ setModal, action, elem }) => {
+  currentColumn: IColumn;
+}> = ({ setModal, currentColumn }) => {
+  const params = useParams();
+  const current = params.id as string;
+  const column = currentColumn._id as string;
   const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       title: '',
-      owner: '',
+      order: 0,
+      description: '',
+      userId: 0,
       users: [],
-    } as IBoard,
+    } as ITask,
 
     onSubmit: async (values, { resetForm }) => {
       dispatch(isLoadingReducer(true));
-      if (action == 'edit') {
-        await BoardApi.updateBoardById(elem, values);
-      } else if (action == 'create') {
-        await BoardApi.createBoard(values);
-      }
-      const boards = await BoardApi.getAllBoards();
-      dispatch(boardsReducer(boards));
-      toggleLinks(false);
+      await TaskApi.createTaskInColumn(current, column, values);
+      const tasks = await TaskApi.getTasksInColumn(current, column);
+      dispatch(taskReducer(tasks));
       setModal(false);
       resetForm({});
       dispatch(isLoadingReducer(false));
@@ -43,24 +43,16 @@ const BoardForm: FC<{
           onChange={formik.handleChange}
           value={formik.values.title}
           className="board-modal__input"
-          placeholder="Board's name"
+          placeholder="Task title"
           id="title"
           type="text"
         />
         <input
           onChange={formik.handleChange}
-          value={formik.values.owner}
+          value={formik.values.description}
           className="board-modal__input"
-          placeholder="Owner"
-          id="owner"
-          type="text"
-        />
-        <input
-          onChange={formik.handleChange}
-          value={formik.values.users}
-          className="board-modal__input"
-          placeholder="Add users"
-          id="users"
+          placeholder="Description"
+          id="description"
           type="text"
         />
         <section className="board-modal-box-button">
@@ -73,4 +65,4 @@ const BoardForm: FC<{
   );
 };
 
-export { BoardForm };
+export { AddTask };

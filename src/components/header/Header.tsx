@@ -4,7 +4,6 @@ import './header.scss';
 import { Language } from './header-components/Language';
 import { SignupLogin } from './header-components/SignupLogin';
 import { AfterLogin } from './header-components/AfterLogin';
-import { Boards } from './header-components/Boards';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { IGetState } from 'interfaces/redux';
@@ -27,13 +26,11 @@ const Header = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(2);
     const userLogin = checkCookie('login', 'token');
-    console.log(userLogin);
     if (userLogin) {
       setLogin(userLogin);
     } else {
-      console.log('there is no cookie');
+      console.log();
     }
   }, []);
 
@@ -43,21 +40,19 @@ const Header = () => {
       dispatch(userReducer(user));
       dispatch(isAuthReducer(true));
     } catch (error) {
-      console.log('Connection error');
+      console.error(error);
     }
   };
 
   const isAuth = useSelector((state: IGetState) => state.userData.isAuth);
-  console.log(isAuth);
   return (
     <>
       <ToastContainer />
       <header className="header">
         <div className="header-gohome">
-          <NavLink to="/">Your planer</NavLink>
+          <NavLink to="/">Your planner</NavLink>
         </div>
         <div className="header-content">
-          <Boards />
           <Language />
           {isAuth ? <AfterLogin /> : <SignupLogin />}
         </div>

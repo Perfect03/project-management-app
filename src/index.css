@@ -36,3 +36,7 @@
   h1 {
     margin: 0;
   }
+
+  ul, ul li {
+    padding: 5px;
+  }
