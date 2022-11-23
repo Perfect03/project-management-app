@@ -7,10 +7,12 @@ import { AddTask } from './addtack';
 import { NewTask } from './new-task';
 import TaskApi from '../../../api/task';
 import ColumnApi from '../../../api/columns';
+import { ChangeTitle } from './column-title';
 
 const NewColumn = ({ values }: { values: IColumn }) => {
   const [isModalDel, setModalDel] = useState(false);
   const [isModalAdd, setModalAdd] = useState(false);
+  const [ModalTitle, setModalTitle] = useState(false);
   const ColumnId = values._id as string;
   const BoardId = values.boardId as string;
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -35,17 +37,18 @@ const NewColumn = ({ values }: { values: IColumn }) => {
     setModalAdd(true);
   };
 
+  const ChangeTitleColumn = () => {
+    setModalTitle(true);
+  };
+
   return (
     <>
       <li>
         <div className="column" draggable="true" data-id={ColumnId}>
           <div className="column-info">
-            <textarea
-              className="column-info-title"
-              spellCheck="false"
-              maxLength={50}
-              defaultValue={values.title}
-            ></textarea>
+            <button className="column-info-title" spellCheck="false" onClick={ChangeTitleColumn}>
+              {values.title}
+            </button>
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>
           </div>
           <ul className="column-tasllist">
@@ -60,6 +63,14 @@ const NewColumn = ({ values }: { values: IColumn }) => {
           </div>
         </div>
       </li>
+      {ModalTitle && (
+        <Modal
+          isVisible={ModalTitle}
+          title="Change title:"
+          content={<ChangeTitle setModalTitle={setModalTitle} title={values.title} />}
+          onClose={() => setModalAdd(false)}
+        />
+      )}
       {isModalDel && (
         <Modal
           isVisible={isModalDel}

@@ -12,7 +12,7 @@ const DeleteBoard = ({
 }) => {
   const dispatch = useDispatch();
   async function onSubmit() {
-    dispatch(isLoadingReducer(false));
+    //dispatch(isLoadingReducer(false));
     deleteSmth();
     setModalDel(false);
     dispatch(isLoadingReducer(true));

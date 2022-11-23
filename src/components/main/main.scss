@@ -31,9 +31,8 @@
     @include laptop {justify-content: center;}
     .main-firstsection-about {
       max-width: 500px;
-      margin: 10%;
+      margin: 5%;
       display: grid;
-      gap: 30px;
       @include laptop {
         max-width: 500px;
         background-color: #ffffff96;

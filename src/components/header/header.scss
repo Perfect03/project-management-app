@@ -42,6 +42,9 @@ $color-white: #FFF;
     @include phones {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 5px;
     }
   }
   .header-content__autorization, .header-gohome {

@@ -13,7 +13,7 @@ const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
   const [Boards, setBoards] = useState<IBoard[]>([]);
   const [numOfBoards, setnumOfBoards] = useState(false);
-  const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading);
+  //const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
   useEffect(() => {
     const getBoards = async () => {
       const currentBoards = await BoardApi.getAllBoards();
@@ -21,7 +21,7 @@ const BoardsPage = () => {
     };
     getBoards();
     setnumOfBoards(false);
-  }, [numOfBoards, isRerender]);
+  }, [numOfBoards]); //isRerender
 
   return (
     <>
