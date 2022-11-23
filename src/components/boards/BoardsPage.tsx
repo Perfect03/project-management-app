@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import BoardApi from '../../api/board';
 import { useSelector } from 'react-redux';
 import { IGetState } from 'interfaces/redux';
+import { SearchBar } from 'components/search-bar/search-bar';
 
 const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
@@ -24,6 +25,7 @@ const BoardsPage = () => {
   return (
     <>
       <section className="boards">
+        <SearchBar />
         <ul className="boards-table">
           <>
             {Boards.map((values) => {
