@@ -10,8 +10,7 @@ import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 const AddTask: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
   currentColumn: IColumn;
-  setnumOfTask: Dispatch<SetStateAction<boolean>>;
-}> = ({ setModal, currentColumn, setnumOfTask }) => {
+}> = ({ setModal, currentColumn }) => {
   const params = useParams();
   const current = params.id as string;
   const column = currentColumn._id as string;
@@ -31,7 +30,6 @@ const AddTask: FC<{
       await TaskApi.createTaskInColumn(current, column, values);
       const tasks = await TaskApi.getTasksInColumn(current, column);
       dispatch(taskReducer(tasks));
-      setnumOfTask(true);
       setModal(false);
       resetForm({});
       dispatch(isLoadingReducer(false));

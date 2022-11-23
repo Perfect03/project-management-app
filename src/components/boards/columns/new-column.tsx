@@ -8,6 +8,8 @@ import { NewTask } from './new-task';
 import TaskApi from '../../../api/task';
 import ColumnApi from '../../../api/columns';
 import { ChangeTitle } from './column-title';
+import { useSelector } from 'react-redux';
+import { IGetState } from 'interfaces/redux';
 
 const NewColumn = ({ values }: { values: IColumn }) => {
   const [isModalDel, setModalDel] = useState(false);
@@ -16,7 +18,7 @@ const NewColumn = ({ values }: { values: IColumn }) => {
   const ColumnId = values._id as string;
   const BoardId = values.boardId as string;
   const [tasks, setTasks] = useState<ITask[]>([]);
-  const [numOfTask, setnumOfTask] = useState(false);
+  const isRerender = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
 
   useEffect(() => {
     const getTask = async () => {
@@ -24,7 +26,7 @@ const NewColumn = ({ values }: { values: IColumn }) => {
       setTasks(currentTasks);
     };
     getTask();
-  }, [numOfTask]);
+  }, [isRerender]);
 
   const deleteColumn = async () => {
     await ColumnApi.deleteColumnById(BoardId, ColumnId);
@@ -72,8 +74,8 @@ const NewColumn = ({ values }: { values: IColumn }) => {
         <Modal
           isVisible={ModalTitle}
           title="Change title:"
-          content={<ChangeTitle setModalTitle={setModalTitle} title={values.title} />}
-          onClose={() => setModalAdd(false)}
+          content={<ChangeTitle setModalTitle={setModalTitle} column={values} />}
+          onClose={() => setModalTitle(false)}
         />
       )}
       {isModalDel && (
@@ -88,9 +90,7 @@ const NewColumn = ({ values }: { values: IColumn }) => {
         <Modal
           isVisible={isModalAdd}
           title="Add new task:"
-          content={
-            <AddTask setModal={setModalAdd} currentColumn={values} setnumOfTask={setnumOfTask} />
-          }
+          content={<AddTask setModal={setModalAdd} currentColumn={values} />}
           onClose={() => setModalAdd(false)}
         />
       )}
