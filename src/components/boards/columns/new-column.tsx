@@ -19,6 +19,7 @@ const NewColumn = ({ values }: { values: IColumn }) => {
   const BoardId = values.boardId as string;
   const [tasks, setTasks] = useState<ITask[]>([]);
   const isRerender = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
+  const [currentCard, setCurrentCard] = useState(null);
 
   useEffect(() => {
     const getTask = async () => {
@@ -43,9 +44,33 @@ const NewColumn = ({ values }: { values: IColumn }) => {
     setModalTitle(true);
   };
 
+  function dragStartHandler(e: React.DragEvent<HTMLElement>, card: IColumn) {
+    console.log('drag', card);
+    setCurrentCard(card);
+  }
+
+function dragEndHandler(e: React.DragEvent<HTMLElement>) {
+  
+}
+
+function dropHandler(e: React.DragEvent<HTMLElement>, card: IColumn) {
+  e.preventDefault();
+  console.log('drop', card);
+}
+
+function dragOverHandler(e: React.DragEvent<HTMLElement>) {
+  e.preventDefault();
+}
+
   return (
     <>
-      <li>
+      <li draggable={true}
+      onDragStart={(e: React.DragEvent<HTMLElement>) => {dragStartHandler(e, values)}}
+      onDragLeave={(e: React.DragEvent<HTMLElement>) => {dragEndHandler(e)}}
+      onDragEnd={(e: React.DragEvent<HTMLElement>) => {dragEndHandler(e)}}
+      onDragOver={(e: React.DragEvent<HTMLElement>) => {dragOverHandler(e)}}
+      onDrop={(e: React.DragEvent<HTMLElement>) => {dropHandler(e, values)}}
+      >
         <div className="column" draggable="true" data-id={ColumnId}>
           <div className="column-info">
             <button

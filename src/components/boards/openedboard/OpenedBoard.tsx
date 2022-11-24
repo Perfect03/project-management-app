@@ -30,7 +30,7 @@ const OpenedBoard = () => {
       <section className="columns">
         <ul className="columns-table">
           {columns.map((values) => {
-            return <NewColumn values={values} key={values._id} />;
+            return <NewColumn values={values} key={values._id}/>;
           })}
           <li>
             <button className="columns-table__add" onClick={() => setModal(true)}>
