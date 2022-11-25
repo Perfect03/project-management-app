@@ -15,6 +15,7 @@ const BoardsPage = () => {
   const [Boards, setBoards] = useState<IBoard[]>([]);
   const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
   const findedBoards = useSelector<IGetState>((state) => state.searchData.findedBoards) as IBoard[];
+
   useEffect(() => {
     const getBoards = async () => {
       const currentBoards = await BoardApi.getAllBoards();

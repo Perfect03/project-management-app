@@ -22,8 +22,14 @@ const SearchBar = () => {
       const allBoardsId = boards.map((el) => {
         return el._id;
       }) as string[];
+
       allTasks = await getTasksByBoardId(allBoardsId);
       const findedTasks = findTasksByQuery(allTasks, query);
+
+      if (!findedTasks.length) {
+        form.search.value = '';
+        form.search.placeholder = 'Nothing was found.';
+      }
       getBoardsById(findedTasks);
     } else {
       dispatch(findedBoardsReducer([]));
