@@ -22,8 +22,10 @@ const AddColumn: FC<{
 
     onSubmit: async (values, { resetForm }) => {
       dispatch(isLoadingReducer(true));
-      await ColumnApi.createColumnInBoard(current, values);
       const columns = await ColumnApi.getColumnsInBoard(current);
+      console.log(columns);
+      values.order=columns.length+1;
+      await ColumnApi.createColumnInBoard(current, values);
       dispatch(columnReducer(columns));
       setModal(false);
       resetForm({});

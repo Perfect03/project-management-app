@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { IColumn, ITask } from 'interfaces/api';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
@@ -11,7 +11,13 @@ import { ChangeTitle } from './column-title';
 import { useSelector } from 'react-redux';
 import { IGetState } from 'interfaces/redux';
 
-const NewColumn = ({ values }: { values: IColumn }) => {
+const NewColumn: FC<{
+  values: IColumn;
+  dragStartHandler: CallableFunction;
+  dragEndHandler: CallableFunction;
+  dragOverHandler: CallableFunction;
+  dropHandler: CallableFunction;
+}> = ({ values, dragStartHandler, dragEndHandler, dragOverHandler, dropHandler }) => {
   const [isModalDel, setModalDel] = useState(false);
   const [isModalAdd, setModalAdd] = useState(false);
   const [ModalTitle, setModalTitle] = useState(false);
@@ -44,28 +50,11 @@ const NewColumn = ({ values }: { values: IColumn }) => {
     setModalTitle(true);
   };
 
-  function dragStartHandler(e: React.DragEvent<HTMLElement>, card: IColumn) {
-    console.log('drag', card);
-    setCurrentCard(card);
-  }
-
-function dragEndHandler(e: React.DragEvent<HTMLElement>) {
-  
-}
-
-function dropHandler(e: React.DragEvent<HTMLElement>, card: IColumn) {
-  e.preventDefault();
-  console.log('drop', card);
-}
-
-function dragOverHandler(e: React.DragEvent<HTMLElement>) {
-  e.preventDefault();
-}
-
   return (
     <>
-      <li draggable={true}
-      onDragStart={(e: React.DragEvent<HTMLElement>) => {dragStartHandler(e, values)}}
+      <li
+        draggable={true}
+        onDragStart={(e: React.DragEvent<HTMLElement>) => {dragStartHandler(e, values)}}
       onDragLeave={(e: React.DragEvent<HTMLElement>) => {dragEndHandler(e)}}
       onDragEnd={(e: React.DragEvent<HTMLElement>) => {dragEndHandler(e)}}
       onDragOver={(e: React.DragEvent<HTMLElement>) => {dragOverHandler(e)}}
