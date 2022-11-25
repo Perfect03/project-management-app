@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ITask } from 'interfaces/api';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import './task.scss';
 import TaskApi from '../../../api/task';
 
-const NewTask = ({ values }: { values: ITask }) => {
+const NewTask: FC<{
+  values: ITask;
+  taskDragStartHandler: CallableFunction;
+  taskDragEndHandler: CallableFunction;
+  taskDragOverHandler: CallableFunction;
+  taskDropHandler: CallableFunction;
+}> = ({ values, taskDragStartHandler, taskDragEndHandler, taskDragOverHandler, taskDropHandler }) => {
   const [isModalDel, setModalDel] = useState(false);
 
   const handleChangeDelete = () => {
@@ -21,7 +27,13 @@ const NewTask = ({ values }: { values: ITask }) => {
 
   return (
     <>
-      <li className="placeholder">
+      <li draggable={true}
+        onDragStart={(e: React.DragEvent<HTMLElement>) => {taskDragStartHandler(e, values)}}
+      onDragLeave={(e: React.DragEvent<HTMLElement>) => {taskDragEndHandler(e)}}
+      onDragEnd={(e: React.DragEvent<HTMLElement>) => {taskDragEndHandler(e)}}
+      onDragOver={(e: React.DragEvent<HTMLElement>) => {taskDragOverHandler(e)}}
+      onDrop={(e: React.DragEvent<HTMLElement>) => {taskDropHandler(e, values)}}
+      className="placeholder">
         <div className="task" draggable="true">
           <div className="task-info">
             <h3 className="task-info-title">{values.title}</h3>

@@ -27,8 +27,9 @@ const AddTask: FC<{
 
     onSubmit: async (values, { resetForm }) => {
       dispatch(isLoadingReducer(true));
-      await TaskApi.createTaskInColumn(current, column, values);
       const tasks = await TaskApi.getTasksInColumn(current, column);
+      values.order=tasks.length+1;
+      await TaskApi.createTaskInColumn(current, column, values);
       dispatch(taskReducer(tasks));
       setModal(false);
       resetForm({});

@@ -80,10 +80,10 @@ const OpenedBoard = () => {
             return (
               <NewColumn
                 values={values}
-                dragStartHandler={dragStartHandler}
-                dragEndHandler={dragEndHandler}
-                dragOverHandler={dragOverHandler}
-                dropHandler={dropHandler}
+                columnDragStartHandler={dragStartHandler}
+                columnDragEndHandler={dragEndHandler}
+                columnDragOverHandler={dragOverHandler}
+                columnDropHandler={dropHandler}
                 key={values._id}
               />
             );
