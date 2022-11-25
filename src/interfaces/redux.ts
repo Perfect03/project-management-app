@@ -25,4 +25,5 @@ export interface IGetState {
   userData: IUserData;
   boardsData: IBoardsData;
   selectedBoard: ISelectedBoard;
+  searchData: { findedBoards: IBoard[] };
 }

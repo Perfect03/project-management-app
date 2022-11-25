@@ -59,15 +59,15 @@ class BoardApi {
   }
 
   async getBoardByIdsList(list: string[]) {
+    const idsString = list.join(',');
     const config = {
       headers: { Authorization: `Bearer ${this.token}` },
-      params: { ids: [...list] },
+      params: { ids: idsString },
     };
 
     const url = this.url + 'boardsSet';
     try {
-      const response = await axios.get(url, this.config);
-      console.log(response.data);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
       console.log(error);

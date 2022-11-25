@@ -14,13 +14,15 @@ const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
   const [Boards, setBoards] = useState<IBoard[]>([]);
   const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
+  const findedBoards = useSelector<IGetState>((state) => state.searchData.findedBoards) as IBoard[];
+
   useEffect(() => {
     const getBoards = async () => {
       const currentBoards = await BoardApi.getAllBoards();
       setBoards(currentBoards);
     };
     getBoards();
-  }, [isRerender]);
+  }, [isRerender, findedBoards]);
 
   return (
     <>
@@ -28,16 +30,35 @@ const BoardsPage = () => {
         <SearchBar />
         <ul className="boards-table">
           <>
-            {Boards.map((values) => {
-              return (
-                <li key={values._id + 'li'}>
-                  <Link key={values._id + 'a'} to={`/boards/${values._id}`} className="ronyauProd">
-                    <div className="board-link"></div>
-                  </Link>
-                  <NewBoard values={values} key={values._id} />
-                </li>
-              );
-            })}
+            {!findedBoards.length
+              ? Boards.map((values) => {
+                  return (
+                    <li key={values._id + 'li'}>
+                      <Link
+                        key={values._id + 'a'}
+                        to={`/boards/${values._id}`}
+                        className="ronyauProd"
+                      >
+                        <div className="board-link"></div>
+                      </Link>
+                      <NewBoard values={values} key={values._id} />
+                    </li>
+                  );
+                })
+              : findedBoards.map((values) => {
+                  return (
+                    <li key={values._id + 'li'}>
+                      <Link
+                        key={values._id + 'a'}
+                        to={`/boards/${values._id}`}
+                        className="ronyauProd"
+                      >
+                        <div className="board-link"></div>
+                      </Link>
+                      <NewBoard values={values} key={values._id} />
+                    </li>
+                  );
+                })}
           </>
           <li>
             <button className="boards-table__add" onClick={() => setModal(true)}></button>
