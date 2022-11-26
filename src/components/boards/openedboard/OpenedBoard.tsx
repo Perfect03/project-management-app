@@ -12,7 +12,7 @@ import ColumnApi from '../../../api/columns';
 const OpenedBoard = () => {
   const [isModal, setModal] = useState(false);
   const [columns, setColumns] = useState<IColumn[]>([]);
-  const [currentCard, setCurrentCard] = useState(columns[0]);
+  const [currentColumn, setCurrentColumn] = useState(columns[0]);
   const isRerender = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
   const params = useParams();
   const currentBoard = params.id as string;
@@ -26,7 +26,7 @@ const OpenedBoard = () => {
   }, [isRerender]);
 
   function dragStartHandler(e: React.DragEvent<HTMLElement>, card: IColumn) {
-    setCurrentCard(card);
+    setCurrentColumn(card);
   }
 
   function dragEndHandler(e: React.DragEvent<HTMLElement>) {
@@ -39,9 +39,9 @@ const OpenedBoard = () => {
     e.preventDefault();
     const newColumns = columns.map(e => {
       if(e._id === card._id) {
-        return {...e, order: currentCard.order}
+        return {...e, order: currentColumn.order}
       }
-      if(e._id === currentCard._id) {
+      if(e._id === currentColumn._id) {
         return {...e, order: card.order}
       }
       return e;
@@ -49,9 +49,9 @@ const OpenedBoard = () => {
     setColumns(newColumns);
     await ColumnApi.updateColumnsSet(newColumns.map(e => {
       if(e._id === card._id) {
-        return {_id: e._id as string, order: currentCard.order}
+        return {_id: e._id as string, order: currentColumn.order}
       }
-      if(e._id === currentCard._id) {
+      if(e._id === currentColumn._id) {
         return {_id: e._id as string, order: card.order}
       }
       return {_id: e._id as string, order: e.order};
@@ -79,12 +79,13 @@ const OpenedBoard = () => {
           {columns.sort(sortColumns).map((values) => {
             return (
               <NewColumn
-                values={values}
+                columnData={values}
                 columnDragStartHandler={dragStartHandler}
                 columnDragEndHandler={dragEndHandler}
                 columnDragOverHandler={dragOverHandler}
                 columnDropHandler={dropHandler}
                 key={values._id}
+                columns={columns}
               />
             );
           })}

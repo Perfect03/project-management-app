@@ -1,17 +1,19 @@
 import React, { FC, useState } from 'react';
-import { ITask } from 'interfaces/api';
+import { ITask, IColumn } from 'interfaces/api';
 import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import './task.scss';
 import TaskApi from '../../../api/task';
 
 const NewTask: FC<{
-  values: ITask;
+  taskData: ITask;
+  columnData: IColumn;
   taskDragStartHandler: CallableFunction;
   taskDragEndHandler: CallableFunction;
+  taskDragLeaveHandler: CallableFunction;
   taskDragOverHandler: CallableFunction;
   taskDropHandler: CallableFunction;
-}> = ({ values, taskDragStartHandler, taskDragEndHandler, taskDragOverHandler, taskDropHandler }) => {
+}> = ({ taskData, columnData, taskDragStartHandler, taskDragEndHandler, taskDragLeaveHandler, taskDragOverHandler, taskDropHandler }) => {
   const [isModalDel, setModalDel] = useState(false);
 
   const handleChangeDelete = () => {
@@ -19,27 +21,27 @@ const NewTask: FC<{
   };
 
   const deleteColumn = async () => {
-    const TaskId = values._id as string;
-    const ColumnId = values.columnId as string;
-    const BoardId = values.boardId as string;
+    const TaskId = taskData._id as string;
+    const ColumnId = taskData.columnId as string;
+    const BoardId = taskData.boardId as string;
     await TaskApi.deleteTaskById(BoardId, ColumnId, TaskId);
   };
 
   return (
     <>
       <li draggable={true}
-        onDragStart={(e: React.DragEvent<HTMLElement>) => {taskDragStartHandler(e, values)}}
-      onDragLeave={(e: React.DragEvent<HTMLElement>) => {taskDragEndHandler(e)}}
+        onDragStart={(e: React.DragEvent<HTMLElement>) => {taskDragStartHandler(e, taskData, columnData)}}
+      onDragLeave={(e: React.DragEvent<HTMLElement>) => {taskDragLeaveHandler(e)}}
       onDragEnd={(e: React.DragEvent<HTMLElement>) => {taskDragEndHandler(e)}}
       onDragOver={(e: React.DragEvent<HTMLElement>) => {taskDragOverHandler(e)}}
-      onDrop={(e: React.DragEvent<HTMLElement>) => {taskDropHandler(e, values)}}
+      onDrop={(e: React.DragEvent<HTMLElement>) => {taskDropHandler(e, taskData, columnData)}}
       className="placeholder">
         <div className="task" draggable="true">
           <div className="task-info">
-            <h3 className="task-info-title">{values.title}</h3>
+            <h3 className="task-info-title">{taskData.title}</h3>
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>
           </div>
-          <p className="task-info-description">{values.description}</p>
+          <p className="task-info-description">{taskData.description}</p>
         </div>
       </li>
       {isModalDel && (
