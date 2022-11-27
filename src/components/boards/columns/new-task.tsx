@@ -38,9 +38,11 @@ const NewTask: FC<{
   return (
     <>
       <li
-        draggable={true}
+        className="placeholder"
+      >
+        <div className="task" draggable={true}
         onDragStart={(e: React.DragEvent<HTMLElement>) => {
-          taskDragStartHandler(taskData, columnData);
+          taskDragStartHandler(e, taskData, columnData);
         }}
         onDragLeave={(e: React.DragEvent<HTMLElement>) => {
           taskDragLeaveHandler(e);
@@ -53,10 +55,7 @@ const NewTask: FC<{
         }}
         onDrop={(e: React.DragEvent<HTMLElement>) => {
           taskDropHandler(e, taskData);
-        }}
-        className="placeholder"
-      >
-        <div className="task" draggable="true">
+        }}>
           <div className="task-info">
             <h3 className="task-info-title">{taskData.title}</h3>
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>

@@ -65,7 +65,7 @@ const NewColumn: FC<{
     setModalTitle(true);
   };
 
-  function dragStartHandler(task: ITask, column: IColumn) {
+  function dragStartHandler(e: React.DragEvent<HTMLElement>, task: ITask, column: IColumn) {
     dispatch(isCurrentTask(task));
     dispatch(isCurrentColumn(column._id));
     dispatch(isLoadingReducer(true));
@@ -73,12 +73,16 @@ const NewColumn: FC<{
 
   function dragEndHandler(e: React.DragEvent<HTMLElement>) {
     e.preventDefault();
-    //(e.target as HTMLElement).style.boxShadow='none';
+    (e.target as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a';
   }
 
   function dragLeaveHandler(e: React.DragEvent<HTMLElement>) {
     e.preventDefault();
-    //(e.target as HTMLElement).style.boxShadow='none';
+    if((e.target as HTMLElement).className=='task') {
+      (e.target as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
+    }
+    else (e.target as HTMLElement).style.boxShadow='none';
+    //(e.target as HTMLElement).style.boxShadow=(((e.target as HTMLElement).className=='task') ? '-1px -1px 5px #fff, 1px 1px 5px #5c511a' : 'none');
   }
 
   async function dropHandler(e: React.DragEvent<HTMLElement>, task: ITask) {
@@ -132,8 +136,9 @@ const NewColumn: FC<{
   }
 
   function dragOverHandler(e: React.DragEvent<HTMLElement>) {
+    console.log((e.target as HTMLElement).className);
     e.preventDefault();
-    //if(e.target.className=='task') (e.target as HTMLElement).style.boxShadow='0 4px 3px gray';
+    if((e.target as HTMLElement).className=='task') (e.target as HTMLElement).style.boxShadow='0 4px 3px gray';
   }
 
   const sortTasks = (a: IColumn, b: IColumn) => {
