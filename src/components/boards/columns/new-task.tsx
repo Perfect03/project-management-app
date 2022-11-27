@@ -37,25 +37,26 @@ const NewTask: FC<{
 
   return (
     <>
-      <li
-        className="placeholder"
-      >
-        <div className="task" draggable={true}
-        onDragStart={(e: React.DragEvent<HTMLElement>) => {
-          taskDragStartHandler(e, taskData, columnData);
-        }}
-        onDragLeave={(e: React.DragEvent<HTMLElement>) => {
-          taskDragLeaveHandler(e, taskData);
-        }}
-        onDragEnd={(e: React.DragEvent<HTMLElement>) => {
-          taskDragEndHandler(e);
-        }}
-        onDragOver={(e: React.DragEvent<HTMLElement>) => {
-          taskDragOverHandler(e);
-        }}
-        onDrop={(e: React.DragEvent<HTMLElement>) => {
-          taskDropHandler(e, taskData);
-        }}>
+      <li className="placeholder">
+        <div
+          className="task"
+          draggable={true}
+          onDragStart={(e: React.DragEvent<HTMLElement>) => {
+            taskDragStartHandler(e, taskData, columnData);
+          }}
+          onDragLeave={(e: React.DragEvent<HTMLElement>) => {
+            taskDragLeaveHandler(e, taskData);
+          }}
+          onDragEnd={(e: React.DragEvent<HTMLElement>) => {
+            taskDragEndHandler(e);
+          }}
+          onDragOver={(e: React.DragEvent<HTMLElement>) => {
+            taskDragOverHandler(e);
+          }}
+          onDrop={(e: React.DragEvent<HTMLElement>) => {
+            taskDropHandler(e, taskData);
+          }}
+        >
           <div className="task-info">
             <h3 className="task-info-title">{taskData.title}</h3>
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>

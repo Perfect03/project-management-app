@@ -74,32 +74,33 @@ const NewColumn: FC<{
 
   function dragEndHandler(e: React.DragEvent<HTMLElement>) {
     e.preventDefault();
-    (e.target as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+    (e.target as HTMLElement).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
   }
 
   function dragLeaveHandler(e: React.DragEvent<HTMLElement>, task: ITask) {
     e.preventDefault();
-    
-    if((e.target as HTMLElement).className=='task') {
-      (e.target as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
-    }
-    else if ((e.target as HTMLElement).parentElement?.className=='task') {
-      ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
-    }
-    else (e.target as HTMLElement).style.boxShadow='none';
+
+    if ((e.target as HTMLElement).className == 'task') {
+      (e.target as HTMLElement).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+    } else if ((e.target as HTMLElement).parentElement?.className == 'task') {
+      ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow =
+        '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+    } else (e.target as HTMLElement).style.boxShadow = 'none';
   }
 
   async function dropHandler(e: React.DragEvent<HTMLElement>, task: ITask) {
     e.preventDefault();
     e.stopPropagation();
 
-    if((e.target as HTMLElement).className=='task') {
-      (e.target as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
-    }
-    else if ((e.target as HTMLElement).parentElement?.className=='task') {
-      ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
-    }
-    else (((e.target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+    if ((e.target as HTMLElement).className == 'task') {
+      (e.target as HTMLElement).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+    } else if ((e.target as HTMLElement).parentElement?.className == 'task') {
+      ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow =
+        '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+    } else
+      (
+        ((e.target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement
+      ).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
 
     let currentColumnTasks = await TaskApi.getTasksInColumn(BoardId, currentColumn);
     currentColumnTasks = (currentColumnTasks as ITask[]).filter((el) => el._id !== currentTask._id);
@@ -150,9 +151,14 @@ const NewColumn: FC<{
 
   function dragOverHandler(e: React.DragEvent<HTMLElement>) {
     e.preventDefault();
-    if((e.target as HTMLElement).className=='task') (e.target as HTMLElement).style.boxShadow='0 4px 3px gray';
-    if((e.target as HTMLElement).parentElement?.className=='task') ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow='0 4px 3px gray';
-    if((e.target as HTMLElement).parentElement?.parentElement?.className=='task') (((e.target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).style.boxShadow='0 4px 3px gray';
+    if ((e.target as HTMLElement).className == 'task')
+      (e.target as HTMLElement).style.boxShadow = '0 4px 3px gray';
+    if ((e.target as HTMLElement).parentElement?.className == 'task')
+      ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow = '0 4px 3px gray';
+    if ((e.target as HTMLElement).parentElement?.parentElement?.className == 'task')
+      (
+        ((e.target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement
+      ).style.boxShadow = '0 4px 3px gray';
   }
 
   const sortTasks = (a: IColumn, b: IColumn) => {
@@ -180,7 +186,9 @@ const NewColumn: FC<{
           dragOverHandler(e);
         }}
         onDrop={(e: React.DragEvent<HTMLElement>) => {
-          (currentTask == CurrentDragItemDefault.currentTask) ? columnDropHandler(e, columnData) : dropCardHandler(e, columnData);
+          currentTask == CurrentDragItemDefault.currentTask
+            ? columnDropHandler(e, columnData)
+            : dropCardHandler(e, columnData);
         }}
       >
         <div className="column" draggable="true" data-id={ColumnId}>

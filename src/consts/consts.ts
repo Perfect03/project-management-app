@@ -1,11 +1,11 @@
 export const boardsDataDefault = {
-    isLoading: false,
+  isLoading: false,
   error: '',
   boards: [],
-}
+};
 
 export const CurrentDragItemDefault = {
-    currentColumnId: '',
+  currentColumnId: '',
   currentTask: {
     title: '',
     order: 0,
@@ -16,18 +16,18 @@ export const CurrentDragItemDefault = {
     columnId: '',
     _id: '',
   },
-}
+};
 
 export const selectedBoardDataDefault = {
-    isLoading: false,
+  isLoading: false,
   error: '',
   board: { _id: '', title: '', owner: '', users: [] },
   columns: [],
   tasks: [],
-}
+};
 
 export const userDataDefault = {
-    isAuth: false,
+  isAuth: false,
   isLoading: false,
   error: '',
   user: {
@@ -35,4 +35,4 @@ export const userDataDefault = {
     name: '',
     login: '',
   },
-}
+};
