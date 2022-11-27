@@ -13,7 +13,15 @@ const NewTask: FC<{
   taskDragLeaveHandler: CallableFunction;
   taskDragOverHandler: CallableFunction;
   taskDropHandler: CallableFunction;
-}> = ({ taskData, columnData, taskDragStartHandler, taskDragEndHandler, taskDragLeaveHandler, taskDragOverHandler, taskDropHandler }) => {
+}> = ({
+  taskData,
+  columnData,
+  taskDragStartHandler,
+  taskDragEndHandler,
+  taskDragLeaveHandler,
+  taskDragOverHandler,
+  taskDropHandler,
+}) => {
   const [isModalDel, setModalDel] = useState(false);
 
   const handleChangeDelete = () => {
@@ -29,13 +37,25 @@ const NewTask: FC<{
 
   return (
     <>
-      <li draggable={true}
-        onDragStart={(e: React.DragEvent<HTMLElement>) => {taskDragStartHandler(e, taskData, columnData)}}
-      onDragLeave={(e: React.DragEvent<HTMLElement>) => {taskDragLeaveHandler(e)}}
-      onDragEnd={(e: React.DragEvent<HTMLElement>) => {taskDragEndHandler(e)}}
-      onDragOver={(e: React.DragEvent<HTMLElement>) => {taskDragOverHandler(e)}}
-      onDrop={(e: React.DragEvent<HTMLElement>) => {taskDropHandler(e, taskData, columnData)}}
-      className="placeholder">
+      <li
+        draggable={true}
+        onDragStart={(e: React.DragEvent<HTMLElement>) => {
+          taskDragStartHandler(taskData, columnData);
+        }}
+        onDragLeave={(e: React.DragEvent<HTMLElement>) => {
+          taskDragLeaveHandler(e);
+        }}
+        onDragEnd={(e: React.DragEvent<HTMLElement>) => {
+          taskDragEndHandler(e);
+        }}
+        onDragOver={(e: React.DragEvent<HTMLElement>) => {
+          taskDragOverHandler(e);
+        }}
+        onDrop={(e: React.DragEvent<HTMLElement>) => {
+          taskDropHandler(e, taskData);
+        }}
+        className="placeholder"
+      >
         <div className="task" draggable="true">
           <div className="task-info">
             <h3 className="task-info-title">{taskData.title}</h3>

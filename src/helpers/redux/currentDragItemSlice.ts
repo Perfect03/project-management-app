@@ -5,13 +5,14 @@ const initialState: ICurrentDragItem = {
   currentColumnId: '',
   currentTask: {
     title: '',
-  order: 0,
-  description: '',
-  userId: 0,
-  users: [],
-  boardId: '',
-  columnId: '',
-  _id: '',},
+    order: 0,
+    description: '',
+    userId: 0,
+    users: [],
+    boardId: '',
+    columnId: '',
+    _id: '',
+  },
 };
 
 export const currentDragItemSlice = createSlice({
@@ -20,16 +21,13 @@ export const currentDragItemSlice = createSlice({
   reducers: {
     isCurrentColumn(state, action) {
       state.currentColumnId = action.payload;
-      console.log(state.currentColumnId);
     },
     isCurrentTask(state, action) {
       state.currentTask = action.payload;
-      console.log(state.currentTask);
     },
   },
 });
 
-export const { isCurrentColumn, isCurrentTask } =
-currentDragItemSlice.actions;
+export const { isCurrentColumn, isCurrentTask } = currentDragItemSlice.actions;
 
 export default currentDragItemSlice.reducer;

@@ -37,25 +37,27 @@ const OpenedBoard = () => {
 
   async function dropHandler(e: React.DragEvent<HTMLElement>, card: IColumn) {
     e.preventDefault();
-    const newColumns = columns.map(e => {
-      if(e._id === card._id) {
-        return {...e, order: currentColumn.order}
+    const newColumns = columns.map((e) => {
+      if (e._id === card._id) {
+        return { ...e, order: currentColumn.order };
       }
-      if(e._id === currentColumn._id) {
-        return {...e, order: card.order}
+      if (e._id === currentColumn._id) {
+        return { ...e, order: card.order };
       }
       return e;
     });
     setColumns(newColumns);
-    await ColumnApi.updateColumnsSet(newColumns.map(e => {
-      if(e._id === card._id) {
-        return {_id: e._id as string, order: currentColumn.order}
-      }
-      if(e._id === currentColumn._id) {
-        return {_id: e._id as string, order: card.order}
-      }
-      return {_id: e._id as string, order: e.order};
-    }));
+    await ColumnApi.updateColumnsSet(
+      newColumns.map((e) => {
+        if (e._id === card._id) {
+          return { _id: e._id as string, order: currentColumn.order };
+        }
+        if (e._id === currentColumn._id) {
+          return { _id: e._id as string, order: card.order };
+        }
+        return { _id: e._id as string, order: e.order };
+      })
+    );
   }
 
   function dragOverHandler(e: React.DragEvent<HTMLElement>) {
@@ -64,13 +66,13 @@ const OpenedBoard = () => {
     //changeElementChildsColor(e.currentTarget as HTMLElement, 'lightgray');
   }
 
-  const sortColumns = (a: IColumn,b: IColumn) => {
-    if(a.order > b.order) {
-      return 1
+  const sortColumns = (a: IColumn, b: IColumn) => {
+    if (a.order > b.order) {
+      return 1;
     } else {
       return -1;
     }
-  }
+  };
 
   return (
     <>
@@ -85,7 +87,6 @@ const OpenedBoard = () => {
                 columnDragOverHandler={dragOverHandler}
                 columnDropHandler={dropHandler}
                 key={values._id}
-                columns={columns}
               />
             );
           })}

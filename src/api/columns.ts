@@ -72,7 +72,7 @@ class ColumnApi {
     }
   }
 
-  async updateColumnsSet(set: {_id: string, order: number}[]) {
+  async updateColumnsSet(set: { _id: string; order: number }[]) {
     const url = this.url + 'columnsSet';
     try {
       const response = await axios.patch(url, set, this.config);
