@@ -14,6 +14,7 @@ import { IGetState } from 'interfaces/redux';
 import { isCurrentTask } from 'helpers/redux/currentDragItemSlice';
 import { isCurrentColumn } from 'helpers/redux/currentDragItemSlice';
 import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
+import { CurrentDragItemDefault } from 'consts/consts';
 
 const NewColumn: FC<{
   columnData: IColumn;
@@ -121,6 +122,7 @@ const NewColumn: FC<{
         return { _id: e._id as string, order: e.order, columnId: e.columnId as string };
       })
     );
+    dispatch(isCurrentTask(CurrentDragItemDefault.currentTask));
     dispatch(isLoadingReducer(false));
   }
 
@@ -178,7 +180,7 @@ const NewColumn: FC<{
           dragOverHandler(e);
         }}
         onDrop={(e: React.DragEvent<HTMLElement>) => {
-          tasks.length ? columnDropHandler(e, columnData) : dropCardHandler(e, columnData);
+          (currentTask == CurrentDragItemDefault.currentTask) ? columnDropHandler(e, columnData) : dropCardHandler(e, columnData);
         }}
       >
         <div className="column" draggable="true" data-id={ColumnId}>

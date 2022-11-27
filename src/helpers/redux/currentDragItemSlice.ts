@@ -1,19 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { CurrentDragItemDefault } from 'consts/consts';
 import { ICurrentDragItem } from 'interfaces/redux';
 
-const initialState: ICurrentDragItem = {
-  currentColumnId: '',
-  currentTask: {
-    title: '',
-    order: 0,
-    description: '',
-    userId: 0,
-    users: [],
-    boardId: '',
-    columnId: '',
-    _id: '',
-  },
-};
+const initialState: ICurrentDragItem = CurrentDragItemDefault;
 
 export const currentDragItemSlice = createSlice({
   name: 'currentDragItem',
