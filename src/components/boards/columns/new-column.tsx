@@ -10,6 +10,7 @@ import TaskApi from '../../../api/task';
 import ColumnApi from '../../../api/columns';
 import { ChangeTitle } from './column-title';
 import { useSelector } from 'react-redux';
+import {Reorder} from 'framer-motion';
 import { IGetState } from 'interfaces/redux';
 import { isCurrentTask } from 'helpers/redux/currentDragItemSlice';
 import { isCurrentColumn } from 'helpers/redux/currentDragItemSlice';
@@ -170,8 +171,9 @@ const NewColumn: FC<{
   };
   return (
     <>
-      <li
-        draggable={true}
+      <Reorder.Item value={columnData}
+      >
+        <div className="column" draggable={true}
         onDragStart={(e: React.DragEvent<HTMLElement>) => {
           columnDragStartHandler(e, columnData);
         }}
@@ -189,9 +191,7 @@ const NewColumn: FC<{
           currentTask == CurrentDragItemDefault.currentTask
             ? columnDropHandler(e, columnData)
             : dropCardHandler(e, columnData);
-        }}
-      >
-        <div className="column" draggable="true" data-id={ColumnId}>
+        }} data-id={ColumnId}>
           <div className="column-info">
             <button
               className="column-info-title"
@@ -225,7 +225,7 @@ const NewColumn: FC<{
             </button>
           </div>
         </div>
-      </li>
+      </Reorder.Item>
       {ModalTitle && (
         <Modal
           isVisible={ModalTitle}

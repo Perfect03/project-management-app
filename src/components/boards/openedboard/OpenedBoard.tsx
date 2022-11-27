@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { IColumn } from 'interfaces/api';
 import { useParams } from 'react-router-dom';
 import ColumnApi from '../../../api/columns';
+import {Reorder} from 'framer-motion';
 
 const OpenedBoard = () => {
   const [isModal, setModal] = useState(false);
@@ -77,7 +78,7 @@ const OpenedBoard = () => {
   return (
     <>
       <section className="columns">
-        <ul className="columns-table">
+        <Reorder.Group axis="x" className="columns-table" values={columns} onReorder={setColumns}>
           {columns.sort(sortColumns).map((values) => {
             return (
               <NewColumn
@@ -95,7 +96,7 @@ const OpenedBoard = () => {
               Add new column +
             </button>
           </li>
-        </ul>
+        </Reorder.Group>
       </section>
       {isModal && (
         <Modal
