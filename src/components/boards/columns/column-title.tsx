@@ -17,7 +17,7 @@ const ChangeTitle = ({
     column.title = title;
     const temp = {
       title: title,
-      order: 0,
+      order: column.order,
     };
     await ColumnApi.updateColumnById(BoardId, ColumnId, temp);
     setModalTitle(false);

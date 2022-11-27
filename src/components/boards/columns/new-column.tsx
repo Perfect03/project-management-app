@@ -76,18 +76,29 @@ const NewColumn: FC<{
     (e.target as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a';
   }
 
-  function dragLeaveHandler(e: React.DragEvent<HTMLElement>) {
+  function dragLeaveHandler(e: React.DragEvent<HTMLElement>, task: ITask) {
     e.preventDefault();
+    
     if((e.target as HTMLElement).className=='task') {
       (e.target as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
     }
+    else if ((e.target as HTMLElement).parentElement?.className=='task') {
+      ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
+    }
     else (e.target as HTMLElement).style.boxShadow='none';
-    //(e.target as HTMLElement).style.boxShadow=(((e.target as HTMLElement).className=='task') ? '-1px -1px 5px #fff, 1px 1px 5px #5c511a' : 'none');
   }
 
   async function dropHandler(e: React.DragEvent<HTMLElement>, task: ITask) {
     e.preventDefault();
     e.stopPropagation();
+
+    if((e.target as HTMLElement).className=='task') {
+      (e.target as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
+    }
+    else if ((e.target as HTMLElement).parentElement?.className=='task') {
+      ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a'
+    }
+    else (((e.target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).style.boxShadow='-1px -1px 5px #fff, 1px 1px 5px #5c511a';
 
     let currentColumnTasks = await TaskApi.getTasksInColumn(BoardId, currentColumn);
     currentColumnTasks = (currentColumnTasks as ITask[]).filter((el) => el._id !== currentTask._id);
@@ -136,9 +147,10 @@ const NewColumn: FC<{
   }
 
   function dragOverHandler(e: React.DragEvent<HTMLElement>) {
-    console.log((e.target as HTMLElement).className);
     e.preventDefault();
     if((e.target as HTMLElement).className=='task') (e.target as HTMLElement).style.boxShadow='0 4px 3px gray';
+    if((e.target as HTMLElement).parentElement?.className=='task') ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow='0 4px 3px gray';
+    if((e.target as HTMLElement).parentElement?.parentElement?.className=='task') (((e.target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).style.boxShadow='0 4px 3px gray';
   }
 
   const sortTasks = (a: IColumn, b: IColumn) => {

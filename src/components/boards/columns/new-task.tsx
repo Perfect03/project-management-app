@@ -45,7 +45,7 @@ const NewTask: FC<{
           taskDragStartHandler(e, taskData, columnData);
         }}
         onDragLeave={(e: React.DragEvent<HTMLElement>) => {
-          taskDragLeaveHandler(e);
+          taskDragLeaveHandler(e, taskData);
         }}
         onDragEnd={(e: React.DragEvent<HTMLElement>) => {
           taskDragEndHandler(e);
