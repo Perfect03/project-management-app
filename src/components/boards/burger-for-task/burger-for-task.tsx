@@ -10,10 +10,6 @@ const BurgerTask: FC<{
 }> = ({ isVisible = false, onClose, values }) => {
   const [tasktitle, settaskTitle] = useState('');
   const [taskdescription, settaskdescription] = useState('');
-  const burger_title = document.querySelector('.burger-task__input__first');
-  console.log(burger_title);
-  const burger_description = document.querySelector('.burger-task__input__second');
-  console.log(burger_description);
 
   async function onSubmit() {
     const task = values;
@@ -24,7 +20,6 @@ const BurgerTask: FC<{
     task.title = tasktitle;
     task.description = taskdescription;
 
-    //здесь вытяни id task-a и положи в эту перменную и будет тебе счастье!!!!!!!!!!!
     task._id = values._id;
     const temp = {
       _id: task._id,
@@ -35,7 +30,7 @@ const BurgerTask: FC<{
       users: [],
     };
     await TaskApi.updateTaskById(BoardId, ColumnId, temp);
-    isVisible = false;
+    await onClose();
   }
 
   return !isVisible ? null : (
