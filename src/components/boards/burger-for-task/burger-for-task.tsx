@@ -17,11 +17,17 @@ const BurgerTask: FC<{
 
   async function onSubmit() {
     const task = values;
+
     const ColumnId = values.columnId as string;
     const BoardId = values.boardId as string;
+
     task.title = tasktitle;
     task.description = taskdescription;
+
+    //здесь вытяни id task-a и положи в эту перменную и будет тебе счастье!!!!!!!!!!!
+    task._id = values._id;
     const temp = {
+      taskId: task._id,
       title: tasktitle,
       description: taskdescription,
       order: 0,
