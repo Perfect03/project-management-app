@@ -27,7 +27,7 @@ const BurgerTask: FC<{
     //здесь вытяни id task-a и положи в эту перменную и будет тебе счастье!!!!!!!!!!!
     task._id = values._id;
     const temp = {
-      taskId: task._id,
+      _id: task._id,
       title: tasktitle,
       description: taskdescription,
       order: 0,
