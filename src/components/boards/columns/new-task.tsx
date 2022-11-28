@@ -15,8 +15,6 @@ const NewTask = ({ values }: { values: ITask }) => {
   };
 
   const handleChangeBurger = () => {
-    const burger = document.getElementById('#burger-task');
-    console.log(burger);
     setBurger(true);
   };
 
@@ -48,7 +46,9 @@ const NewTask = ({ values }: { values: ITask }) => {
           onClose={() => setModalDel(false)}
         />
       )}
-      {isBurger && <BurgerTask isVisible={isBurger} onClose={() => setBurger(false)} />}
+      {isBurger && (
+        <BurgerTask isVisible={isBurger} onClose={() => setBurger(false)} values={values} />
+      )}
     </>
   );
 };
