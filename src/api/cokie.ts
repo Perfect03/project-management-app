@@ -31,26 +31,7 @@ export const checkCookie = (cname1: string, cname2: string) => {
   return login;
 };
 
-/*const getUserByCookie = async (login: string, token: string) => {
-  try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await axios.get(`${baseUrl}users/${login}`, config);
-    console.log(response);
-    storageUserAccInfo.name = response.data.name;
-    storageUserAccInfo.email = response.data.email;
-    storageUserAccInfo.token = token;
-    storageUserAccInfo.userId = login;
-    storageUserAccInfo.message = 'Authenticated';
-  } catch (error) {
-    console.error(error);
-  }
-};
-*/
 export const deleteCookie = (cname1: string, cname2: string) => {
-  setCookie(cname1, '');
-  setCookie(cname2, '');
+  setCookie(cname1, '', -1);
+  setCookie(cname2, '', -1);
 };
