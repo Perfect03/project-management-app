@@ -4,12 +4,18 @@ import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import './task.scss';
 import TaskApi from '../../../api/task';
+import { BurgerTask } from '../burger-for-task/burger-for-task';
 
 const NewTask = ({ values }: { values: ITask }) => {
   const [isModalDel, setModalDel] = useState(false);
+  const [isBurger, setBurger] = useState(false);
 
   const handleChangeDelete = () => {
     setModalDel(true);
+  };
+
+  const handleChangeBurger = () => {
+    setBurger(true);
   };
 
   const deleteColumn = async () => {
@@ -24,7 +30,9 @@ const NewTask = ({ values }: { values: ITask }) => {
       <li className="placeholder">
         <div className="task" draggable="true">
           <div className="task-info">
-            <h3 className="task-info-title">{values.title}</h3>
+            <h3 className="task-info-title" onClick={handleChangeBurger}>
+              {values.title}
+            </h3>
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>
           </div>
           <p className="task-info-description">{values.description}</p>
@@ -37,6 +45,9 @@ const NewTask = ({ values }: { values: ITask }) => {
           content={<DeleteBoard setModalDel={setModalDel} deleteSmth={deleteColumn} />}
           onClose={() => setModalDel(false)}
         />
+      )}
+      {isBurger && (
+        <BurgerTask isVisible={isBurger} onClose={() => setBurger(false)} values={values} />
       )}
     </>
   );
