@@ -55,6 +55,6 @@ const getUserByCookie = async (userId: string, token: string) => {
 };
 
 export const deleteCookie = (cname1: string, cname2: string) => {
-  setCookie(cname1, '');
-  setCookie(cname2, '');
+  setCookie(cname1, '', -1);
+  setCookie(cname2, '', -1);
 };
