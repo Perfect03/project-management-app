@@ -17,9 +17,13 @@ class UserApi {
   };
 
   async getAllUsers() {
+    const token = getCookie('token');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'users';
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -36,7 +40,6 @@ class UserApi {
   }
 
   async getUserById() {
-    console.log(this.id);
     const url = this.url + 'users/' + this.id;
     try {
       const response = await axios.get(url, this.config);
