@@ -5,6 +5,9 @@ import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import { BoardForm } from '../boardform';
 import BoardApi from '../../../api/board';
+import { useTranslation } from 'react-i18next';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
 
 export const toggleLinks = (condition: boolean) => {
   const allLinks = document.querySelectorAll('.ronyauProd');
@@ -26,8 +29,15 @@ const NewBoard: FC<{
   const [isModalDel, setModalDel] = useState(false);
   const boardId = values._id as string;
 
+  const { t } = useTranslation();
+
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'warn') toast['warn'](t('Board removed'));
+  };
+
   const deleteBoard = async () => {
     await BoardApi.deleteBoardById(boardId);
+    toastPromise('warn');
   };
 
   return (

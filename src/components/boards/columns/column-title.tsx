@@ -1,5 +1,8 @@
 import { IColumn } from 'interfaces/api';
 import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
 import ColumnApi from '../../../api/columns';
 
 const ChangeTitle = ({
@@ -11,6 +14,12 @@ const ChangeTitle = ({
 }) => {
   const [title, setTitle] = useState('');
 
+  const { t } = useTranslation();
+
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'info') toast['info'](t('Column renamed'));
+  };
+
   async function onSubmit() {
     const ColumnId = column._id as string;
     const BoardId = column.boardId as string;
@@ -20,6 +29,7 @@ const ChangeTitle = ({
       order: column.order,
     };
     await ColumnApi.updateColumnById(BoardId, ColumnId, temp);
+    toastPromise('info');
     setModalTitle(false);
   }
 
@@ -29,14 +39,14 @@ const ChangeTitle = ({
         <input
           id="title"
           className="board-modal__input"
-          placeholder={'New title'}
+          placeholder={`${t('New title')}`}
           type="text"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
       </label>
       <button className="board-modal__button title-column" type="submit" onClick={onSubmit}>
-        SAVE
+        {t('SAVE')}
       </button>
     </>
   );

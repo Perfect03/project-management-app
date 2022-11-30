@@ -8,7 +8,8 @@ import { useSelector } from 'react-redux';
 import { IColumn } from 'interfaces/api';
 import { useParams } from 'react-router-dom';
 import ColumnApi from '../../../api/columns';
-import {Reorder} from 'framer-motion';
+import { Reorder } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const OpenedBoard = () => {
   const [isModal, setModal] = useState(false);
@@ -17,6 +18,8 @@ const OpenedBoard = () => {
   const isRerender = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
   const params = useParams();
   const currentBoard = params.id as string;
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getColumns = async () => {
@@ -32,8 +35,6 @@ const OpenedBoard = () => {
 
   function dragEndHandler(e: React.DragEvent<HTMLElement>) {
     e.preventDefault();
-    // (e.currentTarget as HTMLElement).style.backgroundColor='white';
-    //changeElementChildsColor(e.currentTarget as HTMLElement, 'white');
   }
 
   async function dropHandler(e: React.DragEvent<HTMLElement>, card: IColumn) {
@@ -63,8 +64,6 @@ const OpenedBoard = () => {
 
   function dragOverHandler(e: React.DragEvent<HTMLElement>) {
     e.preventDefault();
-    //(e.currentTarget as HTMLElement).style.backgroundColor='lightgray';
-    //changeElementChildsColor(e.currentTarget as HTMLElement, 'lightgray');
   }
 
   const sortColumns = (a: IColumn, b: IColumn) => {
@@ -93,7 +92,7 @@ const OpenedBoard = () => {
           })}
           <li>
             <button className="columns-table__add" onClick={() => setModal(true)}>
-              Add new column +
+              {t('Add new column')} +
             </button>
           </li>
         </Reorder.Group>
@@ -101,7 +100,7 @@ const OpenedBoard = () => {
       {isModal && (
         <Modal
           isVisible={isModal}
-          title="Add column:"
+          title={t('Add column:')}
           content={<AddColumn setModal={setModal} />}
           onClose={() => setModal(false)}
         />

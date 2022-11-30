@@ -5,6 +5,9 @@ import { Modal } from 'components/modal/Modal';
 import './task.scss';
 import TaskApi from '../../../api/task';
 import { BurgerTask } from '../burger-for-task/burger-for-task';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { IToastStatus } from '../../../interfaces/toast';
 
 const NewTask: FC<{
   taskData: ITask;
@@ -26,6 +29,12 @@ const NewTask: FC<{
   const [isModalDel, setModalDel] = useState(false);
   const [isBurger, setBurger] = useState(false);
 
+  const { t } = useTranslation();
+
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'warn') toast['warn'](t('Task removed'));
+  };
+
   const handleChangeDelete = () => {
     setModalDel(true);
   };
@@ -39,6 +48,7 @@ const NewTask: FC<{
     const ColumnId = taskData.columnId as string;
     const BoardId = taskData.boardId as string;
     await TaskApi.deleteTaskById(BoardId, ColumnId, TaskId);
+    toastPromise('warn');
   };
 
   return (
@@ -65,7 +75,7 @@ const NewTask: FC<{
         >
           <div className="task-info">
             <h3 className="task-info-title" onClick={handleChangeBurger}>
-              {values.title}
+              {taskData.title}
             </h3>
             <button className="column-buttons-delete" onClick={handleChangeDelete}></button>
           </div>
@@ -81,7 +91,7 @@ const NewTask: FC<{
         />
       )}
       {isBurger && (
-        <BurgerTask isVisible={isBurger} onClose={() => setBurger(false)} values={values} />
+        <BurgerTask isVisible={isBurger} onClose={() => setBurger(false)} values={taskData} />
       )}
     </>
   );

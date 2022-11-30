@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import BoardApi from '../../api/board';
 import { useSelector } from 'react-redux';
 import { IGetState } from 'interfaces/redux';
+import { useTranslation } from 'react-i18next';
 
 const BoardsPage = () => {
   const isAuth = useSelector<IGetState>((state) => state.userData.isAuth);
@@ -16,6 +17,8 @@ const BoardsPage = () => {
   const [isModal, setModal] = useState(false);
   const [Boards, setBoards] = useState<IBoard[]>([]);
   const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!isAuth) {
@@ -54,7 +57,7 @@ const BoardsPage = () => {
         {isModal && (
           <Modal
             isVisible={isModal}
-            title="Create new board:"
+            title={t('Create new board:')}
             content={<BoardForm setModal={setModal} action="create" elem="" />}
             onClose={() => setModal(false)}
           />

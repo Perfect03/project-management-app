@@ -10,12 +10,15 @@ import TaskApi from '../../../api/task';
 import ColumnApi from '../../../api/columns';
 import { ChangeTitle } from './column-title';
 import { useSelector } from 'react-redux';
-import {Reorder} from 'framer-motion';
+import { Reorder } from 'framer-motion';
 import { IGetState } from 'interfaces/redux';
 import { isCurrentTask } from 'helpers/redux/currentDragItemSlice';
 import { isCurrentColumn } from 'helpers/redux/currentDragItemSlice';
 import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 import { CurrentDragItemDefault } from 'consts/consts';
+import { useTranslation } from 'react-i18next';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
 
 const NewColumn: FC<{
   columnData: IColumn;
@@ -52,8 +55,15 @@ const NewColumn: FC<{
 
   const dispatch = useDispatch();
 
+  const { t } = useTranslation();
+
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'warn') toast['warn'](t('Column removed'));
+  };
+
   const deleteColumn = async () => {
     await ColumnApi.deleteColumnById(BoardId, ColumnId);
+    toastPromise('warn');
   };
 
   const handleChangeDelete = () => {
@@ -171,27 +181,30 @@ const NewColumn: FC<{
   };
   return (
     <>
-      <Reorder.Item value={columnData}
-      >
-        <div className="column" draggable={true}
-        onDragStart={(e: React.DragEvent<HTMLElement>) => {
-          columnDragStartHandler(e, columnData);
-        }}
-        onDragLeave={(e: React.DragEvent<HTMLElement>) => {
-          columnDragEndHandler(e);
-        }}
-        onDragEnd={(e: React.DragEvent<HTMLElement>) => {
-          columnDragEndHandler(e);
-        }}
-        onDragOver={(e: React.DragEvent<HTMLElement>) => {
-          columnDragOverHandler(e);
-          dragOverHandler(e);
-        }}
-        onDrop={(e: React.DragEvent<HTMLElement>) => {
-          currentTask == CurrentDragItemDefault.currentTask
-            ? columnDropHandler(e, columnData)
-            : dropCardHandler(e, columnData);
-        }} data-id={ColumnId}>
+      <Reorder.Item value={columnData}>
+        <div
+          className="column"
+          draggable={true}
+          onDragStart={(e: React.DragEvent<HTMLElement>) => {
+            columnDragStartHandler(e, columnData);
+          }}
+          onDragLeave={(e: React.DragEvent<HTMLElement>) => {
+            columnDragEndHandler(e);
+          }}
+          onDragEnd={(e: React.DragEvent<HTMLElement>) => {
+            columnDragEndHandler(e);
+          }}
+          onDragOver={(e: React.DragEvent<HTMLElement>) => {
+            columnDragOverHandler(e);
+            dragOverHandler(e);
+          }}
+          onDrop={(e: React.DragEvent<HTMLElement>) => {
+            currentTask == CurrentDragItemDefault.currentTask
+              ? columnDropHandler(e, columnData)
+              : dropCardHandler(e, columnData);
+          }}
+          data-id={ColumnId}
+        >
           <div className="column-info">
             <button
               className="column-info-title"
@@ -221,7 +234,7 @@ const NewColumn: FC<{
           </ul>
           <div className="column-buttons">
             <button className="column-buttons-add" onClick={handleChangeAdd}>
-              + Add task
+              + {t('Add task')}
             </button>
           </div>
         </div>
@@ -229,7 +242,7 @@ const NewColumn: FC<{
       {ModalTitle && (
         <Modal
           isVisible={ModalTitle}
-          title="Change title:"
+          title={t('Change title:')}
           content={<ChangeTitle setModalTitle={setModalTitle} column={columnData} />}
           onClose={() => setModalTitle(false)}
         />
@@ -245,7 +258,7 @@ const NewColumn: FC<{
       {isModalAdd && (
         <Modal
           isVisible={isModalAdd}
-          title="Add new task:"
+          title={t('Add new task:')}
           content={<AddTask setModal={setModalAdd} currentColumn={columnData} />}
           onClose={() => setModalAdd(false)}
         />
