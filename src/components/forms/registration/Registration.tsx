@@ -16,6 +16,7 @@ import store from 'helpers/redux/store';
 import { setCookie } from 'api/cokie';
 import { IGetUser } from '../../../interfaces/api';
 import { IToastStatus } from '../../../interfaces/toast';
+import { AxiosError } from 'axios';
 
 function Registration() {
   const navigate = useNavigate();
@@ -41,15 +42,19 @@ function Registration() {
       dispatch(isLoadingReducer(true));
       AuthorizationApi.SignUp(values)
         .then(async () => {
-          const user = await UserApi.getUserInfo(values.login);
-          setCookie('login', (user as IGetUser).login, 365);
-          dispatch(userReducer(user));
-          dispatch(isAuthReducer(true));
-          navigate('/');
-          toastPromise('success');
+          AuthorizationApi.SignIn({ login: values.login, password: values.password }).then(
+            async () => {
+              setCookie('login', values.login, 365);
+              const user = await UserApi.getUserInfo(values.login);
+              dispatch(userReducer(user));
+              dispatch(isAuthReducer(true));
+              navigate('/');
+              toastPromise('success');
+            }
+          );
         })
         .catch((err) => {
-          toastPromise('error');
+          if ((err as AxiosError).response?.status === 409) toastPromise('error');
         });
       dispatch(isLoadingReducer(false));
     },

@@ -10,16 +10,15 @@ class UserApi {
   state = store.getState() as IGetState;
   id = this.state.userData.user.id;
 
-  token: string = getCookie('token');
-
-  config = {
-    headers: { Authorization: `Bearer ${this.token}` },
-  };
-
   async getAllUsers() {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'users';
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -36,10 +35,14 @@ class UserApi {
   }
 
   async getUserById() {
-    console.log(this.id);
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'users/' + this.id;
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -47,9 +50,14 @@ class UserApi {
   }
 
   async updateUserById(user: IUserAuth) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'users/' + this.id;
     try {
-      const response = await axios.put(url, user, this.config);
+      const response = await axios.put(url, user, config);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -57,9 +65,14 @@ class UserApi {
   }
 
   async deleteUserById() {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'users/' + this.id;
     try {
-      const response = await axios.delete(url, this.config);
+      const response = await axios.delete(url, config);
       return response.data;
     } catch (error) {
       console.log(error);
