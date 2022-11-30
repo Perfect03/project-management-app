@@ -4,16 +4,24 @@ import { Modal } from '../modal/Modal';
 import { NewBoard } from './newboard/new-board';
 import { IBoard } from 'interfaces/api';
 import { BoardForm } from './boardform';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BoardApi from '../../api/board';
 import { useSelector } from 'react-redux';
 import { IGetState } from 'interfaces/redux';
 
 const BoardsPage = () => {
+  const isAuth = useSelector<IGetState>((state) => state.userData.isAuth);
+  const navigate = useNavigate();
+
   const [isModal, setModal] = useState(false);
   const [Boards, setBoards] = useState<IBoard[]>([]);
   const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
+
   useEffect(() => {
+    if (!isAuth) {
+      navigate('/');
+      return;
+    }
     const getBoards = async () => {
       const currentBoards = await BoardApi.getAllBoards();
       setBoards(currentBoards);
