@@ -38,8 +38,8 @@ function Autorization() {
       dispatch(isLoadingReducer(true));
       AuthorizationApi.SignIn(values)
         .then(async () => {
+          setCookie('login', values.login, 365);
           const user = await UserApi.getUserInfo(values.login);
-          setCookie('login', (user as IGetUser).login, 365);
           dispatch(userReducer(user));
           dispatch(isAuthReducer(true));
           navigate('/');
@@ -51,8 +51,6 @@ function Autorization() {
         .catch((error) => {
           toastPromise('error');
         });
-      const boards = await BoardsApi.getAllBoards();
-      dispatch(boardsReducer(boards));
       dispatch(isLoadingReducer(false));
     },
     validate: (values) => {

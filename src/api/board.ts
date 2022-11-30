@@ -12,9 +12,13 @@ class BoardApi {
   constructor() {}
 
   async getAllBoards() {
+    const token = getCookie('token');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards';
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -67,7 +71,6 @@ class BoardApi {
     const url = this.url + 'boardsSet';
     try {
       const response = await axios.get(url, this.config);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);

@@ -41,9 +41,19 @@ class TaskApi {
   }
 
   async updateTaskById(boardId: string, columnId: string, task: ITask) {
-    const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks`;
+    const updatedTask = {
+      title: task.title,
+      order: 0,
+      description: task.description,
+      columnId: columnId,
+      userId: 0,
+      users: [],
+    };
+
+    const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks/${task._id!}`;
+
     try {
-      const response = await axios.put(url, task, this.config);
+      await axios.put(url, updatedTask, this.config);
     } catch (error) {
       console.log(error);
     }
