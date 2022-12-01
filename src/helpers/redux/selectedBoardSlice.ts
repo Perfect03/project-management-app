@@ -1,13 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { selectedBoardDataDefault } from 'consts/consts';
 import { ISelectedBoard } from 'interfaces/redux';
 
-const initialState: ISelectedBoard = {
-  isLoading: false,
-  error: '',
-  board: { _id: '', title: '', owner: '', users: [] },
-  columns: [],
-  tasks: [],
-};
+const initialState: ISelectedBoard = selectedBoardDataDefault;
 
 export const selectedBoardDataSlice = createSlice({
   name: 'selectedBoard',

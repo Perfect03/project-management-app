@@ -2,6 +2,9 @@ import React, { FC, useState } from 'react';
 import './burger-for-task.scss';
 import TaskApi from '../../../api/task';
 import { ITask } from 'interfaces/api';
+import { useTranslation } from 'react-i18next';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
 
 const BurgerTask: FC<{
   isVisible: boolean;
@@ -10,6 +13,10 @@ const BurgerTask: FC<{
 }> = ({ isVisible = false, onClose, values }) => {
   const [tasktitle, settaskTitle] = useState('');
   const [taskdescription, settaskdescription] = useState('');
+  const { t } = useTranslation();
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'info') toast['info'](t('Task changed'));
+  };
 
   async function onSubmit() {
     const task = values;
@@ -30,6 +37,7 @@ const BurgerTask: FC<{
       users: [],
     };
     await TaskApi.updateTaskById(BoardId, ColumnId, temp);
+    toastPromise('info');
     await onClose();
   }
 
@@ -40,7 +48,7 @@ const BurgerTask: FC<{
           <input
             id="title"
             className="burger-task__input burger-task__input__first"
-            placeholder="Title"
+            placeholder={`${t("Title")}`}
             type="text"
             value={tasktitle}
             onChange={(event) => settaskTitle(event.target.value)}
@@ -50,14 +58,14 @@ const BurgerTask: FC<{
           <input
             id="description"
             className="burger-task__input burger-task__input__second"
-            placeholder="Description"
+            placeholder={`${t("Description")}`}
             type="text"
             value={taskdescription}
             onChange={(event) => settaskdescription(event.target.value)}
           />
         </label>
         <button type="submit" className="burger-task__button" onClick={onSubmit}>
-          SAVE
+        {t('SAVE')}
         </button>
       </div>
     </div>

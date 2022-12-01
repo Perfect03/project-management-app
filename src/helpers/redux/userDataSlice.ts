@@ -1,16 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { userDataDefault } from 'consts/consts';
 import { IUserData } from 'interfaces/redux';
 
-const initialState: IUserData = {
-  isAuth: false,
-  isLoading: false,
-  error: '',
-  user: {
-    id: '',
-    name: '',
-    login: '',
-  },
-};
+const initialState: IUserData = userDataDefault;
 
 export const userDataSlice = createSlice({
   name: 'userData',

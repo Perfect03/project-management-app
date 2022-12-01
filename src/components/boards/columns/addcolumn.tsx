@@ -6,6 +6,9 @@ import ColumnApi from '../../../api/columns';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { columnReducer, isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
+import { useTranslation } from 'react-i18next';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
 
 const AddColumn: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -13,6 +16,10 @@ const AddColumn: FC<{
   const params = useParams();
   const current = params.id as string;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'success') toast['success'](t('Column created'));
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -22,8 +29,10 @@ const AddColumn: FC<{
 
     onSubmit: async (values, { resetForm }) => {
       dispatch(isLoadingReducer(true));
-      await ColumnApi.createColumnInBoard(current, values);
       const columns = await ColumnApi.getColumnsInBoard(current);
+      values.order = columns.length + 1;
+      await ColumnApi.createColumnInBoard(current, values);
+      toastPromise('success');
       dispatch(columnReducer(columns));
       setModal(false);
       resetForm({});
@@ -38,13 +47,13 @@ const AddColumn: FC<{
           onChange={formik.handleChange}
           value={formik.values.title}
           className="board-modal__input"
-          placeholder="Title"
+          placeholder={`${t("Title")}`}
           id="title"
           type="text"
         />
         <section className="board-modal-box-button">
           <button className="board-modal__button save" type="submit">
-            SAVE
+            {t('SAVE')}
           </button>
         </section>
       </form>
