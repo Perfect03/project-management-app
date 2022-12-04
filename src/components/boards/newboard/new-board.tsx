@@ -78,7 +78,7 @@ const NewBoard: FC<{
       {isModalEdit && (
         <Modal
           isVisible={isModalEdit}
-          title="Edit your board:"
+          title={t('Edit your board:')}
           content={<BoardForm setModal={setModalEdit} action="edit" elem={boardId} />}
           onClose={() => setModalEdit(false)}
         />
