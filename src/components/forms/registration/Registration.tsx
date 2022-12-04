@@ -50,13 +50,14 @@ function Registration() {
               dispatch(isAuthReducer(true));
               navigate('/');
               toastPromise('success');
+              dispatch(isLoadingReducer(false));
             }
           );
         })
         .catch((err) => {
           if ((err as AxiosError).response?.status === 409) toastPromise('error');
+          dispatch(isLoadingReducer(false));
         });
-      dispatch(isLoadingReducer(false));
     },
     validate: (values) => {
       return FormValidate(values);

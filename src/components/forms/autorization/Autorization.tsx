@@ -46,11 +46,12 @@ function Autorization() {
 
           const boards = await BoardsApi.getAllBoards();
           dispatch(boardsReducer(boards));
+          dispatch(isLoadingReducer(false));
         })
         .catch((error) => {
           toastPromise('error');
+          dispatch(isLoadingReducer(false));
         });
-      dispatch(isLoadingReducer(false));
     },
     validate: (values) => {
       return FormValidate(values);
