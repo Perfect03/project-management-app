@@ -56,5 +56,8 @@
     "Description": "Description",
     "Add column:": "Add column:",
     "New title": "New title",
-    "Task changed": "Task changed"
+    "Task changed": "Task changed",
+    "There should be a name here": "There should be a name here",
+    "There should be a login here": "There should be a login here",
+    "There should be a password here": "There should be a password here"
 }

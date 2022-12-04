@@ -56,5 +56,8 @@
     "Task title": "Задание",
     "Add column:": "Добавить колонку",
     "New title": "Новое название",
-    "Task changed": "Задание изменено"
+    "Task changed": "Задание изменено",
+    "There should be a name here": "Здесь должно быть имя",
+    "There should be a login here": "Здесь должен быть логин",
+    "There should be a password here": "Здесь должен быть пароль"
 }

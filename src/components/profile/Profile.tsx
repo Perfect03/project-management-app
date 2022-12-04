@@ -38,9 +38,9 @@ const Profile = () => {
       dispatch(isLoadingReducer(true));
       const newUserInfo = await UserApi.updateUserById(values);
       dispatch(userReducer(newUserInfo));
-      dispatch(isLoadingReducer(false));
       navigate('/');
       toastUpdatePromise();
+      dispatch(isLoadingReducer(false));
     },
     validate: (values) => {
       return FormValidate(values);

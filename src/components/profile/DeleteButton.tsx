@@ -7,6 +7,7 @@ import UserApi from '../../api/user';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { deleteCookie } from 'api/cokie';
 
 const DeleteButton = () => {
   const dispatch = useDispatch();
@@ -16,12 +17,13 @@ const DeleteButton = () => {
     toast.warn(t('Profile has removed'));
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     dispatch(isLoadingReducer(true));
-    UserApi.deleteUserById();
+    await UserApi.deleteUserById();
     const emptyUser = { _id: '', name: '', login: '' };
     dispatch(userReducer(emptyUser));
     dispatch(isAuthReducer(false));
+    deleteCookie('login', 'token');
     dispatch(isLoadingReducer(false));
     navigate('/');
     toastDeletePromise();
