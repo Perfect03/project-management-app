@@ -34,12 +34,12 @@ const AddTask: FC<{
 
     onSubmit: async (values, { resetForm }) => {
       dispatch(isLoadingReducer(true));
+      setModal(false);
       const tasks = await TaskApi.getTasksInColumn(current, column);
       values.order = tasks.length + 1;
       await TaskApi.createTaskInColumn(current, column, values);
       toastPromise('success');
       dispatch(taskReducer(tasks));
-      setModal(false);
       resetForm({});
       dispatch(isLoadingReducer(false));
     },
@@ -52,7 +52,7 @@ const AddTask: FC<{
           onChange={formik.handleChange}
           value={formik.values.title}
           className="board-modal__input"
-          placeholder={`${t("Task title")}`}
+          placeholder={`${t('Task title')}`}
           id="title"
           type="text"
         />
@@ -60,7 +60,7 @@ const AddTask: FC<{
           onChange={formik.handleChange}
           value={formik.values.description}
           className="board-modal__input"
-          placeholder={`${t("Description")}`}
+          placeholder={`${t('Description')}`}
           id="description"
           type="text"
         />

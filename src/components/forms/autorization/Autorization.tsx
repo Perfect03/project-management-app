@@ -14,7 +14,6 @@ import { setCookie } from 'api/cokie';
 import BoardsApi from 'api/board';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { IToastStatus } from '../../../interfaces/toast';
-import { IGetUser } from '../../../interfaces/api';
 import { boardsReducer } from 'helpers/redux/boardsDataSlice';
 
 function Autorization() {

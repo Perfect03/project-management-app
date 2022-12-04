@@ -31,6 +31,7 @@ const BoardForm: FC<{
 
     onSubmit: async (values, { resetForm }) => {
       dispatch(isLoadingReducer(true));
+      setModal(false);
       if (action == 'edit') {
         await BoardApi.updateBoardById(elem, values);
         toastPromise('info');
@@ -41,7 +42,6 @@ const BoardForm: FC<{
       const boards = await BoardApi.getAllBoards();
       dispatch(boardsReducer(boards));
       toggleLinks(false);
-      setModal(false);
       resetForm({});
       dispatch(isLoadingReducer(false));
     },
@@ -62,7 +62,7 @@ const BoardForm: FC<{
           onChange={formik.handleChange}
           value={formik.values.owner}
           className="board-modal__input"
-          placeholder={`${t("Owner")}`}
+          placeholder={`${t('Owner')}`}
           id="owner"
           type="text"
         />
@@ -70,7 +70,7 @@ const BoardForm: FC<{
           onChange={formik.handleChange}
           value={formik.values.users}
           className="board-modal__input"
-          placeholder={`${t("Add users")}`}
+          placeholder={`${t('Add users')}`}
           id="users"
           type="text"
         />

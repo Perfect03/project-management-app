@@ -29,12 +29,12 @@ const AddColumn: FC<{
 
     onSubmit: async (values, { resetForm }) => {
       dispatch(isLoadingReducer(true));
+      setModal(false);
       const columns = await ColumnApi.getColumnsInBoard(current);
       values.order = columns.length + 1;
       await ColumnApi.createColumnInBoard(current, values);
       toastPromise('success');
       dispatch(columnReducer(columns));
-      setModal(false);
       resetForm({});
       dispatch(isLoadingReducer(false));
     },
@@ -47,7 +47,7 @@ const AddColumn: FC<{
           onChange={formik.handleChange}
           value={formik.values.title}
           className="board-modal__input"
-          placeholder={`${t("Title")}`}
+          placeholder={`${t('Title')}`}
           id="title"
           type="text"
         />

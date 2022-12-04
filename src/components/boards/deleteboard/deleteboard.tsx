@@ -18,9 +18,8 @@ const DeleteBoard = ({
   async function onSubmit() {
     dispatch(isLoadingReducer(true));
     dispatch(isLoadingColumn(true));
-    await deleteSmth();
-    //toastPromise('info');
     setModalDel(false);
+    await deleteSmth();
     dispatch(isLoadingReducer(false));
     dispatch(isLoadingColumn(false));
   }

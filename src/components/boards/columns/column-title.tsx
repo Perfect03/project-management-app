@@ -1,6 +1,8 @@
 import { IColumn } from 'interfaces/api';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 import { IToastStatus } from 'interfaces/toast';
 import { toast } from 'react-toastify';
 import ColumnApi from '../../../api/columns';
@@ -13,7 +15,7 @@ const ChangeTitle = ({
   column: IColumn;
 }) => {
   const [title, setTitle] = useState('');
-
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const toastPromise = (status: IToastStatus) => {
@@ -21,6 +23,7 @@ const ChangeTitle = ({
   };
 
   async function onSubmit() {
+    dispatch(isLoadingReducer(true));
     const ColumnId = column._id as string;
     const BoardId = column.boardId as string;
     column.title = title;
@@ -28,9 +31,10 @@ const ChangeTitle = ({
       title: title,
       order: column.order,
     };
+    setModalTitle(false);
     await ColumnApi.updateColumnById(BoardId, ColumnId, temp);
     toastPromise('info');
-    setModalTitle(false);
+    dispatch(isLoadingReducer(false));
   }
 
   return (
