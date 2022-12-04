@@ -27,9 +27,6 @@ const BurgerTask: FC<{
     const ColumnId = values.columnId as string;
     const BoardId = values.boardId as string;
 
-    /*task.title = tasktitle;
-    task.description = taskdescription;*/
-
     task._id = values._id;
     dispatch(isLoadingReducer(true));
     await onClose();
