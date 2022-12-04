@@ -3,8 +3,10 @@ import './burger-for-task.scss';
 import TaskApi from '../../../api/task';
 import { ITask } from 'interfaces/api';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { IToastStatus } from 'interfaces/toast';
 import { toast } from 'react-toastify';
+import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 
 const BurgerTask: FC<{
   isVisible: boolean;
@@ -14,6 +16,7 @@ const BurgerTask: FC<{
   const [tasktitle, settaskTitle] = useState('');
   const [taskdescription, settaskdescription] = useState('');
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const toastPromise = (status: IToastStatus) => {
     if (status == 'info') toast['info'](t('Task changed'));
   };
@@ -24,10 +27,13 @@ const BurgerTask: FC<{
     const ColumnId = values.columnId as string;
     const BoardId = values.boardId as string;
 
-    task.title = tasktitle;
-    task.description = taskdescription;
+    /*task.title = tasktitle;
+    task.description = taskdescription;*/
 
     task._id = values._id;
+    dispatch(isLoadingReducer(true));
+    await onClose();
+
     const temp = {
       _id: task._id,
       title: tasktitle,
@@ -38,7 +44,7 @@ const BurgerTask: FC<{
     };
     await TaskApi.updateTaskById(BoardId, ColumnId, temp);
     toastPromise('info');
-    await onClose();
+    dispatch(isLoadingReducer(false));
   }
 
   return !isVisible ? null : (
@@ -48,7 +54,7 @@ const BurgerTask: FC<{
           <input
             id="title"
             className="burger-task__input burger-task__input__first"
-            placeholder={`${t("Title")}`}
+            placeholder={`${t('Title')}`}
             type="text"
             value={tasktitle}
             onChange={(event) => settaskTitle(event.target.value)}
@@ -58,14 +64,14 @@ const BurgerTask: FC<{
           <input
             id="description"
             className="burger-task__input burger-task__input__second"
-            placeholder={`${t("Description")}`}
+            placeholder={`${t('Description')}`}
             type="text"
             value={taskdescription}
             onChange={(event) => settaskdescription(event.target.value)}
           />
         </label>
         <button type="submit" className="burger-task__button" onClick={onSubmit}>
-        {t('SAVE')}
+          {t('SAVE')}
         </button>
       </div>
     </div>

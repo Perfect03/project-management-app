@@ -80,7 +80,6 @@ const NewColumn: FC<{
   function dragStartHandler(e: React.DragEvent<HTMLElement>, task: ITask, column: IColumn) {
     dispatch(isCurrentTask(task));
     dispatch(isCurrentColumn(column._id));
-    dispatch(isLoadingReducer(true));
   }
 
   function dragEndHandler(e: React.DragEvent<HTMLElement>) {
@@ -102,6 +101,7 @@ const NewColumn: FC<{
   async function dropHandler(e: React.DragEvent<HTMLElement>, task: ITask) {
     e.preventDefault();
     e.stopPropagation();
+    dispatch(isLoadingReducer(true));
 
     if ((e.target as HTMLElement).className == 'task') {
       (e.target as HTMLElement).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
@@ -141,6 +141,7 @@ const NewColumn: FC<{
   async function dropCardHandler(e: React.DragEvent<HTMLElement>, column: IColumn) {
     e.preventDefault();
     e.stopPropagation();
+    dispatch(isLoadingReducer(true));
 
     let currentColumnTasks = await TaskApi.getTasksInColumn(BoardId, currentColumn);
     currentColumnTasks = (currentColumnTasks as ITask[]).filter((el) => el._id !== currentTask._id);
