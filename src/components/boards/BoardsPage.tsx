@@ -6,7 +6,8 @@ import { IBoard } from 'interfaces/api';
 import { BoardForm } from './boardform';
 import { Link, useNavigate } from 'react-router-dom';
 import BoardApi from '../../api/board';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { isLoadingReducer } from 'helpers/redux/userDataSlice';
 import { IGetState } from 'interfaces/redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -16,7 +17,7 @@ import { AxiosError } from 'axios';
 const BoardsPage = () => {
   const isAuth = useSelector<IGetState>((state) => state.userData.isAuth);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [isModal, setModal] = useState(false);
   const [Boards, setBoards] = useState<IBoard[]>([]);
   const isRerender = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
@@ -33,11 +34,14 @@ const BoardsPage = () => {
       return;
     }
     const getBoards = async () => {
-      try {const currentBoards = await BoardApi.getAllBoards();
-      setBoards(currentBoards);}
-      catch (error) {
-        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      try {
+        dispatch(isLoadingReducer(true));
+        const currentBoards = await BoardApi.getAllBoards();
+        setBoards(currentBoards);
+      } catch (error) {
+        if (!(error as AxiosError).response?.status) toastPromise('off');
       }
+      dispatch(isLoadingReducer(false));
     };
     getBoards();
   }, [isRerender]);

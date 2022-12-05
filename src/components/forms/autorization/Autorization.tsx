@@ -23,9 +23,9 @@ function Autorization() {
   const { t } = useTranslation();
 
   const toastPromise = (status: IToastStatus) => {
-    if(status === 'success') toast['success'](t("You're authorized"));
-    if(status === 'off') toast['error'](t("Connection error"));
-    if(status === 'error') toast['error'](t("Incorrect login or password"));
+    if (status === 'success') toast['success'](t("You're authorized"));
+    if (status === 'off') toast['error'](t('Connection error'));
+    if (status === 'error') toast['error'](t('Incorrect login or password'));
   };
 
   const formik = useFormik({
@@ -50,8 +50,8 @@ function Autorization() {
           dispatch(isLoadingReducer(false));
         })
         .catch((error) => {
-          if ((error as AxiosError).response?.status === 401) toastPromise('error')
-          else toastPromise('off')
+          if ((error as AxiosError).response?.status === 401) toastPromise('error');
+          else toastPromise('off');
           dispatch(isLoadingReducer(false));
         });
     },

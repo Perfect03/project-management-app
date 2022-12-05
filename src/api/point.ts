@@ -17,24 +17,21 @@ class PointApi {
     try {
       const response = await axios.get(url, this.config);
       return response.data;
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async createPoint(point: IPointNew) {
     const url = `${this.url}points`;
     try {
       const response = await axios.post(url, point, this.config);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async updatePointsSet(pointSet: IPointSet) {
     const url = `${this.url}points`;
     try {
       const response = await axios.patch(url, pointSet, this.config);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async getPointsByTaskId(taskId: string) {
@@ -42,24 +39,21 @@ class PointApi {
     try {
       const response = await axios.get(url, this.config);
       return response.data;
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async updatePointById(pointId: string, point: IPointUpdate) {
     const url = `${this.url}points/${pointId}`;
     try {
       const response = await axios.patch(url, point, this.config);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async deletePointById(pointId: string) {
     const url = `${this.url}points/${pointId}`;
     try {
       const response = await axios.delete(url, this.config);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 }
 

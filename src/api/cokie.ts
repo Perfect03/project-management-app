@@ -1,4 +1,3 @@
-
 export const setCookie = (cname: string, cvalue: string, exdays?: number) => {
   const d = new Date();
   if (exdays) d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);

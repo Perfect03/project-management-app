@@ -48,10 +48,11 @@ const NewColumn: FC<{
 
   useEffect(() => {
     const getTask = async () => {
-      try {const currentTasks = await TaskApi.getTasksInColumn(BoardId, ColumnId);
-      setTasks(currentTasks);}
-      catch (error) {
-        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      try {
+        const currentTasks = await TaskApi.getTasksInColumn(BoardId, ColumnId);
+        setTasks(currentTasks);
+      } catch (error) {
+        if (!(error as AxiosError).response?.status) toastPromise('off');
       }
     };
     getTask();
@@ -68,10 +69,11 @@ const NewColumn: FC<{
   };
 
   const deleteColumn = async () => {
-    try {await ColumnApi.deleteColumnById(BoardId, ColumnId);
-    toastPromise('warn');}
-    catch (error) {
-      if (!((error as AxiosError).response?.status)) toastPromise('off');
+    try {
+      await ColumnApi.deleteColumnById(BoardId, ColumnId);
+      toastPromise('warn');
+    } catch (error) {
+      if (!(error as AxiosError).response?.status) toastPromise('off');
     }
   };
 
@@ -111,43 +113,44 @@ const NewColumn: FC<{
     e.preventDefault();
     e.stopPropagation();
     try {
-    dispatch(isLoadingReducer(true));
+      dispatch(isLoadingReducer(true));
 
-    if ((e.target as HTMLElement).className == 'task') {
-      (e.target as HTMLElement).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
-    } else if ((e.target as HTMLElement).parentElement?.className == 'task') {
-      ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow =
-        '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
-    } else
-      (
-        ((e.target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement
-      ).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+      if ((e.target as HTMLElement).className == 'task') {
+        (e.target as HTMLElement).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+      } else if ((e.target as HTMLElement).parentElement?.className == 'task') {
+        ((e.target as HTMLElement).parentElement as HTMLElement).style.boxShadow =
+          '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
+      } else
+        (
+          ((e.target as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement
+        ).style.boxShadow = '-1px -1px 5px #fff, 1px 1px 5px #5c511a';
 
-    let currentColumnTasks = await TaskApi.getTasksInColumn(BoardId, currentColumn);
-    currentColumnTasks = (currentColumnTasks as ITask[]).filter((el) => el._id !== currentTask._id);
-    const newCurrentColumnTasks = (currentColumnTasks as ITask[]).map((el) => {
-      if (el.order > currentTask.order) {
-        return { ...el, order: el.order - 1 };
-      }
-      return el;
-    });
+      let currentColumnTasks = await TaskApi.getTasksInColumn(BoardId, currentColumn);
+      currentColumnTasks = (currentColumnTasks as ITask[]).filter(
+        (el) => el._id !== currentTask._id
+      );
+      const newCurrentColumnTasks = (currentColumnTasks as ITask[]).map((el) => {
+        if (el.order > currentTask.order) {
+          return { ...el, order: el.order - 1 };
+        }
+        return el;
+      });
 
-    const newDropColumnTasks = (tasks as ITask[]).map((el) => {
-      if (el.order > task.order) {
-        return { ...el, order: el.order + 1 };
-      }
-      return el;
-    });
-    newDropColumnTasks.push({ ...currentTask, order: task.order + 1, columnId: task.columnId });
-    await TaskApi.updateSetOfTasks(
-      newCurrentColumnTasks.concat(newDropColumnTasks).map((e) => {
-        return { _id: e._id as string, order: e.order, columnId: e.columnId as string };
-      })
-    );
-    toastPromise('success');
-  }
-    catch (error) {
-      if (!((error as AxiosError).response?.status)) toastPromise('off');
+      const newDropColumnTasks = (tasks as ITask[]).map((el) => {
+        if (el.order > task.order) {
+          return { ...el, order: el.order + 1 };
+        }
+        return el;
+      });
+      newDropColumnTasks.push({ ...currentTask, order: task.order + 1, columnId: task.columnId });
+      await TaskApi.updateSetOfTasks(
+        newCurrentColumnTasks.concat(newDropColumnTasks).map((e) => {
+          return { _id: e._id as string, order: e.order, columnId: e.columnId as string };
+        })
+      );
+      toastPromise('success');
+    } catch (error) {
+      if (!(error as AxiosError).response?.status) toastPromise('off');
     }
     dispatch(isCurrentTask(CurrentDragItemDefault.currentTask));
     dispatch(isLoadingReducer(false));
@@ -157,27 +160,28 @@ const NewColumn: FC<{
     e.preventDefault();
     e.stopPropagation();
     try {
-    dispatch(isLoadingReducer(true));
+      dispatch(isLoadingReducer(true));
 
-    let currentColumnTasks = await TaskApi.getTasksInColumn(BoardId, currentColumn);
-    currentColumnTasks = (currentColumnTasks as ITask[]).filter((el) => el._id !== currentTask._id);
-    const newCurrentColumnTasks = (currentColumnTasks as ITask[]).map((el) => {
-      if (el.order > currentTask.order) {
-        return { ...el, order: el.order - 1 };
-      }
-      return el;
-    });
+      let currentColumnTasks = await TaskApi.getTasksInColumn(BoardId, currentColumn);
+      currentColumnTasks = (currentColumnTasks as ITask[]).filter(
+        (el) => el._id !== currentTask._id
+      );
+      const newCurrentColumnTasks = (currentColumnTasks as ITask[]).map((el) => {
+        if (el.order > currentTask.order) {
+          return { ...el, order: el.order - 1 };
+        }
+        return el;
+      });
 
-    tasks.push({ ...currentTask, order: 1, columnId: column._id });
-    await TaskApi.updateSetOfTasks(
-      newCurrentColumnTasks.concat(tasks).map((e) => {
-        return { _id: e._id as string, order: e.order, columnId: e.columnId as string };
-      })
-    );
-    toastPromise('success');
-  }
-    catch (error) {
-      if (!((error as AxiosError).response?.status)) toastPromise('off');
+      tasks.push({ ...currentTask, order: 1, columnId: column._id });
+      await TaskApi.updateSetOfTasks(
+        newCurrentColumnTasks.concat(tasks).map((e) => {
+          return { _id: e._id as string, order: e.order, columnId: e.columnId as string };
+        })
+      );
+      toastPromise('success');
+    } catch (error) {
+      if (!(error as AxiosError).response?.status) toastPromise('off');
     }
     dispatch(isLoadingReducer(false));
   }

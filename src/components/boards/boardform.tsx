@@ -33,22 +33,21 @@ const BoardForm: FC<{
     onSubmit: async (values, { resetForm }) => {
       try {
         dispatch(isLoadingReducer(true));
-      setModal(false);
-      if (action == 'edit') {
-        await BoardApi.updateBoardById(elem, values);
-        toastPromise('info');
-      } else if (action == 'create') {
-        await BoardApi.createBoard(values);
-        toastPromise('success');
+        setModal(false);
+        if (action == 'edit') {
+          await BoardApi.updateBoardById(elem, values);
+          toastPromise('info');
+        } else if (action == 'create') {
+          await BoardApi.createBoard(values);
+          toastPromise('success');
+        }
+        const boards = await BoardApi.getAllBoards();
+        dispatch(boardsReducer(boards));
+        toggleLinks(false);
+        resetForm({});
+      } catch (error) {
+        toastPromise('off');
       }
-      const boards = await BoardApi.getAllBoards();
-      dispatch(boardsReducer(boards));
-      toggleLinks(false);
-      resetForm({});
-    }
-    catch (error) {
-      toastPromise('off');
-    }
       dispatch(isLoadingReducer(false));
     },
   });

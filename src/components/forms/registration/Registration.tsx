@@ -22,9 +22,9 @@ function Registration() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const toastPromise = (status: IToastStatus) => {
-    if(status === 'success') toast['success'](t("You're successfully registered!"));
-    if(status === 'off') toast['error'](t("Connection error"));
-    if(status === 'error') toast['error'](t("User is already existed"));
+    if (status === 'success') toast['success'](t("You're successfully registered!"));
+    if (status === 'off') toast['error'](t('Connection error'));
+    if (status === 'error') toast['error'](t('User is already existed'));
   };
 
   const state = store.getState();
@@ -54,8 +54,8 @@ function Registration() {
           );
         })
         .catch((err) => {
-          if ((err as AxiosError).response?.status === 409) toastPromise('error')
-          else toastPromise('off')
+          if ((err as AxiosError).response?.status === 409) toastPromise('error');
+          else toastPromise('off');
           dispatch(isLoadingReducer(false));
         });
     },

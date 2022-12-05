@@ -35,16 +35,17 @@ const AddTask: FC<{
     } as ITask,
 
     onSubmit: async (values, { resetForm }) => {
-      try {dispatch(isLoadingReducer(true));
-      setModal(false);
-      const tasks = await TaskApi.getTasksInColumn(current, column);
-      values.order = tasks.length + 1;
-      await TaskApi.createTaskInColumn(current, column, values);
-      toastPromise('success');
-      dispatch(taskReducer(tasks));
-      resetForm({});}
-      catch (error) {
-        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      try {
+        dispatch(isLoadingReducer(true));
+        setModal(false);
+        const tasks = await TaskApi.getTasksInColumn(current, column);
+        values.order = tasks.length + 1;
+        await TaskApi.createTaskInColumn(current, column, values);
+        toastPromise('success');
+        dispatch(taskReducer(tasks));
+        resetForm({});
+      } catch (error) {
+        if (!(error as AxiosError).response?.status) toastPromise('off');
       }
       dispatch(isLoadingReducer(false));
     },

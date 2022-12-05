@@ -34,9 +34,7 @@ const Header = () => {
   const isLoadBoards = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
 
   const toastPromise = (status: IToastStatus) => {
-    if (status === 'error') toast[`${status}`](
-       t('Connection error')
-    );
+    if (status === 'error') toast[`${status}`](t('Connection error'));
   };
 
   useEffect(() => {
@@ -52,7 +50,7 @@ const Header = () => {
       dispatch(userReducer(user));
       dispatch(isAuthReducer(true));
     } catch (error) {
-      if (!((error as AxiosError).response?.status)) toastPromise('error');
+      if (!(error as AxiosError).response?.status) toastPromise('error');
     }
   };
 

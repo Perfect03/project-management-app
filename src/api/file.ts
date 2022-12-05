@@ -16,16 +16,14 @@ class FileApi {
     try {
       const response = await axios.get(url, this.config);
       return response.data;
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async uploadFile(file: IFile) {
     const url = `${this.url}file`;
     try {
       const response = await axios.post(url, file, this.config);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async getFilesByBoardId(boardId: string) {
@@ -33,16 +31,14 @@ class FileApi {
     try {
       const response = await axios.get(url, this.config);
       return response.data;
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async deleteFileById(fileId: string) {
     const url = `${this.url}file/${fileId}`;
     try {
       const response = await axios.delete(url, this.config);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 }
 

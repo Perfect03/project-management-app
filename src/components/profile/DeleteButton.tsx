@@ -15,25 +15,24 @@ const DeleteButton = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const toastDeletePromise = (status: IToastStatus) => {
-    if(status === 'success') toast.warn(t("Profile has removed"));
-    if(status === 'off') toast['error'](t("Connection error"));
+    if (status === 'success') toast.warn(t('Profile has removed'));
+    if (status === 'off') toast['error'](t('Connection error'));
   };
 
   const handleClick = async () => {
-    try{
-    dispatch(isLoadingReducer(true));
-    await UserApi.deleteUserById();
-    const emptyUser = { _id: '', name: '', login: '' };
-    dispatch(userReducer(emptyUser));
-    dispatch(isAuthReducer(false));
-    deleteCookie('login', 'token');
-    navigate('/');
-    toastDeletePromise('success');
-  }
-  catch (err) {
-    toastDeletePromise('off');
-  }
-  dispatch(isLoadingReducer(false));
+    try {
+      dispatch(isLoadingReducer(true));
+      await UserApi.deleteUserById();
+      const emptyUser = { _id: '', name: '', login: '' };
+      dispatch(userReducer(emptyUser));
+      dispatch(isAuthReducer(false));
+      deleteCookie('login', 'token');
+      navigate('/');
+      toastDeletePromise('success');
+    } catch (err) {
+      toastDeletePromise('off');
+    }
+    dispatch(isLoadingReducer(false));
   };
 
   return (

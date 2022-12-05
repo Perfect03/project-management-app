@@ -25,17 +25,18 @@ const ChangeTitle = ({
   };
 
   async function onSubmit() {
-    try {dispatch(isLoadingReducer(true));
+    try {
+      dispatch(isLoadingReducer(true));
       const temp = {
         title: title,
         order: column.order,
       };
       await ColumnApi.updateColumnById(column.boardId as string, column._id as string, temp);
-    column.title = title;
-    setModalTitle(false);
-    toastPromise('info');}
-    catch (error) {
-      if (!((error as AxiosError).response?.status)) toastPromise('off');
+      column.title = title;
+      setModalTitle(false);
+      toastPromise('info');
+    } catch (error) {
+      if (!(error as AxiosError).response?.status) toastPromise('off');
     }
     dispatch(isLoadingReducer(false));
   }

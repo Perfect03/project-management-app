@@ -39,11 +39,10 @@ const NewBoard: FC<{
 
   const deleteBoard = async () => {
     try {
-    await BoardApi.deleteBoardById(boardId);
-    toastPromise('warn');
-    }
-    catch (error) {
-      if (!((error as AxiosError).response?.status)) toastPromise('off');
+      await BoardApi.deleteBoardById(boardId);
+      toastPromise('warn');
+    } catch (error) {
+      if (!(error as AxiosError).response?.status) toastPromise('off');
     }
   };
 

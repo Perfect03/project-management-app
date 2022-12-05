@@ -44,9 +44,7 @@ class UserApi {
     try {
       const response = await axios.get(url, config);
       return response.data;
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 
   async updateUserById(user: IUserAuth) {
@@ -60,7 +58,7 @@ class UserApi {
       const response = await axios.put(url, user, config);
       return response.data;
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 
@@ -75,7 +73,7 @@ class UserApi {
       const response = await axios.delete(url, config);
       return response.data;
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 }

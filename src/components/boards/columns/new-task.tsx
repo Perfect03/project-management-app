@@ -49,15 +49,15 @@ const NewTask: FC<{
   };
 
   const deleteColumn = async () => {
-    try {dispatch(isLoadingReducer(true));
-    const TaskId = taskData._id as string;
-    const ColumnId = taskData.columnId as string;
-    const BoardId = taskData.boardId as string;
-    await TaskApi.deleteTaskById(BoardId, ColumnId, TaskId);
-    toastPromise('warn');
-    }
-    catch (error) {
-      if (!((error as AxiosError).response?.status)) toastPromise('off');
+    try {
+      dispatch(isLoadingReducer(true));
+      const TaskId = taskData._id as string;
+      const ColumnId = taskData.columnId as string;
+      const BoardId = taskData.boardId as string;
+      await TaskApi.deleteTaskById(BoardId, ColumnId, TaskId);
+      toastPromise('warn');
+    } catch (error) {
+      if (!(error as AxiosError).response?.status) toastPromise('off');
     }
     dispatch(isLoadingReducer(false));
   };

@@ -17,7 +17,7 @@ class TaskApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 
@@ -26,7 +26,7 @@ class TaskApi {
     try {
       const response = await axios.post(url, task, this.config);
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 
@@ -36,7 +36,7 @@ class TaskApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 
@@ -55,7 +55,7 @@ class TaskApi {
     try {
       await axios.put(url, updatedTask, this.config);
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 
@@ -64,7 +64,7 @@ class TaskApi {
     try {
       const response = await axios.delete(url, this.config);
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 
@@ -81,7 +81,7 @@ class TaskApi {
     try {
       const response = await axios.get(url, config);
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 
@@ -90,7 +90,7 @@ class TaskApi {
     try {
       const response = await axios.patch(url, setOfTasks, this.config);
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 
@@ -100,7 +100,7 @@ class TaskApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      throw(error);
+      throw error;
     }
   }
 }

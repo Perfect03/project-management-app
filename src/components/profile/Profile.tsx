@@ -22,8 +22,8 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const toastUpdatePromise = (status: IToastStatus) => {
-    if(status === 'success') toast.success(t("Profile has updated"));
-    if(status === 'off') toast['error'](t("Connection error"));
+    if (status === 'success') toast.success(t('Profile has updated'));
+    if (status === 'off') toast['error'](t('Connection error'));
   };
 
   const state = store.getState();
@@ -38,13 +38,12 @@ const Profile = () => {
 
     onSubmit: async (values) => {
       try {
-      dispatch(isLoadingReducer(true));
-      const newUserInfo = await UserApi.updateUserById(values);
-      dispatch(userReducer(newUserInfo));
-      navigate('/');
-      toastUpdatePromise('success');
-      }
-      catch (error) {
+        dispatch(isLoadingReducer(true));
+        const newUserInfo = await UserApi.updateUserById(values);
+        dispatch(userReducer(newUserInfo));
+        navigate('/');
+        toastUpdatePromise('success');
+      } catch (error) {
         toastUpdatePromise('off');
       }
       dispatch(isLoadingReducer(false));

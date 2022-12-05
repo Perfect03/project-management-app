@@ -30,16 +30,17 @@ const AddColumn: FC<{
     } as IColumn,
 
     onSubmit: async (values, { resetForm }) => {
-      try {dispatch(isLoadingReducer(true));
-      setModal(false);
-      const columns = await ColumnApi.getColumnsInBoard(current);
-      values.order = columns.length + 1;
-      await ColumnApi.createColumnInBoard(current, values);
-      toastPromise('success');
-      dispatch(columnReducer(columns));
-      resetForm({});}
-      catch (error) {
-        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      try {
+        dispatch(isLoadingReducer(true));
+        setModal(false);
+        const columns = await ColumnApi.getColumnsInBoard(current);
+        values.order = columns.length + 1;
+        await ColumnApi.createColumnInBoard(current, values);
+        toastPromise('success');
+        dispatch(columnReducer(columns));
+        resetForm({});
+      } catch (error) {
+        if (!(error as AxiosError).response?.status) toastPromise('off');
       }
       dispatch(isLoadingReducer(false));
     },

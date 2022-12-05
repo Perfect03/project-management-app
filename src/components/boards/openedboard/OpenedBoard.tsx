@@ -4,11 +4,12 @@ import './openedboard.scss';
 import { Modal } from 'components/modal/Modal';
 import { AddColumn } from '../columns/addcolumn';
 import { IGetState } from 'interfaces/redux';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { IColumn } from 'interfaces/api';
 import { useParams } from 'react-router-dom';
 import ColumnApi from '../../../api/columns';
 import { Reorder } from 'framer-motion';
+import { isLoadingReducer } from 'helpers/redux/userDataSlice';
 import { useTranslation } from 'react-i18next';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
@@ -20,6 +21,7 @@ const OpenedBoard = () => {
   const [currentColumn, setCurrentColumn] = useState(columns[0]);
   const isRerender = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
   const params = useParams();
+  const dispatch = useDispatch();
   const currentBoard = params.id as string;
 
   const { t } = useTranslation();
@@ -30,11 +32,14 @@ const OpenedBoard = () => {
 
   useEffect(() => {
     const getColumns = async () => {
-      try {const currentColumns = await ColumnApi.getColumnsInBoard(currentBoard);
-      setColumns(currentColumns);}
-      catch (error) {
-        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      try {
+        dispatch(isLoadingReducer(true));
+        const currentColumns = await ColumnApi.getColumnsInBoard(currentBoard);
+        setColumns(currentColumns);
+      } catch (error) {
+        if (!(error as AxiosError).response?.status) toastPromise('off');
       }
+      dispatch(isLoadingReducer(false));
     };
     getColumns();
   }, [isRerender]);
