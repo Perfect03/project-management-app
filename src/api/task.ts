@@ -12,9 +12,14 @@ class TaskApi {
   constructor() {}
 
   async getTasksInColumn(boardId: string, columnId: string) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks`;
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
       throw error;
@@ -22,18 +27,28 @@ class TaskApi {
   }
 
   async createTaskInColumn(boardId: string, columnId: string, task: ITask) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks`;
     try {
-      const response = await axios.post(url, task, this.config);
+      const response = await axios.post(url, task, config);
     } catch (error) {
       throw error;
     }
   }
 
   async getTaskById(boardId: string, columnId: string, taskId: string) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks/${taskId}`;
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
       throw error;
@@ -41,6 +56,11 @@ class TaskApi {
   }
 
   async updateTaskById(boardId: string, columnId: string, task: ITask) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const updatedTask = {
       title: task.title,
       order: task.order,
@@ -53,16 +73,21 @@ class TaskApi {
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks/${task._id!}`;
 
     try {
-      await axios.put(url, updatedTask, this.config);
+      await axios.put(url, updatedTask, config);
     } catch (error) {
       throw error;
     }
   }
 
   async deleteTaskById(boardId: string, columnId: string, taskId: string) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = `${this.url}boards/${boardId}/columns/${columnId}/tasks/${taskId}`;
     try {
-      const response = await axios.delete(url, this.config);
+      const response = await axios.delete(url, config);
     } catch (error) {
       throw error;
     }
@@ -86,9 +111,14 @@ class TaskApi {
   }
 
   async updateSetOfTasks(setOfTasks: ITaskSet) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = `${this.url}tasksSet`;
     try {
-      const response = await axios.patch(url, setOfTasks, this.config);
+      const response = await axios.patch(url, setOfTasks, config);
     } catch (error) {
       throw error;
     }

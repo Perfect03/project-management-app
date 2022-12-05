@@ -12,9 +12,14 @@ class ColumnApi {
   constructor() {}
 
   async getColumnsInBoard(boardId: string) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards' + `/${boardId}` + '/columns';
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
       throw error;
@@ -46,18 +51,28 @@ class ColumnApi {
   }
 
   async updateColumnById(boardId: string, columnId: string, column: IColumn) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards' + `/${boardId}` + '/columns' + `/${columnId}`;
     try {
-      const response = await axios.put(url, column, this.config);
+      const response = await axios.put(url, column, config);
     } catch (error) {
       throw error;
     }
   }
 
   async deleteColumnById(boardId: string, columnId: string) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards' + `/${boardId}` + '/columns' + `/${columnId}`;
     try {
-      const response = await axios.delete(url, this.config);
+      const response = await axios.delete(url, config);
     } catch (error) {
       throw error;
     }
