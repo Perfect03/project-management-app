@@ -30,7 +30,7 @@
     align-items: flex-start;
     @include laptop {justify-content: center;}
     .main-firstsection-about {
-      max-width: 500px;
+      max-width: 600px;
       margin: 5%;
       display: grid;
       @include laptop {
@@ -94,6 +94,7 @@
     .main-secondsection-h1 {
       margin: 15px;
       font-size: 50px;
+      text-align: center;
     }
     .main-secondsection-developers {
       display: flex;
