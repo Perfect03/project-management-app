@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent } from 'react';
 import './search-bar.scss';
 import '../boards/boards.scss';
 import { useDispatch, useSelector } from 'react-redux';
