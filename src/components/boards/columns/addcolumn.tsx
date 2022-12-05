@@ -9,6 +9,7 @@ import { columnReducer, isLoadingReducer } from 'helpers/redux/selectedBoardSlic
 import { useTranslation } from 'react-i18next';
 import { IToastStatus } from 'interfaces/toast';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 const AddColumn: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -19,6 +20,7 @@ const AddColumn: FC<{
   const { t } = useTranslation();
   const toastPromise = (status: IToastStatus) => {
     if (status == 'success') toast['success'](t('Column created'));
+    if (status == 'off') toast['error'](t('Connection error'));
   };
 
   const formik = useFormik({
@@ -28,14 +30,17 @@ const AddColumn: FC<{
     } as IColumn,
 
     onSubmit: async (values, { resetForm }) => {
-      dispatch(isLoadingReducer(true));
+      try {dispatch(isLoadingReducer(true));
       setModal(false);
       const columns = await ColumnApi.getColumnsInBoard(current);
       values.order = columns.length + 1;
       await ColumnApi.createColumnInBoard(current, values);
       toastPromise('success');
       dispatch(columnReducer(columns));
-      resetForm({});
+      resetForm({});}
+      catch (error) {
+        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      }
       dispatch(isLoadingReducer(false));
     },
   });

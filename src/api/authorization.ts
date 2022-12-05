@@ -12,11 +12,7 @@ class AuthorizationApi {
     try {
       const url = this.url + 'auth/signup';
       await axios.post(url, user);
-      console.log('User is registered');
     } catch (error) {
-      if ((error as AxiosError).response?.status === 409) {
-        console.log('User is already existed');
-      }
       throw error;
     }
   }
@@ -28,8 +24,6 @@ class AuthorizationApi {
       setCookie('token', response.data.token, 30);
       return response.data.token;
     } catch (error) {
-      if ((error as AxiosError).response?.status === 401)
-        console.log('Incorrect login or password');
       throw error;
     }
   }

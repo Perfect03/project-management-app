@@ -21,7 +21,7 @@ class BoardApi {
       const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -30,7 +30,7 @@ class BoardApi {
     try {
       const response = await axios.post(url, board, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -40,7 +40,7 @@ class BoardApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -49,7 +49,7 @@ class BoardApi {
     try {
       const response = await axios.put(url, board, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -58,7 +58,7 @@ class BoardApi {
     try {
       const response = await axios.delete(url, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -73,7 +73,7 @@ class BoardApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -83,7 +83,7 @@ class BoardApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 }

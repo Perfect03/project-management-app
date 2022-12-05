@@ -17,7 +17,7 @@ class TaskApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -26,7 +26,7 @@ class TaskApi {
     try {
       const response = await axios.post(url, task, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -36,14 +36,14 @@ class TaskApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
   async updateTaskById(boardId: string, columnId: string, task: ITask) {
     const updatedTask = {
       title: task.title,
-      order: 0,
+      order: task.order,
       description: task.description,
       columnId: columnId,
       userId: 0,
@@ -55,7 +55,7 @@ class TaskApi {
     try {
       await axios.put(url, updatedTask, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -64,7 +64,7 @@ class TaskApi {
     try {
       const response = await axios.delete(url, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -80,9 +80,8 @@ class TaskApi {
     const url = `${this.url}tasksSet`;
     try {
       const response = await axios.get(url, config);
-      console.log('in progress');
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -91,7 +90,7 @@ class TaskApi {
     try {
       const response = await axios.patch(url, setOfTasks, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -101,7 +100,7 @@ class TaskApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 }

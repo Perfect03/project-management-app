@@ -15,10 +15,8 @@ class FileApi {
     const url = `${this.url}file&query=${query}`;
     try {
       const response = await axios.get(url, this.config);
-      console.log('in progress');
       return response.data;
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -27,7 +25,6 @@ class FileApi {
     try {
       const response = await axios.post(url, file, this.config);
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -37,7 +34,6 @@ class FileApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -46,7 +42,6 @@ class FileApi {
     try {
       const response = await axios.delete(url, this.config);
     } catch (error) {
-      console.log(error);
     }
   }
 }

@@ -60,8 +60,10 @@
     "There should be a name here": "Здесь должно быть имя",
     "There should be a login here": "Здесь должен быть логин",
     "There should be a password here": "Здесь должен быть пароль",
+    "Connection error": "Ошибка подключения",
+    "Task moved": "Задание перемещено",
     "Edit your board:": "Редактировать",
-    "Creating a load function. Added drag-n-drop functionality. Functionality of deleting a user. Authorization and registration. Changed language. Popup notifications after changes.": "Создание функции загрузки. Добавил функционал перетаскивания колонок и заданий. Функционал удаления пользователя. Авторизация и регистрация. Смена языка. Всплывающие уведомления после изменений.",
+    "Creating a load function. Added drag-n-drop functionality. Functionality of deleting a user. Authorization and registration. Changed language. Popup notifications after changes.": "Создание функции загрузки. Добавил функционал перетаскивания колонок и заданий. Функционал удаления пользователя. Авторизация и регистрация. Смена языка. Всплывающие уведомления после действий пользователя.",
     "Described the functionality of the server. Made a Redux configuration. Configured Local Storage. Changing the layout for an authorized user. Authorization and registration.  Deleting and updating user data. Board functionality. Search.": "Описал функционал сервера. Сделал настройку Redux. Настройка Local Storage. Изменение верстки для авторизованного пользователя. Авторизация и регистрация.  Удаление и обновление данных пользователя. Функционал доски. Поиск.",
     "The layout of all pages and modal windows. Change the layout for the authorized user. Authorization and registration. Forms validation. Routing. Adaptivity. Board functionality. Editing tasks. Changing the header of the column.": "Верстка всех страниц и модальных окон. Изменение верстки для авторизованного пользователя. Авторизация и регистрация. Валидация форм. Роутинг. Адаптивность. Функционал доски. Редактирование заданий. Изменение заголовка колонки."
 }

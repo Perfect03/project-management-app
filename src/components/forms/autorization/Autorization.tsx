@@ -15,6 +15,7 @@ import BoardsApi from 'api/board';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { IToastStatus } from '../../../interfaces/toast';
 import { boardsReducer } from 'helpers/redux/boardsDataSlice';
+import { AxiosError } from 'axios';
 
 function Autorization() {
   const navigate = useNavigate();
@@ -22,9 +23,9 @@ function Autorization() {
   const { t } = useTranslation();
 
   const toastPromise = (status: IToastStatus) => {
-    toast[`${status}`](
-      status === 'success' ? t("You're authorized") : t('Incorrect login or password')
-    );
+    if(status === 'success') toast['success'](t("You're authorized"));
+    if(status === 'off') toast['error'](t("Connection error"));
+    if(status === 'error') toast['error'](t("Incorrect login or password"));
   };
 
   const formik = useFormik({
@@ -49,7 +50,8 @@ function Autorization() {
           dispatch(isLoadingReducer(false));
         })
         .catch((error) => {
-          toastPromise('error');
+          if ((error as AxiosError).response?.status === 401) toastPromise('error')
+          else toastPromise('off')
           dispatch(isLoadingReducer(false));
         });
     },

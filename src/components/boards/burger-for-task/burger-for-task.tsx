@@ -26,19 +26,14 @@ const BurgerTask: FC<{
 
     const ColumnId = values.columnId as string;
     const BoardId = values.boardId as string;
-
-    /*task.title = tasktitle;
-    task.description = taskdescription;*/
-
-    task._id = values._id;
     dispatch(isLoadingReducer(true));
+    task._id = values._id;
     await onClose();
-
     const temp = {
       _id: task._id,
       title: tasktitle,
       description: taskdescription,
-      order: 0,
+      order: task.order,
       userId: 0,
       users: [],
     };

@@ -10,6 +10,9 @@ import { useParams } from 'react-router-dom';
 import ColumnApi from '../../../api/columns';
 import { Reorder } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+import { IToastStatus } from 'interfaces/toast';
 
 const OpenedBoard = () => {
   const [isModal, setModal] = useState(false);
@@ -21,10 +24,17 @@ const OpenedBoard = () => {
 
   const { t } = useTranslation();
 
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'off') toast['error'](t('Connection error'));
+  };
+
   useEffect(() => {
     const getColumns = async () => {
-      const currentColumns = await ColumnApi.getColumnsInBoard(currentBoard);
-      setColumns(currentColumns);
+      try {const currentColumns = await ColumnApi.getColumnsInBoard(currentBoard);
+      setColumns(currentColumns);}
+      catch (error) {
+        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      }
     };
     getColumns();
   }, [isRerender]);

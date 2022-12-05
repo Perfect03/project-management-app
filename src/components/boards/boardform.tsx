@@ -21,6 +21,7 @@ const BoardForm: FC<{
   const toastPromise = (status: IToastStatus) => {
     if (status == 'success') toast['success'](t('Board created'));
     if (status == 'info') toast['info'](t('Board renamed'));
+    if (status == 'off') toast['error'](t('Connection error'));
   };
   const formik = useFormik({
     initialValues: {
@@ -30,7 +31,8 @@ const BoardForm: FC<{
     } as IBoard,
 
     onSubmit: async (values, { resetForm }) => {
-      dispatch(isLoadingReducer(true));
+      try {
+        dispatch(isLoadingReducer(true));
       setModal(false);
       if (action == 'edit') {
         await BoardApi.updateBoardById(elem, values);
@@ -43,6 +45,10 @@ const BoardForm: FC<{
       dispatch(boardsReducer(boards));
       toggleLinks(false);
       resetForm({});
+    }
+    catch (error) {
+      toastPromise('off');
+    }
       dispatch(isLoadingReducer(false));
     },
   });

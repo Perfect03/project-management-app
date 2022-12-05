@@ -14,7 +14,6 @@ import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/user
 import { toast } from 'react-toastify';
 import store from 'helpers/redux/store';
 import { setCookie } from 'api/cokie';
-import { IGetUser } from '../../../interfaces/api';
 import { IToastStatus } from '../../../interfaces/toast';
 import { AxiosError } from 'axios';
 
@@ -23,9 +22,9 @@ function Registration() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const toastPromise = (status: IToastStatus) => {
-    toast[`${status}`](
-      status === 'success' ? t("You're successfully registered!") : t('User is already existed')
-    );
+    if(status === 'success') toast['success'](t("You're successfully registered!"));
+    if(status === 'off') toast['error'](t("Connection error"));
+    if(status === 'error') toast['error'](t("User is already existed"));
   };
 
   const state = store.getState();
@@ -55,7 +54,8 @@ function Registration() {
           );
         })
         .catch((err) => {
-          if ((err as AxiosError).response?.status === 409) toastPromise('error');
+          if ((err as AxiosError).response?.status === 409) toastPromise('error')
+          else toastPromise('off')
           dispatch(isLoadingReducer(false));
         });
     },

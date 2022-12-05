@@ -8,25 +8,32 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { deleteCookie } from 'api/cokie';
+import { IToastStatus } from 'interfaces/toast';
 
 const DeleteButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const toastDeletePromise = () => {
-    toast.warn(t('Profile has removed'));
+  const toastDeletePromise = (status: IToastStatus) => {
+    if(status === 'success') toast.warn(t("Profile has removed"));
+    if(status === 'off') toast['error'](t("Connection error"));
   };
 
   const handleClick = async () => {
+    try{
     dispatch(isLoadingReducer(true));
     await UserApi.deleteUserById();
     const emptyUser = { _id: '', name: '', login: '' };
     dispatch(userReducer(emptyUser));
     dispatch(isAuthReducer(false));
     deleteCookie('login', 'token');
-    dispatch(isLoadingReducer(false));
     navigate('/');
-    toastDeletePromise();
+    toastDeletePromise('success');
+  }
+  catch (err) {
+    toastDeletePromise('off');
+  }
+  dispatch(isLoadingReducer(false));
   };
 
   return (

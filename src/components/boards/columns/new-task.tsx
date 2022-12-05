@@ -10,6 +10,7 @@ import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { IToastStatus } from '../../../interfaces/toast';
+import { AxiosError } from 'axios';
 
 const NewTask: FC<{
   taskData: ITask;
@@ -36,6 +37,7 @@ const NewTask: FC<{
 
   const toastPromise = (status: IToastStatus) => {
     if (status == 'warn') toast['warn'](t('Task removed'));
+    if (status == 'off') toast['error'](t('Connection error'));
   };
 
   const handleChangeDelete = () => {
@@ -47,12 +49,16 @@ const NewTask: FC<{
   };
 
   const deleteColumn = async () => {
-    dispatch(isLoadingReducer(true));
+    try {dispatch(isLoadingReducer(true));
     const TaskId = taskData._id as string;
     const ColumnId = taskData.columnId as string;
     const BoardId = taskData.boardId as string;
     await TaskApi.deleteTaskById(BoardId, ColumnId, TaskId);
     toastPromise('warn');
+    }
+    catch (error) {
+      if (!((error as AxiosError).response?.status)) toastPromise('off');
+    }
     dispatch(isLoadingReducer(false));
   };
 

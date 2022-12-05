@@ -1,11 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import './main.scss';
 import { useNavigate } from 'react-router-dom';
+import { IGetState } from 'interfaces/redux';
 
 const Main = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const isAuth = useSelector((state: IGetState) => state.userData.isAuth);
+
   return (
     <>
       <section className="main-firstsection">
@@ -15,7 +20,7 @@ const Main = () => {
           <button
             className="main-firstsection-about-button"
             onClick={() => {
-              navigate('/signup');
+              navigate(isAuth ? '/boards' : '/login');
             }}
           >
             {t('Start')}
