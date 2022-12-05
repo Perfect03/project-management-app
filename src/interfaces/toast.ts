@@ -1,1 +1,1 @@
-export type IToastStatus = 'success' | 'error' | 'warn' | 'info';
+export type IToastStatus = 'success' | 'error' | 'warn' | 'info' | 'off';

@@ -8,6 +8,7 @@
     flex-direction: column;
     border-radius: 5px;
     justify-content: space-around;
+    cursor: grab;
     &:active {
         cursor: grabbing;
     }
@@ -20,7 +21,7 @@
     .column-info-title{
         font-family: inherit;
         border: none;
-        cursor: pointer;
+        cursor: grab;
         width: 240px;
         height: 40px;
         font-weight: 600;
@@ -33,7 +34,7 @@
     width: 25px;
     height: 25px;
     border: none;
-    cursor: pointer;
+    cursor: grab;
     background-image: url(../../../assets/cross.png);
     background-repeat: no-repeat;
     background-position: center center;
@@ -48,6 +49,8 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    overflow-y: scroll;
+    max-height: 60vh;
 };
 
 .column-buttons {
@@ -56,13 +59,13 @@
 };
 
 .column-buttons-add {
-    width: 40%;
+    width: 58%;
     height: 30px;
     margin: 5px auto;
     border: none;
     font: inherit;
     color: #7a7a7a;
-    cursor: pointer;
+    cursor: grab;
     transition: 0.2s linear;
     &:hover {
         color: #783004;

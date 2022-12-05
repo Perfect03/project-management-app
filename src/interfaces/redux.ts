@@ -21,9 +21,15 @@ export interface ISelectedBoard {
   tasks: ITask[];
 }
 
+export interface ICurrentDragItem {
+  currentColumnId: string;
+  currentTask: ITask;
+}
+
 export interface IGetState {
   userData: IUserData;
   boardsData: IBoardsData;
   selectedBoard: ISelectedBoard;
+  currentDragItem: ICurrentDragItem;
   searchData: { findedBoards: IBoard[] };
 }

@@ -12,21 +12,31 @@ class ColumnApi {
   constructor() {}
 
   async getColumnsInBoard(boardId: string) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards' + `/${boardId}` + '/columns';
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
   async createColumnInBoard(boardId: string, column: IColumn) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards' + `/${boardId}` + '/columns';
     try {
-      const response = await axios.post(url, column, this.config);
+      const response = await axios.post(url, column, config);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -36,25 +46,35 @@ class ColumnApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
   async updateColumnById(boardId: string, columnId: string, column: IColumn) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards' + `/${boardId}` + '/columns' + `/${columnId}`;
     try {
-      const response = await axios.put(url, column, this.config);
+      const response = await axios.put(url, column, config);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
   async deleteColumnById(boardId: string, columnId: string) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards' + `/${boardId}` + '/columns' + `/${columnId}`;
     try {
-      const response = await axios.delete(url, this.config);
+      const response = await axios.delete(url, config);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -68,16 +88,16 @@ class ColumnApi {
       const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
-  async updateColumnsSet(set: IColumn[]) {
+  async updateColumnsSet(set: { _id: string; order: number }[]) {
     const url = this.url + 'columnsSet';
     try {
       const response = await axios.patch(url, set, this.config);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -86,7 +106,7 @@ class ColumnApi {
     try {
       const response = await axios.patch(url, set, this.config);
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 }

@@ -5,82 +5,105 @@ import { getCookie } from './cokie';
 
 class BoardApi {
   url = baseUrl;
-  token: string = getCookie('token');
-  config = {
-    headers: { Authorization: `Bearer ${this.token}` },
-  };
   constructor() {}
 
   async getAllBoards() {
-    const url = this.url + 'boards';
-    try {
-      const response = await axios.get(url, this.config);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async createBoard(board: IBoard) {
-    const url = this.url + 'boards';
-    try {
-      const response = await axios.post(url, board, this.config);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async getBoardById(boardId: string) {
-    const url = this.url + 'boards' + `/${boardId}`;
-    try {
-      const response = await axios.get(url, this.config);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async updateBoardById(boardId: string, board: IBoard) {
-    const url = this.url + 'boards' + `/${boardId}`;
-    try {
-      const response = await axios.put(url, board, this.config);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async deleteBoardById(boardId: string) {
-    const url = this.url + 'boards' + `/${boardId}`;
-    try {
-      const response = await axios.delete(url, this.config);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async getBoardByIdsList(list: string[]) {
-    const idsString = list.join(',');
+    const token = getCookie('token');
     const config = {
-      headers: { Authorization: `Bearer ${this.token}` },
-      params: { ids: idsString },
+      headers: { Authorization: `Bearer ${token}` },
     };
-
-    const url = this.url + 'boardsSet';
+    const url = this.url + 'boards';
     try {
       const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw error;
+    }
+  }
+
+  async createBoard(board: IBoard) {
+    const token = getCookie('token');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const url = this.url + 'boards';
+    try {
+      const response = await axios.post(url, board, config);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getBoardById(boardId: string) {
+    const token = getCookie('token');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const url = this.url + 'boards' + `/${boardId}`;
+    try {
+      const response = await axios.get(url, config);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateBoardById(boardId: string, board: IBoard) {
+    const token = getCookie('token');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const url = this.url + 'boards' + `/${boardId}`;
+    try {
+      const response = await axios.put(url, board, config);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteBoardById(boardId: string) {
+    const token = getCookie('token');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const url = this.url + 'boards' + `/${boardId}`;
+    try {
+      const response = await axios.delete(url, config);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getBoardByIdsList(list: string[]) {
+    const token = getCookie('token');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { ids: [...list] },
+    };
+    const config2 = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const url = this.url + 'boardsSet';
+    try {
+      const response = await axios.get(url, config2);
+      return response.data;
+    } catch (error) {
+      throw error;
     }
   }
 
   async getBoardsByUserId(userId: string) {
+    const token = getCookie('token');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boardsSet' + `/${userId}`;
     try {
-      const response = await axios.get(url, this.config);
+      const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 }

@@ -14,8 +14,8 @@ import { setCookie } from 'api/cokie';
 import BoardsApi from 'api/board';
 import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { IToastStatus } from '../../../interfaces/toast';
-import { IGetUser } from '../../../interfaces/api';
 import { boardsReducer } from 'helpers/redux/boardsDataSlice';
+import { AxiosError } from 'axios';
 
 function Autorization() {
   const navigate = useNavigate();
@@ -23,9 +23,9 @@ function Autorization() {
   const { t } = useTranslation();
 
   const toastPromise = (status: IToastStatus) => {
-    toast[`${status}`](
-      status === 'success' ? t("You're authorized") : t('Incorrect login or password')
-    );
+    if (status === 'success') toast['success'](t("You're authorized"));
+    if (status === 'off') toast['error'](t('Connection error'));
+    if (status === 'error') toast['error'](t('Incorrect login or password'));
   };
 
   const formik = useFormik({
@@ -38,8 +38,8 @@ function Autorization() {
       dispatch(isLoadingReducer(true));
       AuthorizationApi.SignIn(values)
         .then(async () => {
+          setCookie('login', values.login, 365);
           const user = await UserApi.getUserInfo(values.login);
-          setCookie('login', (user as IGetUser).login, 365);
           dispatch(userReducer(user));
           dispatch(isAuthReducer(true));
           navigate('/');
@@ -47,13 +47,13 @@ function Autorization() {
 
           const boards = await BoardsApi.getAllBoards();
           dispatch(boardsReducer(boards));
+          dispatch(isLoadingReducer(false));
         })
         .catch((error) => {
-          toastPromise('error');
+          if ((error as AxiosError).response?.status === 401) toastPromise('error');
+          else toastPromise('off');
+          dispatch(isLoadingReducer(false));
         });
-      const boards = await BoardsApi.getAllBoards();
-      dispatch(boardsReducer(boards));
-      dispatch(isLoadingReducer(false));
     },
     validate: (values) => {
       return FormValidate(values);

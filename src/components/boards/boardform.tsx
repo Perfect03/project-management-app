@@ -6,6 +6,9 @@ import { IBoard } from 'interfaces/api';
 import { useDispatch } from 'react-redux';
 import { boardsReducer, isLoadingReducer } from 'helpers/redux/boardsDataSlice';
 import { toggleLinks } from './newboard/new-board';
+import { useTranslation } from 'react-i18next';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
 
 const BoardForm: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -13,6 +16,13 @@ const BoardForm: FC<{
   elem: string;
 }> = ({ setModal, action, elem }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'success') toast['success'](t('Board created'));
+    if (status == 'info') toast['info'](t('Board renamed'));
+    if (status == 'off') toast['error'](t('Connection error'));
+  };
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -21,17 +31,23 @@ const BoardForm: FC<{
     } as IBoard,
 
     onSubmit: async (values, { resetForm }) => {
-      dispatch(isLoadingReducer(true));
-      if (action == 'edit') {
-        await BoardApi.updateBoardById(elem, values);
-      } else if (action == 'create') {
-        await BoardApi.createBoard(values);
+      try {
+        dispatch(isLoadingReducer(true));
+        setModal(false);
+        if (action == 'edit') {
+          await BoardApi.updateBoardById(elem, values);
+          toastPromise('info');
+        } else if (action == 'create') {
+          await BoardApi.createBoard(values);
+          toastPromise('success');
+        }
+        const boards = await BoardApi.getAllBoards();
+        dispatch(boardsReducer(boards));
+        toggleLinks(false);
+        resetForm({});
+      } catch (error) {
+        toastPromise('off');
       }
-      const boards = await BoardApi.getAllBoards();
-      dispatch(boardsReducer(boards));
-      toggleLinks(false);
-      setModal(false);
-      resetForm({});
       dispatch(isLoadingReducer(false));
     },
   });
@@ -43,7 +59,7 @@ const BoardForm: FC<{
           onChange={formik.handleChange}
           value={formik.values.title}
           className="board-modal__input"
-          placeholder="Board's name"
+          placeholder={`${t("Board's name")}`}
           id="title"
           type="text"
         />
@@ -51,7 +67,7 @@ const BoardForm: FC<{
           onChange={formik.handleChange}
           value={formik.values.owner}
           className="board-modal__input"
-          placeholder="Owner"
+          placeholder={`${t('Owner')}`}
           id="owner"
           type="text"
         />
@@ -59,13 +75,13 @@ const BoardForm: FC<{
           onChange={formik.handleChange}
           value={formik.values.users}
           className="board-modal__input"
-          placeholder="Add users"
+          placeholder={`${t('Add users')}`}
           id="users"
           type="text"
         />
         <section className="board-modal-box-button">
           <button className="board-modal__button save" type="submit">
-            SAVE
+            {t('SAVE')}
           </button>
         </section>
       </form>

@@ -24,6 +24,7 @@ export interface IColumn {
   order: number;
   boardId?: string;
   _id?: string;
+  tasks?: ITask[];
 }
 
 export interface ITask {

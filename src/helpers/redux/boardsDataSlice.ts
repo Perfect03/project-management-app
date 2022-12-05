@@ -1,11 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { boardsDataDefault } from 'consts/consts';
 import { IBoardsData } from 'interfaces/redux';
 
-const initialState: IBoardsData = {
-  isLoading: false,
-  error: '',
-  boards: [],
-};
+const initialState: IBoardsData = boardsDataDefault;
 
 export const boardsDataSlice = createSlice({
   name: 'boardsData',

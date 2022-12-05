@@ -80,3 +80,23 @@ $color-white: #FFF;
 .header_change {
   height: 60px;
 }
+
+.loader-box {
+  display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 130px);
+}
+
+.modal {
+  height: 100vh;
+  width: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index:5;
+}

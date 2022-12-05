@@ -6,6 +6,10 @@ import { useParams } from 'react-router-dom';
 import { taskReducer } from 'helpers/redux/selectedBoardSlice';
 import { useDispatch } from 'react-redux';
 import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
+import { useTranslation } from 'react-i18next';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 const AddTask: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -15,6 +19,11 @@ const AddTask: FC<{
   const current = params.id as string;
   const column = currentColumn._id as string;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'success') toast['success'](t('Task created'));
+    if (status == 'off') toast['error'](t('Connection error'));
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -26,12 +35,18 @@ const AddTask: FC<{
     } as ITask,
 
     onSubmit: async (values, { resetForm }) => {
-      dispatch(isLoadingReducer(true));
-      await TaskApi.createTaskInColumn(current, column, values);
-      const tasks = await TaskApi.getTasksInColumn(current, column);
-      dispatch(taskReducer(tasks));
-      setModal(false);
-      resetForm({});
+      try {
+        dispatch(isLoadingReducer(true));
+        setModal(false);
+        const tasks = await TaskApi.getTasksInColumn(current, column);
+        values.order = tasks.length + 1;
+        await TaskApi.createTaskInColumn(current, column, values);
+        toastPromise('success');
+        dispatch(taskReducer(tasks));
+        resetForm({});
+      } catch (error) {
+        if (!(error as AxiosError).response?.status) toastPromise('off');
+      }
       dispatch(isLoadingReducer(false));
     },
   });
@@ -43,7 +58,7 @@ const AddTask: FC<{
           onChange={formik.handleChange}
           value={formik.values.title}
           className="board-modal__input"
-          placeholder="Task title"
+          placeholder={`${t('Task title')}`}
           id="title"
           type="text"
         />
@@ -51,13 +66,13 @@ const AddTask: FC<{
           onChange={formik.handleChange}
           value={formik.values.description}
           className="board-modal__input"
-          placeholder="Description"
+          placeholder={`${t('Description')}`}
           id="description"
           type="text"
         />
         <section className="board-modal-box-button">
           <button className="board-modal__button save" type="submit">
-            SAVE
+            {t('SAVE')}
           </button>
         </section>
       </form>

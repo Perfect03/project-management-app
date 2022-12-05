@@ -11,6 +11,10 @@ import { checkCookie } from 'api/cokie';
 import { isAuthReducer, userReducer } from 'helpers/redux/userDataSlice';
 import { useDispatch } from 'react-redux';
 import UserApi from 'api/user';
+import { ModalLoader } from './header-components/ModalLoader';
+import { IToastStatus } from 'interfaces/toast';
+import { useTranslation } from 'react-i18next';
+import { AxiosError } from 'axios';
 
 const Header = () => {
   window.addEventListener('scroll', Header_change);
@@ -24,13 +28,19 @@ const Header = () => {
   }
 
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const isLoadUser = useSelector<IGetState>((state) => state.userData.isLoading) as boolean;
+  const isLoadBoard = useSelector<IGetState>((state) => state.selectedBoard.isLoading) as boolean;
+  const isLoadBoards = useSelector<IGetState>((state) => state.boardsData.isLoading) as boolean;
+
+  const toastPromise = (status: IToastStatus) => {
+    if (status === 'error') toast[`${status}`](t('Connection error'));
+  };
 
   useEffect(() => {
     const userLogin = checkCookie('login', 'token');
     if (userLogin) {
       setLogin(userLogin);
-    } else {
-      console.log();
     }
   }, []);
 
@@ -40,14 +50,16 @@ const Header = () => {
       dispatch(userReducer(user));
       dispatch(isAuthReducer(true));
     } catch (error) {
-      console.error(error);
+      if (!(error as AxiosError).response?.status) toastPromise('error');
     }
   };
 
   const isAuth = useSelector((state: IGetState) => state.userData.isAuth);
+
   return (
     <>
       <ToastContainer />
+      {(isLoadUser || isLoadBoard || isLoadBoards) && <ModalLoader />}
       <header className="header">
         <div className="header-gohome">
           <NavLink to="/">Your planner</NavLink>

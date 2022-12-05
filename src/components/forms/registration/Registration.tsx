@@ -14,17 +14,17 @@ import { isAuthReducer, isLoadingReducer, userReducer } from 'helpers/redux/user
 import { toast } from 'react-toastify';
 import store from 'helpers/redux/store';
 import { setCookie } from 'api/cokie';
-import { IGetUser } from '../../../interfaces/api';
 import { IToastStatus } from '../../../interfaces/toast';
+import { AxiosError } from 'axios';
 
 function Registration() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const toastPromise = (status: IToastStatus) => {
-    toast[`${status}`](
-      status === 'success' ? t("You're successfully registered!") : t('User is already existed')
-    );
+    if (status === 'success') toast['success'](t("You're successfully registered!"));
+    if (status === 'off') toast['error'](t('Connection error'));
+    if (status === 'error') toast['error'](t('User is already existed'));
   };
 
   const state = store.getState();
@@ -41,17 +41,23 @@ function Registration() {
       dispatch(isLoadingReducer(true));
       AuthorizationApi.SignUp(values)
         .then(async () => {
-          const user = await UserApi.getUserInfo(values.login);
-          setCookie('login', (user as IGetUser).login, 365);
-          dispatch(userReducer(user));
-          dispatch(isAuthReducer(true));
-          navigate('/');
-          toastPromise('success');
+          AuthorizationApi.SignIn({ login: values.login, password: values.password }).then(
+            async () => {
+              setCookie('login', values.login, 365);
+              const user = await UserApi.getUserInfo(values.login);
+              dispatch(userReducer(user));
+              dispatch(isAuthReducer(true));
+              navigate('/');
+              toastPromise('success');
+              dispatch(isLoadingReducer(false));
+            }
+          );
         })
         .catch((err) => {
-          toastPromise('error');
+          if ((err as AxiosError).response?.status === 409) toastPromise('error');
+          else toastPromise('off');
+          dispatch(isLoadingReducer(false));
         });
-      dispatch(isLoadingReducer(false));
     },
     validate: (values) => {
       return FormValidate(values);

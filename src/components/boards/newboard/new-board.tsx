@@ -5,6 +5,10 @@ import { DeleteBoard } from '../deleteboard/deleteboard';
 import { Modal } from 'components/modal/Modal';
 import { BoardForm } from '../boardform';
 import BoardApi from '../../../api/board';
+import { useTranslation } from 'react-i18next';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 export const toggleLinks = (condition: boolean) => {
   const allLinks = document.querySelectorAll('.ronyauProd');
@@ -26,8 +30,20 @@ const NewBoard: FC<{
   const [isModalDel, setModalDel] = useState(false);
   const boardId = values._id as string;
 
+  const { t } = useTranslation();
+
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'warn') toast['warn'](t('Board removed'));
+    if (status == 'off') toast['error'](t('Connection error'));
+  };
+
   const deleteBoard = async () => {
-    await BoardApi.deleteBoardById(boardId);
+    try {
+      await BoardApi.deleteBoardById(boardId);
+      toastPromise('warn');
+    } catch (error) {
+      if (!(error as AxiosError).response?.status) toastPromise('off');
+    }
   };
 
   return (
@@ -68,7 +84,7 @@ const NewBoard: FC<{
       {isModalEdit && (
         <Modal
           isVisible={isModalEdit}
-          title="Edit your board:"
+          title={t('Edit your board:')}
           content={<BoardForm setModal={setModalEdit} action="edit" elem={boardId} />}
           onClose={() => setModalEdit(false)}
         />

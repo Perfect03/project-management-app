@@ -1,6 +1,12 @@
 import { IColumn } from 'interfaces/api';
 import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
+import { IToastStatus } from 'interfaces/toast';
+import { toast } from 'react-toastify';
 import ColumnApi from '../../../api/columns';
+import { AxiosError } from 'axios';
 
 const ChangeTitle = ({
   setModalTitle,
@@ -10,17 +16,29 @@ const ChangeTitle = ({
   column: IColumn;
 }) => {
   const [title, setTitle] = useState('');
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'info') toast['info'](t('Column renamed'));
+    if (status == 'off') toast['error'](t('Connection error'));
+  };
 
   async function onSubmit() {
-    const ColumnId = column._id as string;
-    const BoardId = column.boardId as string;
-    column.title = title;
-    const temp = {
-      title: title,
-      order: 0,
-    };
-    await ColumnApi.updateColumnById(BoardId, ColumnId, temp);
-    setModalTitle(false);
+    try {
+      dispatch(isLoadingReducer(true));
+      const temp = {
+        title: title,
+        order: column.order,
+      };
+      await ColumnApi.updateColumnById(column.boardId as string, column._id as string, temp);
+      column.title = title;
+      setModalTitle(false);
+      toastPromise('info');
+    } catch (error) {
+      if (!(error as AxiosError).response?.status) toastPromise('off');
+    }
+    dispatch(isLoadingReducer(false));
   }
 
   return (
@@ -29,14 +47,14 @@ const ChangeTitle = ({
         <input
           id="title"
           className="board-modal__input"
-          placeholder={'New title'}
+          placeholder={`${t('New title')}`}
           type="text"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
       </label>
       <button className="board-modal__button title-column" type="submit" onClick={onSubmit}>
-        SAVE
+        {t('SAVE')}
       </button>
     </>
   );
