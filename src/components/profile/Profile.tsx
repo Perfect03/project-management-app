@@ -15,13 +15,15 @@ import store from 'helpers/redux/store';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { isLoadingReducer, userReducer } from 'helpers/redux/userDataSlice';
+import { IToastStatus } from 'interfaces/toast';
 
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const toastUpdatePromise = () => {
-    toast.warn(t('Profile has updated'));
+  const toastUpdatePromise = (status: IToastStatus) => {
+    if(status === 'success') toast.success(t("Profile has updated"));
+    if(status === 'off') toast['error'](t("Connection error"));
   };
 
   const state = store.getState();
@@ -35,11 +37,16 @@ const Profile = () => {
     },
 
     onSubmit: async (values) => {
+      try {
       dispatch(isLoadingReducer(true));
       const newUserInfo = await UserApi.updateUserById(values);
       dispatch(userReducer(newUserInfo));
       navigate('/');
-      toastUpdatePromise();
+      toastUpdatePromise('success');
+      }
+      catch (error) {
+        toastUpdatePromise('off');
+      }
       dispatch(isLoadingReducer(false));
     },
     validate: (values) => {

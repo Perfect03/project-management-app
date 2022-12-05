@@ -17,7 +17,7 @@ class ColumnApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -26,7 +26,7 @@ class ColumnApi {
     try {
       const response = await axios.post(url, column, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -36,7 +36,7 @@ class ColumnApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -45,7 +45,7 @@ class ColumnApi {
     try {
       const response = await axios.put(url, column, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -54,7 +54,7 @@ class ColumnApi {
     try {
       const response = await axios.delete(url, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -68,7 +68,7 @@ class ColumnApi {
       const response = await axios.get(url, config);
       return response.data;
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -77,7 +77,7 @@ class ColumnApi {
     try {
       const response = await axios.patch(url, set, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 
@@ -86,7 +86,7 @@ class ColumnApi {
     try {
       const response = await axios.patch(url, set, this.config);
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
   }
 }

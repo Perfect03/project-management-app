@@ -8,6 +8,7 @@ import BoardApi from '../../../api/board';
 import { useTranslation } from 'react-i18next';
 import { IToastStatus } from 'interfaces/toast';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 export const toggleLinks = (condition: boolean) => {
   const allLinks = document.querySelectorAll('.ronyauProd');
@@ -33,11 +34,17 @@ const NewBoard: FC<{
 
   const toastPromise = (status: IToastStatus) => {
     if (status == 'warn') toast['warn'](t('Board removed'));
+    if (status == 'off') toast['error'](t('Connection error'));
   };
 
   const deleteBoard = async () => {
+    try {
     await BoardApi.deleteBoardById(boardId);
     toastPromise('warn');
+    }
+    catch (error) {
+      if (!((error as AxiosError).response?.status)) toastPromise('off');
+    }
   };
 
   return (

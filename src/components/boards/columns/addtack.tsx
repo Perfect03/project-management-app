@@ -9,6 +9,7 @@ import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 import { useTranslation } from 'react-i18next';
 import { IToastStatus } from 'interfaces/toast';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 const AddTask: FC<{
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -21,6 +22,7 @@ const AddTask: FC<{
   const { t } = useTranslation();
   const toastPromise = (status: IToastStatus) => {
     if (status == 'success') toast['success'](t('Task created'));
+    if (status == 'off') toast['error'](t('Connection error'));
   };
 
   const formik = useFormik({
@@ -33,14 +35,17 @@ const AddTask: FC<{
     } as ITask,
 
     onSubmit: async (values, { resetForm }) => {
-      dispatch(isLoadingReducer(true));
+      try {dispatch(isLoadingReducer(true));
       setModal(false);
       const tasks = await TaskApi.getTasksInColumn(current, column);
       values.order = tasks.length + 1;
       await TaskApi.createTaskInColumn(current, column, values);
       toastPromise('success');
       dispatch(taskReducer(tasks));
-      resetForm({});
+      resetForm({});}
+      catch (error) {
+        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      }
       dispatch(isLoadingReducer(false));
     },
   });

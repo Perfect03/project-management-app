@@ -1,6 +1,3 @@
-import axios from 'axios';
-import { storageUserAccInfo } from '../components/utils/storage';
-import { baseUrl } from './authorization';
 
 export const setCookie = (cname: string, cvalue: string, exdays?: number) => {
   const d = new Date();

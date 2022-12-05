@@ -1,13 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './main.scss';
 import { useNavigate } from 'react-router-dom';
 import { IGetState } from 'interfaces/redux';
 
 const Main = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const isAuth = useSelector((state: IGetState) => state.userData.isAuth);

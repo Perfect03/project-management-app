@@ -9,6 +9,9 @@ import BoardApi from '../../api/board';
 import { useSelector } from 'react-redux';
 import { IGetState } from 'interfaces/redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { IToastStatus } from 'interfaces/toast';
+import { AxiosError } from 'axios';
 
 const BoardsPage = () => {
   const isAuth = useSelector<IGetState>((state) => state.userData.isAuth);
@@ -20,14 +23,21 @@ const BoardsPage = () => {
 
   const { t } = useTranslation();
 
+  const toastPromise = (status: IToastStatus) => {
+    if (status == 'off') toast['error'](t('Connection error'));
+  };
+
   useEffect(() => {
     if (!isAuth) {
       navigate('/');
       return;
     }
     const getBoards = async () => {
-      const currentBoards = await BoardApi.getAllBoards();
-      setBoards(currentBoards);
+      try {const currentBoards = await BoardApi.getAllBoards();
+      setBoards(currentBoards);}
+      catch (error) {
+        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      }
     };
     getBoards();
   }, [isRerender]);

@@ -19,6 +19,7 @@ import { CurrentDragItemDefault } from 'consts/consts';
 import { useTranslation } from 'react-i18next';
 import { IToastStatus } from 'interfaces/toast';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 const NewColumn: FC<{
   columnData: IColumn;
@@ -47,8 +48,11 @@ const NewColumn: FC<{
 
   useEffect(() => {
     const getTask = async () => {
-      const currentTasks = await TaskApi.getTasksInColumn(BoardId, ColumnId);
-      setTasks(currentTasks);
+      try {const currentTasks = await TaskApi.getTasksInColumn(BoardId, ColumnId);
+      setTasks(currentTasks);}
+      catch (error) {
+        if (!((error as AxiosError).response?.status)) toastPromise('off');
+      }
     };
     getTask();
   }, [isRerender]);
@@ -58,12 +62,17 @@ const NewColumn: FC<{
   const { t } = useTranslation();
 
   const toastPromise = (status: IToastStatus) => {
+    if (status == 'success') toast['success'](t('Task moved'));
     if (status == 'warn') toast['warn'](t('Column removed'));
+    if (status == 'off') toast['error'](t('Connection error'));
   };
 
   const deleteColumn = async () => {
-    await ColumnApi.deleteColumnById(BoardId, ColumnId);
-    toastPromise('warn');
+    try {await ColumnApi.deleteColumnById(BoardId, ColumnId);
+    toastPromise('warn');}
+    catch (error) {
+      if (!((error as AxiosError).response?.status)) toastPromise('off');
+    }
   };
 
   const handleChangeDelete = () => {
@@ -101,6 +110,7 @@ const NewColumn: FC<{
   async function dropHandler(e: React.DragEvent<HTMLElement>, task: ITask) {
     e.preventDefault();
     e.stopPropagation();
+    try {
     dispatch(isLoadingReducer(true));
 
     if ((e.target as HTMLElement).className == 'task') {
@@ -134,6 +144,11 @@ const NewColumn: FC<{
         return { _id: e._id as string, order: e.order, columnId: e.columnId as string };
       })
     );
+    toastPromise('success');
+  }
+    catch (error) {
+      if (!((error as AxiosError).response?.status)) toastPromise('off');
+    }
     dispatch(isCurrentTask(CurrentDragItemDefault.currentTask));
     dispatch(isLoadingReducer(false));
   }
@@ -141,6 +156,7 @@ const NewColumn: FC<{
   async function dropCardHandler(e: React.DragEvent<HTMLElement>, column: IColumn) {
     e.preventDefault();
     e.stopPropagation();
+    try {
     dispatch(isLoadingReducer(true));
 
     let currentColumnTasks = await TaskApi.getTasksInColumn(BoardId, currentColumn);
@@ -158,6 +174,11 @@ const NewColumn: FC<{
         return { _id: e._id as string, order: e.order, columnId: e.columnId as string };
       })
     );
+    toastPromise('success');
+  }
+    catch (error) {
+      if (!((error as AxiosError).response?.status)) toastPromise('off');
+    }
     dispatch(isLoadingReducer(false));
   }
 

@@ -16,10 +16,8 @@ class PointApi {
     const url = `${this.url}points`;
     try {
       const response = await axios.get(url, this.config);
-      console.log('in progress');
       return response.data;
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -28,7 +26,6 @@ class PointApi {
     try {
       const response = await axios.post(url, point, this.config);
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -37,7 +34,6 @@ class PointApi {
     try {
       const response = await axios.patch(url, pointSet, this.config);
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -47,7 +43,6 @@ class PointApi {
       const response = await axios.get(url, this.config);
       return response.data;
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -56,7 +51,6 @@ class PointApi {
     try {
       const response = await axios.patch(url, point, this.config);
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -65,7 +59,6 @@ class PointApi {
     try {
       const response = await axios.delete(url, this.config);
     } catch (error) {
-      console.log(error);
     }
   }
 }

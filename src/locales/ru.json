@@ -59,5 +59,7 @@
     "Task changed": "Задание изменено",
     "There should be a name here": "Здесь должно быть имя",
     "There should be a login here": "Здесь должен быть логин",
-    "There should be a password here": "Здесь должен быть пароль"
+    "There should be a password here": "Здесь должен быть пароль",
+    "Connection error": "Ошибка подключения",
+    "Task moved": "Задание перемещено"
 }

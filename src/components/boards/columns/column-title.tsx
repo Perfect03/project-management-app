@@ -6,6 +6,7 @@ import { isLoadingReducer } from 'helpers/redux/selectedBoardSlice';
 import { IToastStatus } from 'interfaces/toast';
 import { toast } from 'react-toastify';
 import ColumnApi from '../../../api/columns';
+import { AxiosError } from 'axios';
 
 const ChangeTitle = ({
   setModalTitle,
@@ -20,20 +21,22 @@ const ChangeTitle = ({
 
   const toastPromise = (status: IToastStatus) => {
     if (status == 'info') toast['info'](t('Column renamed'));
+    if (status == 'off') toast['error'](t('Connection error'));
   };
 
   async function onSubmit() {
-    dispatch(isLoadingReducer(true));
-    const ColumnId = column._id as string;
-    const BoardId = column.boardId as string;
+    try {dispatch(isLoadingReducer(true));
+      const temp = {
+        title: title,
+        order: column.order,
+      };
+      await ColumnApi.updateColumnById(column.boardId as string, column._id as string, temp);
     column.title = title;
-    const temp = {
-      title: title,
-      order: column.order,
-    };
     setModalTitle(false);
-    await ColumnApi.updateColumnById(BoardId, ColumnId, temp);
-    toastPromise('info');
+    toastPromise('info');}
+    catch (error) {
+      if (!((error as AxiosError).response?.status)) toastPromise('off');
+    }
     dispatch(isLoadingReducer(false));
   }
 
