@@ -33,9 +33,9 @@ const Main = () => {
               </a>
             </h3>
             <p className="main-secondsection-developers-developer-did">
-              Team communication, organizing meetings and assignments. Took over development of
-              Textbook. Created roating. And gave us the sprint game. Also did a lot of statistics
-              gathering.
+              {t(
+                'Creating a load function. Added drag-n-drop functionality. Functionality of deleting a user. Authorization and registration. Changed language. Popup notifications after changes.'
+              )}
             </p>
           </div>
           <div className="main-secondsection-developers-developer">
@@ -46,8 +46,9 @@ const Main = () => {
               </a>
             </h3>
             <p className="main-secondsection-developers-developer-did">
-              Took care of all the backend, including the authorization and registration backend.
-              Developed the audio challenge game. Made the statistics page work.
+              {t(
+                'Described the functionality of the server. Made a Redux configuration. Configured Local Storage. Changing the layout for an authorized user. Authorization and registration.  Deleting and updating user data. Board functionality. Search.'
+              )}
             </p>
           </div>
           <div className="main-secondsection-developers-developer">
@@ -58,9 +59,9 @@ const Main = () => {
               </a>
             </h3>
             <p className="main-secondsection-developers-developer-did">
-              Layout of homepage, statistics, and all the basic elements. Styling of the games. The
-              design of the entire application. Took part in creating the authorization and
-              registration.
+              {t(
+                'The layout of all pages and modal windows. Change the layout for the authorized user. Authorization and registration. Forms validation. Routing. Adaptivity. Board functionality. Editing tasks. Changing the header of the column.'
+              )}
             </p>
           </div>
         </div>
