@@ -43,7 +43,7 @@ class TaskApi {
   async updateTaskById(boardId: string, columnId: string, task: ITask) {
     const updatedTask = {
       title: task.title,
-      order: 0,
+      order: task.order,
       description: task.description,
       columnId: columnId,
       userId: 0,
