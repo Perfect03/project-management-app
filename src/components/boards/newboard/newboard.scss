@@ -1,0 +1,77 @@
+%bgimg-shared {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+@mixin phones {
+    @media screen and (max-width: 470px) {
+         @content;
+    }
+   }
+
+.board {
+    min-width: 300px;
+    height: 130px;
+    padding: 5px;  
+    cursor: pointer;
+    transition: 0.2s linear;
+    box-shadow: -5px -5px 20px #fff, 5px 5px 20px #5c511a;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    justify-content: space-between;
+    &:hover {
+        box-shadow: -3px -3px 10px #fff, 3px 3px 10px #5c511a;
+    }
+    &:active {
+        box-shadow: inset 1px 1px 4px #5c511a, inset -1px -1px 2px #fff;
+    }
+    @include phones {
+        min-width: 290px;
+    }
+}
+
+.board-img {
+    width: 75px;
+    height: 85px;
+    background-image: url(../../../assets/todo.png);
+    @extend %bgimg-shared;
+}
+
+.board-buttons {
+    width: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.board-buttons-edit, .board-buttons-delete {
+    width: 25px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    margin: 3px;
+    transition: 0.2s linear;
+    &:hover {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.board-buttons-edit {
+    background-image: url(../../../assets/edit.png);
+    @extend %bgimg-shared;
+}
+
+.board-buttons-delete {
+    background-image: url(../../../assets/bin.png);
+    @extend %bgimg-shared;
+}
+
+.board-link {
+    width: 265px;
+    height: 138px;
+    position: absolute;
+}
