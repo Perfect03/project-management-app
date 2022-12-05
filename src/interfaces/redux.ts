@@ -31,4 +31,5 @@ export interface IGetState {
   boardsData: IBoardsData;
   selectedBoard: ISelectedBoard;
   currentDragItem: ICurrentDragItem;
+  searchData: { findedBoards: IBoard[] };
 }

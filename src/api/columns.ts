@@ -78,10 +78,10 @@ class ColumnApi {
     }
   }
 
-  async getColumnsByIdsList(list: string[], userId: string) {
+  async getColumnsByIdsList(userId: string) {
     const config = {
       headers: { Authorization: `Bearer ${this.token}` },
-      params: { ids: [...list], userId: userId },
+      params: { userId: userId },
     };
     const url = this.url + 'columnsSet';
     try {

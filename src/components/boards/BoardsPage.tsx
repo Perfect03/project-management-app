@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { IToastStatus } from 'interfaces/toast';
 import { AxiosError } from 'axios';
+import { SearchBar } from 'components/search-bar/search-bar';
 
 const BoardsPage = () => {
   const isAuth = useSelector<IGetState>((state) => state.userData.isAuth);
@@ -27,6 +28,8 @@ const BoardsPage = () => {
   const toastPromise = (status: IToastStatus) => {
     if (status == 'off') toast['error'](t('Connection error'));
   };
+
+  const findedBoards = useSelector<IGetState>((state) => state.searchData.findedBoards) as IBoard[];
 
   useEffect(() => {
     if (!isAuth) {
@@ -44,23 +47,43 @@ const BoardsPage = () => {
       dispatch(isLoadingReducer(false));
     };
     getBoards();
-  }, [isRerender]);
+  }, [isRerender, findedBoards]);
 
   return (
     <>
       <section className="boards">
+        <SearchBar />
         <ul className="boards-table">
           <>
-            {Boards.map((values) => {
-              return (
-                <li key={values._id + 'li'}>
-                  <Link key={values._id + 'a'} to={`/boards/${values._id}`} className="ronyauProd">
-                    <div className="board-link"></div>
-                  </Link>
-                  <NewBoard values={values} key={values._id} />
-                </li>
-              );
-            })}
+            {!findedBoards.length
+              ? Boards.map((values) => {
+                  return (
+                    <li key={values._id + 'li'}>
+                      <Link
+                        key={values._id + 'a'}
+                        to={`/boards/${values._id}`}
+                        className="ronyauProd"
+                      >
+                        <div className="board-link"></div>
+                      </Link>
+                      <NewBoard values={values} key={values._id} />
+                    </li>
+                  );
+                })
+              : findedBoards.map((values) => {
+                  return (
+                    <li key={values._id + 'li'}>
+                      <Link
+                        key={values._id + 'a'}
+                        to={`/boards/${values._id}`}
+                        className="ronyauProd"
+                      >
+                        <div className="board-link"></div>
+                      </Link>
+                      <NewBoard values={values} key={values._id} />
+                    </li>
+                  );
+                })}
           </>
           <li>
             <button className="boards-table__add" onClick={() => setModal(true)}></button>

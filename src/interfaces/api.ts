@@ -38,6 +38,8 @@ export interface ITask {
   _id?: string;
 }
 
+export type ITasks = ITask[];
+
 export interface ITaskInSet {
   _id: string;
   order: number;

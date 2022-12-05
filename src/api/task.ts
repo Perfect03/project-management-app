@@ -93,17 +93,16 @@ class TaskApi {
     }
   }
 
-  async searchTask(list?: string[], userId?: string, searchQuery?: string) {
+  async searchTask(searchQuery: string) {
     const config = {
       headers: { Authorization: `Bearer ${this.token}` },
       params: {
-        ids: list ? [...list] : [''],
-        userId: userId ? userId : '',
         search: searchQuery ? searchQuery : '',
       },
     };
     const url = `${this.url}tasksSet`;
     try {
+      console.log(this.token);
       const response = await axios.get(url, config);
     } catch (error) {
       throw error;
@@ -124,7 +123,7 @@ class TaskApi {
     }
   }
 
-  async getTasksById(boardId: string) {
+  async getTasksByBoardId(boardId: string) {
     const url = `${this.url}tasksSet/${boardId}`;
     try {
       const response = await axios.get(url, this.config);
