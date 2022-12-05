@@ -22,9 +22,14 @@ class ColumnApi {
   }
 
   async createColumnInBoard(boardId: string, column: IColumn) {
+    const token = getCookie('token');
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     const url = this.url + 'boards' + `/${boardId}` + '/columns';
     try {
-      const response = await axios.post(url, column, this.config);
+      const response = await axios.post(url, column, config);
     } catch (error) {
       throw error;
     }
